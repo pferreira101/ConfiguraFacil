@@ -1,3 +1,8 @@
 
 *.vpp.ba*
 *.vpp.lck
+*.log
+*.aux
+*.pdf
+*.gz
+*.toc
