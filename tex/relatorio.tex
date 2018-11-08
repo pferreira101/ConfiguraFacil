@@ -1,27 +1,17 @@
 % !TEX TS-program = pdflatex
 % !TEX encoding = UTF-8 Unicode
 
-% This is a simple template for a LaTeX document using the "article" class.
-% See "book", "report", "letter" for other types of document.
 
 \documentclass[11pt]{article} % use larger type; default would be 10pt
 
 \usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+\usepackage[portuges]{babel}
 
-%%% Examples of Article customizations
-% These packages are optional, depending whether you want the features they provide.
-% See the LaTeX Companion or other references for full information.
 
 %%% PAGE DIMENSIONS
-\usepackage{geometry} % to change the page dimensions
-\geometry{a4paper} % or letterpaper (US) or a5paper or....
-% \geometry{margin=2in} % for example, change the margins to 2 inches all round
-% \geometry{landscape} % set up the page for landscape
-%   read geometry.pdf for detailed page layout information
+\usepackage{a4}
 
 \usepackage{graphicx} % support the \includegraphics command and options
-
-% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
 
 %%% PACKAGES
 \usepackage{booktabs} % for much better looking tables
@@ -54,14 +44,24 @@
 %%% The "real" document content comes below...
 
 \title{Projeto de DSS \\ \large ConfiguraFácil - 1ª Fase}
-
-\author{Diogo Sobral (a82523) \includegraphics[width=0.8in,heigth=0.8in]{Diogo.jpg} \and Henrique Pereira (a80261) \includegraphics[width=0.9in,heigth=0.9in]{Henrique.jpg} \and Pedro Moreira (a82364) \includegraphics[width=0.8in,heigth=0.8in]{PedroM.jpg} \and Pedro Ferreira (a81135) \includegraphics[width=0.8in,heigth=0.8in]{PedroF.jpg}}
-
 \date{2018/19}
 
 \begin{document}
 \maketitle
 
+\begin{table}[!htbp]
+\centering
+\begin{tabular}{cc}
+ Diogo Sobral (a82523) &  Henrique Pereira (a80261) \\
+ \includegraphics[height=0.8in]{Diogo} &  \includegraphics[height=0.8in]{Henrique} \\
+	& \\
+ Pedro Moreira (a82364)  &   Pedro Ferreira (a81135) \\
+ \includegraphics[height=0.8in]{PedroM} & \includegraphics[height=0.8in]{PedroF} \\
+
+\end{tabular}
+\end{table}
+
+\newpage
 \tableofcontents
 \newpage
 
@@ -79,7 +79,5 @@
 
 \section{Diagrama de Máquinas de Estado}
 
-\section{Conclusão}
-More text.
 
 \end{document}
