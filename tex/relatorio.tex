@@ -66,7 +66,22 @@
 \newpage
 
 \section{Introdução}
+A primeira fase do projeto da UC Desenvolvimento de Sistemas de Software consiste no desenvolvimento dos modelos de domínio, use cases e da interface com o utilizador para a aplicação ConfiguraFácil. Esta aplicação consiste numa ferramenta existente nos stands de automóveis, que permite junto dos clientes criar uma configuração para uma encomenda de um carro novo. A aplicação guia o cliente em cada fase da configuração, permitindo-lhe escolher componentes individuais ou pacotes pré-definidos. 
 
+Da perspetiva do grupo, a aplicação apresenta os seguintes requisitos:
+\begin{itemize}
+	\item O cliente pode escolher a pintura, jantes e pneus, motorização e detalhes interiores e exteriores;
+	\item O cliente pode também escolher um pacote pré-definido que consiste num agregado de componentes individuais;
+	\item Cada componente deve ter uma designação, preço, lista de componentes incompatíveis e lista de componentes complementares;
+	\item Sempre que um componente é adicionado à configuração, a aplicação deve verificar se existe alguma incompatibilidade com algum componente previamente selecionado. Se tal existir, o cliente pode optar por desistir da seleção feita ou remover o produto incompatível. Além disso, deve também verificar se é necessário instalar algum componente complementar. Caso aconteça, o cliente pode manter a opção e instalar os componentes necessários ou então desistir da seleção;
+	\item Quando um pacote pré-definido é selecionado, devem ser feitas as verificações de dependência/incompatibilidade para cada um dos componentes do pacote;
+	\item Deve haver descontos associados aos pacotes, ou seja, os pacotes devem ser mais baratos que a soma os preços individuais de cada um dos seus componentes;
+	\item Se o cliente selecionar individualmente todos os componentes que compõem um pacote, a aplicação deve reconhecer tal pacote e aplicar o respetivo desconto;
+	\item Após as escolhas básicas, como a pintura e a motorização, o cliente deve poder indicar um orçamento para a encomenda e o sistema deve propor a melhor configuração possível dentro do orçamento apresentado. Ou seja, a aplicação deve conseguir gerar uma configuração ótima dado um orçamento;
+	\item Cada componente deve ter um stock associado;
+	\item Sempre que chega um novo stock de componentes, o sistema deve conseguir determinar quais são os carros que podem ser produzidos;
+	\item Os carros são produzidos por ordem de chegada à fila de configurações efetuadas pelos clientes.
+\end{itemize}
 
 \section{Diagrama de Domínio}
 
