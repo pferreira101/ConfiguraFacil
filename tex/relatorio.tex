@@ -12,7 +12,7 @@
 \usepackage{a4}
 
 \usepackage{graphicx} % support the \includegraphics command and options
-
+\graphicspath{ {./UI/}{./VPP/} }
 %%% PACKAGES
 \usepackage{booktabs} % for much better looking tables
 \usepackage{array} % for better arrays (eg matrices) in maths
@@ -82,29 +82,102 @@ Desta forma, procuramos cobrir todos estes requisitos, de forma a que a aplicaç
 
 \section{Diagrama de Domínio}
 Para a aplicação que nos foi proposta e que descrevemos acima, desenvolvemos o diagrama de domínio que apresentamos de seguida:
+\begin{center}
+ \includegraphics[width = 6.5in]{Dominio.png}
+\end{center}
 
-INTRODUZIR DIAGRAMA
-
-
+\newpage
 \section{Diagrama de Use Cases}
+\label{useCases}
 Os Use Cases por nós apresentados e especificados na secção seguinte foram organizados em seis diagramas:
 \begin{enumerate}
 	\item Geral
+		\begin{center}
+ 			\includegraphics[]{Geral.png}
+		\end{center}
 	\item Gestão de Funcionários
+		\begin{center}
+ 			\includegraphics[]{Gestao_de_funcionarios.png}
+		\end{center}\newpage
 	\item Gestão de Clientes
+		\begin{center}
+ 			\includegraphics[]{Gestao_de_clientes.png}
+		\end{center}
 	\item Atendimento a Clientes
+		\begin{center}
+ 			\includegraphics[]{Atendimento_a_clientes.png}
+		\end{center}\newpage
 	\item Escolha da Especificação
+		\begin{center}
+ 			\includegraphics[]{Escolha_da_especificacao.png}
+		\end{center}
 	\item Gestão da Fábrica
+		\begin{center}
+ 			\includegraphics[]{Gestao_da_fabrica.png}
+		\end{center}
 \end{enumerate}
-Os diagramas referidos foram estruturados da seguinte maneira:
 
-INTRODUZIR DIAGRAMAS (talvez fazer tabela c os nomes ou usar caption)
-
+\newpage
 \section{Especificação de Use Cases}
-Nesta secção vamos expor as tabelas de especificação que fizemos para cada um dos Use Cases presentes nos diagramas da secção 3 (Diagramas de Use Case).
+Nesta secção vamos expor as tabelas de especificação que fizemos para cada um dos Use Cases presentes nos diagramas da secção \ref{useCases}.
 
 \section{Protótipo de Interface}
 O protótipo de interface para a aplicação foi feito com o \textit{Pencil}, ferramenta aconselhada pelos docentes da UC.
+
+A página inicial do programa é a pagina de login.
+\begin{center}
+ 	\includegraphics[width = 5in]{configura_fcil_root.png}
+\end{center}
+
+Daqui, o utilizador pode ir para uma das seguintes janelas, dependendo do seu estatuto na aplicação:
+
+\begin{center}
+ 	\includegraphics[width = 5.5in]{configura_fcil_stand.png}
+
+ 	\includegraphics[width = 5.5in]{configura_fcil_fbrica.png}
+
+ 	\includegraphics[width = 5.5in]{configura_fcil_admin.png}
+\end{center}
+
+
+A partir da janela do Stand encontramos a seguinte interface:
+\begin{center}
+ 	\includegraphics[width = 5in]{configurao_de_carro.png}
+
+ 	\includegraphics[width = 5.5in]{registar_encomenda.png}
+
+ 	\includegraphics[width = 5.5in]{consultar_clientes.png}
+	
+	\begin{table}[]
+		\begin{tabular}{cc}
+ 			\includegraphics[width = 3in]{adicionar_cliente.png}	& \includegraphics[width = 3in]{alterar_cliente.png}
+		\end{tabular}
+	\end{table}
+ 	 	
+\end{center}
+
+Já quando o utilizador é um gestor da fábrica, a interface gráfica que o guiará pela aplicação é a seguinte:
+\begin{center}
+	\begin{table}[!htbp]
+		\begin{tabular}{cc}
+ 			\includegraphics[width = 3in]{atualizar_stock.png} & \includegraphics[width = 3in]{nova_componente.png}
+		\end{tabular}
+	\end{table}
+
+ 	\includegraphics[width = 5.5in]{visualizar_encomendas.png}
+
+\end{center}
+
+Por fim, quando o funcionário faz o Login como Admistrador será esta a sua visão da aplicação:
+\begin{center}
+	\begin{table}[!htbp]
+		\begin{tabular}{cc}
+ 			\includegraphics[width = 3in]{registar_funcionrio.png} & \includegraphics[width = 3in]{alterar_funcionrio.png}
+		\end{tabular}
+	\end{table}
+
+\end{center}
+
 
 \section{Diagrama de Máquinas de Estado}
 
