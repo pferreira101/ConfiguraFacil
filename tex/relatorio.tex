@@ -12,7 +12,7 @@
 \usepackage{a4}
 
 \usepackage{graphicx} % support the \includegraphics command and options
-\graphicspath{ {./UI/}{./VPP/}{./EXCEL/}}
+\graphicspath{ {./UI/}{./VPP/}{./UCASES/}}
 %%% PACKAGES
 \usepackage{booktabs} % for much better looking tables
 \usepackage{array} % for better arrays (eg matrices) in maths
@@ -125,32 +125,48 @@ Para melhor organização, decidimos dividir as tabelas em Excel da especificaç
 \begin{enumerate}
 	\item Login
 
- 		\includegraphics[width = 4in]{login.png}
-	\item Atendimento a Clientes
+ 		\includegraphics[width = 5in]{login.png} \newpage
+	\item  Atendimento a Clientes
 	\begin{center}
- 		\includegraphics[width = 4in]{ac_adicionacomp.png} \\
- 		\includegraphics[width = 4in]{ac_adicionapacote.png} \\
-		\includegraphics[width = 4in]{ac_configotima.png} \\
-		\includegraphics[width = 4in]{ac_consultarcliente.png} \\
-		\includegraphics[width = 4in]{ac_altcliente.png} \\
-		\includegraphics[width = 4in]{ac_idcliente.png} \\
-		\includegraphics[width = 4in]{ac_regcliente.png} \\
-		\includegraphics[width = 4in]{ac_regenc.png}
+ 		\includegraphics[width = 5in]{ac_adicionacomp.png} 
+ 		\includegraphics[width = 5in]{ac_adicionapacote.png} 
+		\includegraphics[width = 5in]{ac_configotima.png}
+	\end{center}
+	\begin{center}
+		\includegraphics[width = 5in]{ac_consultarcliente.png} 
+	\end{center}
+	\begin{center}
+		\includegraphics[width = 5in]{ac_altcliente.png}
+	\end{center}
+	\begin{center}
+		\includegraphics[width = 5in]{ac_idcliente.png}
+	\end{center}
+	\begin{center}
+		\includegraphics[width = 5in]{ac_regcliente.png}
+	\end{center}
+	\begin{center}
+		\includegraphics[width = 5in]{ac_regenc.png}
 	\end{center}
 	\newpage
 	\item Gestão de Fábrica
 	\begin{center}
-		\includegraphics[width = 4in]{gf_consultarencomenda.png} \\
- 		\includegraphics[width = 4in]{gf_processarencomenda.png} \\
-		\includegraphics[width = 4in]{gf_encomendarstock.png} \\
-		\includegraphics[width = 4in]{gf_registarstock.png}
+		\includegraphics[width = 5in]{gf_consultarencomenda.png} 
+	\end{center}
+	\begin{center}
+ 		\includegraphics[width = 5in]{gf_processarencomenda.png} 
+		\includegraphics[width = 5in]{gf_encomendarstock.png} 
+		\includegraphics[width = 5in]{gf_registarstock.png}
 	\end{center}
 	\newpage
 	\item Gestão de Funcionários
 	\begin{center}
-		\includegraphics[width = 4in]{gfunc_registar.png} \\
- 		\includegraphics[width = 4in]{gfunc_alterar.png} \\
-		\includegraphics[width = 4in]{gfunc_remover.png}
+		\includegraphics[width = 5in]{gfunc_registar.png} 
+	\end{center}
+	\begin{center}
+ 		\includegraphics[width = 5in]{gfunc_alterar.png} 
+	\end{center}
+	\begin{center}
+		\includegraphics[width = 5in]{gfunc_remover.png}
 	\end{center}
 \end{enumerate}
 
@@ -213,7 +229,14 @@ Por fim, quando o funcionário faz o Login como Admistrador será esta a sua vis
 
 
 \section{Diagrama de Máquinas de Estado}
-
-\section{Conclusão}
+O diagrama de Máquinas de Estado relativo à interface do programa é o seguinte:
+	\begin{center}
+		\includegraphics[width = 6.2in]{Maquina_de_Estado.png}
+	\end{center}
+	
+\newpage
+\section{Análise Crítica}
+Nesta primeira fase do trabalho pediram-nos para fazer uma análise mais abstrata de modo a criar uma primeira imagem e ideia sobre a aplicação que estamos a desenvolver. A nossa abordagem começou pelo desenvolvimento do modelo domínio. Aqui tentamos estabelecer as principais entidades e as relações entre as mesmas de modo a criar a nossa primeira interpretação sobre o problema. Inicialmente, deparamo-nos com alguns erros de interpretação do enunciado como a função do cliente na aplicação que inicialmente achavamos que ia ser o principal utilizador e mais tarde foi alterado. Esta parte da modulação fez como que a nossa visão sobre o que queriamos para a aplicação ficasse mais clara e expressa de uma forma mais simplista. Ao modelo de domínio seguiu-se o desenvolvimento dos Use Case. Quando começamos o desenvolvimento dos mesmos, focamo-nos essencialmente em descrever a ação entre os atores e a aplicação. Esta descrição foi demasiado detalhada, fornecia informação que não era precisa e sobretudo limitava muito aquilo que queriamos fazer da aplicação. Como ainda nos encontravamos numa fase inicial decidimos refletir melhor sobre a nossa solução e chegamos à conclusão que eram limitações que não queriamos ter. A isto seguiu-se uma restruturação do problema de uma forma máis genérica que descrevia, na mesma, todas as funcionalidades dando-nos uma margem maior para aquilo que pode vir a ser a nossa aplicação.
+Seguidamente demos inicio ao desenvolvimento das máquinas de estado. Aqui tentamos recriar os diversos estados da nossa aplicação e entender como é que estes alternavam entre si. O nosso principal obstáculo foi a dificuldade em exprimir os estados durante a personalização de uma configuração, no entanto após ter sido ultrapassada facilitou a forma como iriamos desenvolver o prótotipo da interface gráfica e levou-nos a uma melhor compreensão sobre a implementação das diversas funcionalidades. Por fim, chegou a altura de desenhar o primeiro prótotipo. Focamo-nos essencialmente em conseguir arranjar maneiras de implementar todas as nossas funcionalidades que tinhamos previstas seguindo os nossos Use Cases. De um modo geral, esta modelação ajudou-nos a prever futuros problemas e contribuiu para conseguir formular aquilo que queremos para o futuro da aplicação.
 
 \end{document}
