@@ -12,7 +12,7 @@
 \usepackage{a4}
 
 \usepackage{graphicx} % support the \includegraphics command and options
-\graphicspath{ {./UI/}{./VPP/} }
+\graphicspath{ {./UI/}{./VPP/}{./EXCEL/}}
 %%% PACKAGES
 \usepackage{booktabs} % for much better looking tables
 \usepackage{array} % for better arrays (eg matrices) in maths
@@ -120,6 +120,39 @@ Os Use Cases por nós apresentados e especificados na secção seguinte foram or
 \newpage
 \section{Especificação de Use Cases}
 Nesta secção vamos expor as tabelas de especificação que fizemos para cada um dos Use Cases presentes nos diagramas da secção \ref{useCases}.
+
+Para melhor organização, decidimos dividir as tabelas em Excel da especificação dos Use Cases em quatro ficheiros: 
+\begin{enumerate}
+	\item Login
+
+ 		\includegraphics[width = 4in]{login.png}
+	\item Atendimento a Clientes
+	\begin{center}
+ 		\includegraphics[width = 4in]{ac_adicionacomp.png} \\
+ 		\includegraphics[width = 4in]{ac_adicionapacote.png} \\
+		\includegraphics[width = 4in]{ac_configotima.png} \\
+		\includegraphics[width = 4in]{ac_consultarcliente.png} \\
+		\includegraphics[width = 4in]{ac_altcliente.png} \\
+		\includegraphics[width = 4in]{ac_idcliente.png} \\
+		\includegraphics[width = 4in]{ac_regcliente.png} \\
+		\includegraphics[width = 4in]{ac_regenc.png}
+	\end{center}
+	\newpage
+	\item Gestão de Fábrica
+	\begin{center}
+		\includegraphics[width = 4in]{gf_consultarencomenda.png} \\
+ 		\includegraphics[width = 4in]{gf_processarencomenda.png} \\
+		\includegraphics[width = 4in]{gf_encomendarstock.png} \\
+		\includegraphics[width = 4in]{gf_registarstock.png}
+	\end{center}
+	\newpage
+	\item Gestão de Funcionários
+	\begin{center}
+		\includegraphics[width = 4in]{gfunc_registar.png} \\
+ 		\includegraphics[width = 4in]{gfunc_alterar.png} \\
+		\includegraphics[width = 4in]{gfunc_remover.png}
+	\end{center}
+\end{enumerate}
 
 \section{Protótipo de Interface}
 O protótipo de interface para a aplicação foi feito com o \textit{Pencil}, ferramenta aconselhada pelos docentes da UC.
