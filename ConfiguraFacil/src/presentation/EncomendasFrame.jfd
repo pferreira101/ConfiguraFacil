@@ -1,0 +1,31 @@
+JFDML JFormDesigner: "6.0.5.0.178" Java: "1.8.0_152-release" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq l {space :p:14:p, comp sair_btn:::p::p, space ::155:x, comp pro_encomenda_btn:::p::p, space :p:15:p}, seq l {space :p:32:p, comp jScrollPane1:::p:331:p, space ::35:x}}"
+			"$verticalGroup": "par l {seq l {space :p:22:p, comp jScrollPane1:::p:155:p, space ::61:x, par b {comp sair_btn::b:p::p, comp pro_encomenda_btn::b:p::p}, space :::p}}"
+		} ) {
+			name: "this"
+			"defaultCloseOperation": 2
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "jScrollPane1"
+				add( new FormComponent( "javax.swing.JTable" ) {
+					name: "encomendas_tbl"
+				} )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "pro_encomenda_btn"
+				"text": "Produzir Encomenda"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "sair_btn"
+				"text": "Sair"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"size": new java.awt.Dimension( 400, 300 )
+			"location": new java.awt.Point( 0, 0 )
+		} )
+	}
+}

@@ -1,0 +1,48 @@
+JFDML JFormDesigner: "6.0.5.0.178" Java: "1.8.0_152-release" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq l {space :p:19:p, par t {comp label2:::p::p, comp label3::t:p::p, comp label1::t:p::p}, space :::p, par t:::p {comp telemovel_txt::l:::x, comp nome_txt::l:::x, comp email_txt::l:p:108:p}, space ::40:x}, seq t {space :::p, comp sair_btn:::p:48:p, space ::94:x, comp registar_btn:::p::p, space :::p}}"
+			"$verticalGroup": "par l {seq l {space :p:44:p, par b {comp nome_txt::b:p::p, comp label1::b:p::p}, space :::p, par b {comp telemovel_txt::b:p::p, comp label2::b:p::p}, space :::p, par b {comp email_txt::b:p::p, comp label3::b:p::p}, space ::30:x, par b {comp registar_btn::b:p::p, comp sair_btn::b:p::p}, space :::p}}"
+		} ) {
+			name: "this"
+			"defaultCloseOperation": 2
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "nome_txt"
+				"toolTipText": ""
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "nome_txtActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "telemovel_txt"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "email_txt"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "registar_btn"
+				"text": "Registar"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label1"
+				"text": "Nome"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label2"
+				"text": "Telemóvel"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label3"
+				"text": "E-mail"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "sair_btn"
+				"text": "Sair"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"size": new java.awt.Dimension( 230, 220 )
+			"location": new java.awt.Point( 0, 0 )
+		} )
+	}
+}

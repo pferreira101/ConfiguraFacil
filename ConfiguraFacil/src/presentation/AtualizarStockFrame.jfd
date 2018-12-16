@@ -1,0 +1,52 @@
+JFDML JFormDesigner: "6.0.5.0.178" Java: "1.8.0_152-release" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq l {space :p:31:p, par l {seq {par l {comp label1::l:p::p, comp label2::t:p::p}, space :::p, par l {comp componente_cbox:::p:120:p, comp qnt_txt::l:p:120:p}}, seq {comp nova_componente_btn:::p::p, space :::p, comp atualizar_btn:::p::p}}, space ::24:x}}"
+			"$verticalGroup": "par l {seq l {space :p:27:p, par b {comp label1::b:p::p, comp componente_cbox::b:p::p}, space u:::p, par b {comp label2::b:p::p, comp qnt_txt::b:p::p}, space s:::p, par b {comp nova_componente_btn::b:p::p, comp atualizar_btn::b:p::p}, space ::9:x}}"
+		} ) {
+			name: "this"
+			"defaultCloseOperation": 2
+			add( new FormComponent( "javax.swing.JComboBox" ) {
+				name: "componente_cbox"
+				"model": new javax.swing.DefaultComboBoxModel {
+					selectedItem: "Item 1"
+					addElement( "Item 1" )
+					addElement( "Item 2" )
+					addElement( "Item 3" )
+					addElement( "Item 4" )
+				}
+				auxiliary() {
+					"JavaCodeGenerator.typeParameters": "String"
+				}
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "qnt_txt"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "nova_componente_btn"
+				"text": "Nova Componente"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton1ActionPerformed", true ) )
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "nova_componente_btnActionPerformed", true ) )
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "nova_componente_btnActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "atualizar_btn"
+				"text": "Atualizar"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label1"
+				"text": "Componente"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label2"
+				"text": "Quantidade"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"size": new java.awt.Dimension( 270, 170 )
+			"location": new java.awt.Point( 0, 0 )
+		} )
+	}
+}

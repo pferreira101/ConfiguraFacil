@@ -6,3 +6,9 @@
 *.pdf
 *.gz
 *.toc
+/ConfiguraFacil/nbproject/private/
+/ConfiguraFacil/build/
+/ConfiguraFacil/out/*
+/ConfiguraFacil/.idea/*
+ConfiguraFacil/build.xml
+ConfiguraFacil/manifest.mf

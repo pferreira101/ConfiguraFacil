@@ -1,0 +1,64 @@
+JFDML JFormDesigner: "6.0.5.0.178" Java: "1.8.0_152-release" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq {par l {seq l {space :30:30:p, par t:::p {comp jScrollPane1::l::322:x, seq l {comp cliente_txt:::p:69:p, space :::x, comp novo_cliente_btn:::p::p}, seq l {comp jScrollPane2:::p:197:p, space :p:24:p, par l {comp jLabel2:::p::p, comp jLabel1:::p::p}}}, space :0:0:x}, seq l {space :::p, comp sair_btn:::p::p, space ::154:x, comp registar_encomenda_btn:::p::p}}, space :::p}}"
+			"$verticalGroup": "par l {seq l {space :p:29:p, par b {comp novo_cliente_btn::b:p::p, comp cliente_txt::b:p:24:p}, space u:::p, comp jScrollPane1:::p:82:p, par l {seq {space :p:60:p, comp jLabel1:::p::p, space :::p, comp jLabel2:::p::p, space ::58:x}, seq t {space ::39:x, comp jScrollPane2:::p:88:p, space :p:29:p}}, par b {comp sair_btn::b:p::p, comp registar_encomenda_btn::b:p::p}, space :::p}}"
+		} ) {
+			name: "this"
+			"defaultCloseOperation": 2
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "cliente_txt"
+				"text": "Cliente"
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "jScrollPane1"
+				add( new FormComponent( "javax.swing.JTable" ) {
+					name: "table1"
+				} )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "novo_cliente_btn"
+				"text": "Novo Cliente"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "novo_cliente_btnActionPerformed", true ) )
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "jScrollPane2"
+				add( new FormComponent( "javax.swing.JList" ) {
+					name: "jList2"
+					"model": new javax.swing.DefaultListModel {
+						addElement( "Item 1" )
+						addElement( "Item 2" )
+						addElement( "Item 3" )
+						addElement( "Item 4" )
+						addElement( "Item 5" )
+					}
+					auxiliary() {
+						"JavaCodeGenerator.typeParameters": "String"
+					}
+				} )
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "jLabel1"
+				"text": "Preço"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "jLabel2"
+				"text": "Desconto"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "sair_btn"
+				"text": "Sair"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "registar_encomenda_btn"
+				"text": "Registar Encomenda"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"size": new java.awt.Dimension( 380, 365 )
+			"location": new java.awt.Point( 0, 0 )
+		} )
+	}
+}

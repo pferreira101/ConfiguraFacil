@@ -1,0 +1,43 @@
+JFDML JFormDesigner: "6.0.5.0.178" Java: "1.8.0_152-release" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq t {space :p:4:p, comp sair_btn:::p:43:p, space ::168:x, comp jLabel2:::p::p, space :p:74:p}, seq t {space ::79:x, par t:::p {comp jLabel1::::176:x, comp config_btn::t::176:x, comp clientes_btn::l::176:x}, space :p:78:p}}"
+			"$verticalGroup": "par l {seq {space :p:27:p, comp jLabel1:::p:48:p, space ::31:x, comp config_btn:::p:41:p, space :::p, comp clientes_btn:::p:41:p, par l {seq {space :p:66:p, comp jLabel2:::p::p}, seq {space :p:53:p, comp sair_btn:::p:23:p}}, space :3:3:p}}"
+		} ) {
+			name: "this"
+			"defaultCloseOperation": 2
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "config_btn"
+				"font": new java.awt.Font( "Tahoma", 0, 12 )
+				"text": "Iniciar Configuração"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "config_btnActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "clientes_btn"
+				"font": new java.awt.Font( "Tahoma", 0, 12 )
+				"text": "Consultar Clientes"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "sair_btn"
+				"text": "Sair"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "jLabel1"
+				"font": new java.awt.Font( "Tahoma", 0, 18 )
+				"icon": new com.jformdesigner.model.SwingIcon( 0, "/presentation/logo.png" )
+				"text": "- STAND"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "jLabel2"
+				"font": new java.awt.Font( "Tahoma", 0, 8 )
+				"text": "Logged in as"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"size": new java.awt.Dimension( 335, 305 )
+			"location": new java.awt.Point( 0, 0 )
+		} )
+	}
+}

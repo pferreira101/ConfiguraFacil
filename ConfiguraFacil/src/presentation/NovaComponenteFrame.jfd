@@ -1,0 +1,65 @@
+JFDML JFormDesigner: "6.0.5.0.178" Java: "1.8.0_152-release" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq {space :::p, comp button1:::p:49:p, space ::106:x, comp adicionar_btn:::p::p, space :::p}, seq l {space :p:18:p, par t {comp label4:::p::p, comp label1:::p::p, comp label2:::p::p, comp label3:::p::p}, space :::p, par l:::p {comp preco_txt:::::x, comp quantidade_txt:::::x, comp jComboBox1::l:::x, comp nome_txt::l:p:104:p}, space ::58:x}}"
+			"$verticalGroup": "par l {seq l {space :p:44:p, par b {comp nome_txt::b:p::p, comp label1::b:p::p}, space s:::p, par b {comp jComboBox1::b:p::p, comp label2::b:p::p}, space s:::p, par b {comp quantidade_txt::b:p::p, comp label3::b:p::p}, space u:::p, par b {comp label4::b:p::p, comp preco_txt::b:p::p}, space s:::p, par b {comp button1::b:p::p, comp adicionar_btn::b:p::p}, space ::8:x}}"
+		} ) {
+			name: "this"
+			"defaultCloseOperation": 2
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "nome_txt"
+			} )
+			add( new FormComponent( "javax.swing.JComboBox" ) {
+				name: "jComboBox1"
+				"model": new javax.swing.DefaultComboBoxModel {
+					selectedItem: "Item 1"
+					addElement( "Item 1" )
+					addElement( "Item 2" )
+					addElement( "Item 3" )
+					addElement( "Item 4" )
+				}
+				auxiliary() {
+					"JavaCodeGenerator.typeParameters": "String"
+				}
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "quantidade_txt"
+				"toolTipText": ""
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "quantidade_txtActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "adicionar_btn"
+				"text": "Adicionar"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label1"
+				"text": "Nome"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label2"
+				"text": "Tipo"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label3"
+				"text": "Quantidade"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label4"
+				"text": "Preço"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "preco_txt"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button1"
+				"text": "Sair"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"size": new java.awt.Dimension( 250, 270 )
+			"location": new java.awt.Point( 0, 10 )
+		} )
+	}
+}
