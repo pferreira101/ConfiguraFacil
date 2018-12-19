@@ -91,8 +91,8 @@ public class ClientesFrame extends javax.swing.JFrame {
                     .addComponent(cliente_txt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addGap(18, 18, 18)
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(novo_cliente_btn)
-                        .addComponent(sair_btn))
+                        .addComponent(sair_btn)
+                        .addComponent(novo_cliente_btn))
                     .addContainerGap())
         );
         pack();
