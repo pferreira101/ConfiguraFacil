@@ -5,6 +5,9 @@
  */
 package presentation;
 
+import java.awt.event.*;
+import business.ConfiguraFacil;
+
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.GroupLayout;
@@ -15,6 +18,23 @@ import javax.swing.LayoutStyle;
  * @author Pedro
  */
 public class LoginFrame extends javax.swing.JFrame {
+
+    private static ConfiguraFacil cf;
+
+
+    private void login_btnActionPerformed(ActionEvent e) {
+        int id = Integer.parseInt(id_txt.getText());
+        String password = pw_txt.getText();
+
+        System.out.println("ID/PW inseridos: " + id + "/" + password); // FIXME: 12/22/2018 DEBUGGING
+
+        int tipo = cf.logIn(id, password);
+
+        if(tipo == 1) System.out.println("Tipo 1");
+        else if(tipo == 2) System.out.println("Tipo 2");
+        else System.out.println("Não está registado");
+    }
+
 
     /**
      * Creates new form LoginFrame
@@ -53,6 +73,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
         //---- login_btn ----
         login_btn.setText("Log In");
+        login_btn.addActionListener(e -> login_btnActionPerformed(e));
 
         //---- jLabel1 ----
         jLabel1.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -145,6 +166,17 @@ public class LoginFrame extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+
+
+        /* INICIA CONFIGURA FACIL */
+
+        cf = new ConfiguraFacil();
+        cf.loadFuncionarios();
+
+
+
+
+
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
