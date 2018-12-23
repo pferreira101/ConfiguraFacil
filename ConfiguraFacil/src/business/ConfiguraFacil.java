@@ -6,6 +6,7 @@ import data.FuncionarioDAO;
 import data.EncomendaDAO;
 import data.PacoteDAO;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,19 +14,35 @@ import java.util.Map;
 public class ConfiguraFacil {
 	public Componente _componentes;
 	public Pacote _pacotes;
-	public Cliente _clientes;
+	public Map<Integer, Cliente> clientes;
 	public Map<Integer, Funcionario> funcionarios;
 	public Encomenda _encomendas;
 	public ComponenteDAO _unnamed_ComponenteDAO_;
-	public ClienteDAO _unnamed_ClienteDAO_;
+	public ClienteDAO clienteDAO;
 	public FuncionarioDAO funcionarioDAO;
 	public EncomendaDAO _unnamed_EncomendaDAO_;
 	public PacoteDAO _unnamed_PacoteDAO_;
 
 
 	public ConfiguraFacil(){
+	    this.clientes = new HashMap<>();
 	    this.funcionarios = new HashMap<>();
+	    this.clienteDAO = new ClienteDAO();
 	    this.funcionarioDAO = new FuncionarioDAO();
+    }
+
+
+    public void loadClientes(){
+        try{
+            List<Cliente> l = this.clienteDAO.list();
+
+            for(Cliente c : l){
+                this.clientes.put(c.getID(), c);
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -34,7 +51,6 @@ public class ConfiguraFacil {
             List<Funcionario> l = this.funcionarioDAO.list();
 
             for(Funcionario f : l){
-                System.out.println(f.getID()); // FIXME: 12/22/2018 DEBUGGING
                 this.funcionarios.put(f.getID(), f);
             }
         }
@@ -46,9 +62,13 @@ public class ConfiguraFacil {
     public int logIn(int id, String password){
 	    Funcionario f = this.funcionarios.get(id);
 	    if(f != null) {
-            System.out.println("TIPO APOS LOGIN :" + f.getTipo()); // FIXME: 12/22/2018 DEBUGGING
 	        return f.getTipo();
         }
 	    else return 0;
+    }
+
+    public void registaCliente(Cliente c) throws SQLException, ClassNotFoundException {
+	    this.clientes.put(c.getID(), c);
+	    this.clienteDAO.put(c.getID(), c);
     }
 }

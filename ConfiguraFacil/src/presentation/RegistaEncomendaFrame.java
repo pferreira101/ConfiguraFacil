@@ -5,6 +5,8 @@
  */
 package presentation;
 
+import business.ConfiguraFacil;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -17,11 +19,12 @@ import javax.swing.LayoutStyle;
  */
 public class RegistaEncomendaFrame extends javax.swing.JFrame {
 
+    ConfiguraFacil cf;
     /**
      * Creates new form RegistaEncomendaFrame
      */
     private void novo_cliente_btnActionPerformed(ActionEvent e) {
-        new NovoClienteFrame().setVisible(true);
+        new NovoClienteFrame(this.cf).setVisible(true);
     }
 
     public RegistaEncomendaFrame() {

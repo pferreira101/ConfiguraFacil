@@ -7,6 +7,7 @@ package presentation;
 
 import java.awt.event.*;
 import business.ConfiguraFacil;
+import business.Funcionario;
 
 import java.awt.*;
 import javax.swing.*;
@@ -26,11 +27,13 @@ public class LoginFrame extends javax.swing.JFrame {
         int id = Integer.parseInt(id_txt.getText());
         String password = pw_txt.getText();
 
-        System.out.println("ID/PW inseridos: " + id + "/" + password); // FIXME: 12/22/2018 DEBUGGING
-
         int tipo = cf.logIn(id, password);
 
-        if(tipo == 1) System.out.println("Tipo 1");
+        if(tipo == 1) {
+            this.dispose();
+            Funcionario f = cf.funcionarios.get(id);
+            new StandFrame(this.cf, f).setVisible(true);
+        }
         else if(tipo == 2) System.out.println("Tipo 2");
         else System.out.println("Não está registado");
     }

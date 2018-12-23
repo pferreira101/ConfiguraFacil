@@ -5,7 +5,13 @@
  */
 package presentation;
 
+import business.Cliente;
+import business.ConfiguraFacil;
+import com.mysql.cj.util.StringUtils;
+
 import java.awt.*;
+import java.awt.event.*;
+import java.sql.SQLException;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 
@@ -15,11 +21,40 @@ import javax.swing.GroupLayout;
  */
 public class NovoClienteFrame extends javax.swing.JFrame {
 
+    ConfiguraFacil cf;
+
+    public static boolean isNumeric(String str){
+        return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
+    }
+
+    private void registar_btnActionPerformed(ActionEvent e) throws SQLException, ClassNotFoundException {
+        String nome = this.nome_txt.getText();
+        String telemovel = this.telemovel_txt.getText();
+        String email = this.email_txt.getText();
+
+        System.out.println(email == ""); // FIXME: 12/23/2018 DEBUGGING
+
+        if(nome != "" && email != ""){ // FIXME: 12/23/2018
+            if(isNumeric(telemovel)){
+                int id = this.cf.clientes.size()+1;
+                Cliente c = new Cliente(id, nome, Integer.parseInt(telemovel), email);
+
+                this.cf.registaCliente(c);
+                this.dispose();
+            }
+            else this.error_txt.setText("Insira um número válido");
+        }
+        else this.error_txt.setText("Preencha todos os campos");
+
+    }
+
+
     /**
      * Creates new form NovoClienteFrame
      */
-    public NovoClienteFrame() {
+    public NovoClienteFrame(ConfiguraFacil cf) {
         initComponents();
+        this.cf = cf;
     }
 
     /**
@@ -39,6 +74,7 @@ public class NovoClienteFrame extends javax.swing.JFrame {
         label2 = new JLabel();
         label3 = new JLabel();
         sair_btn = new JButton();
+        error_txt = new JLabel();
 
         //======== this ========
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -46,10 +82,18 @@ public class NovoClienteFrame extends javax.swing.JFrame {
 
         //---- nome_txt ----
         nome_txt.setToolTipText("");
-        nome_txt.addActionListener(e -> nome_txtActionPerformed(e));
 
         //---- registar_btn ----
         registar_btn.setText("Registar");
+        registar_btn.addActionListener(e -> {
+            try {
+                registar_btnActionPerformed(e);
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            } catch (ClassNotFoundException e1) {
+                e1.printStackTrace();
+            }
+        });
 
         //---- label1 ----
         label1.setText("Nome");
@@ -63,10 +107,20 @@ public class NovoClienteFrame extends javax.swing.JFrame {
         //---- sair_btn ----
         sair_btn.setText("Sair");
 
+        //---- error_txt ----
+        error_txt.setForeground(Color.red);
+        error_txt.setFont(new Font("Segoe UI", Font.PLAIN, 9));
+
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
         contentPane.setLayout(contentPaneLayout);
         contentPaneLayout.setHorizontalGroup(
             contentPaneLayout.createParallelGroup()
+                .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(sair_btn, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+                    .addComponent(registar_btn)
+                    .addContainerGap())
                 .addGroup(contentPaneLayout.createSequentialGroup()
                     .addGap(19, 19, 19)
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
@@ -74,17 +128,12 @@ public class NovoClienteFrame extends javax.swing.JFrame {
                         .addComponent(label3)
                         .addComponent(label1))
                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(telemovel_txt, GroupLayout.Alignment.LEADING)
-                        .addComponent(nome_txt, GroupLayout.Alignment.LEADING)
-                        .addComponent(email_txt, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE))
+                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                        .addComponent(telemovel_txt)
+                        .addComponent(nome_txt)
+                        .addComponent(email_txt, GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+                        .addComponent(error_txt, GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE))
                     .addContainerGap(40, Short.MAX_VALUE))
-                .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(sair_btn, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
-                    .addComponent(registar_btn)
-                    .addContainerGap())
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
@@ -101,7 +150,9 @@ public class NovoClienteFrame extends javax.swing.JFrame {
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(email_txt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addComponent(label3))
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(error_txt)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(registar_btn)
                         .addComponent(sair_btn))
@@ -111,9 +162,6 @@ public class NovoClienteFrame extends javax.swing.JFrame {
         setLocationRelativeTo(getOwner());
     }// </editor-fold>//GEN-END:initComponents
 
-    private void nome_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nome_txtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nome_txtActionPerformed
 
     /**
      * @param args the command line arguments
@@ -142,12 +190,7 @@ public class NovoClienteFrame extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new NovoClienteFrame().setVisible(true);
-            }
-        });
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -160,5 +203,6 @@ public class NovoClienteFrame extends javax.swing.JFrame {
     private JLabel label2;
     private JLabel label3;
     private JButton sair_btn;
+    private JLabel error_txt;
     // End of variables declaration//GEN-END:variables
 }

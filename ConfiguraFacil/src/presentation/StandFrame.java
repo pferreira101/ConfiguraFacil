@@ -5,6 +5,11 @@
  */
 package presentation;
 
+import java.awt.event.*;
+
+import business.ConfiguraFacil;
+import business.Funcionario;
+
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.GroupLayout;
@@ -16,11 +21,21 @@ import javax.swing.LayoutStyle;
  */
 public class StandFrame extends javax.swing.JFrame {
 
+    ConfiguraFacil cf;
+    Funcionario f;
+
     /**
      * Creates new form StandFrame
      */
-    public StandFrame() {
+    private void clientes_btnActionPerformed(ActionEvent e) {
+        new ClientesFrame(cf).setVisible(true);
+    }
+
+    public StandFrame(ConfiguraFacil cf, Funcionario f) {
         initComponents();
+        this.cf = cf;
+        this.f = f;
+        this.login_lbl.setText("Logged in as " + f.getNome());
     }
 
     /**
@@ -36,7 +51,7 @@ public class StandFrame extends javax.swing.JFrame {
         clientes_btn = new JButton();
         sair_btn = new JButton();
         jLabel1 = new JLabel();
-        jLabel2 = new JLabel();
+        login_lbl = new JLabel();
 
         //======== this ========
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -50,6 +65,7 @@ public class StandFrame extends javax.swing.JFrame {
         //---- clientes_btn ----
         clientes_btn.setFont(new Font("Tahoma", Font.PLAIN, 12));
         clientes_btn.setText("Consultar Clientes");
+        clientes_btn.addActionListener(e -> clientes_btnActionPerformed(e));
 
         //---- sair_btn ----
         sair_btn.setText("Sair");
@@ -59,20 +75,21 @@ public class StandFrame extends javax.swing.JFrame {
         jLabel1.setIcon(new ImageIcon(getClass().getResource("/presentation/logo.png")));
         jLabel1.setText("- STAND");
 
-        //---- jLabel2 ----
-        jLabel2.setFont(new Font("Tahoma", Font.PLAIN, 8));
-        jLabel2.setText("Logged in as");
+        //---- login_lbl ----
+        login_lbl.setFont(new Font("Tahoma", Font.PLAIN, 8));
+        login_lbl.setText("Logged in as");
+        login_lbl.setHorizontalAlignment(SwingConstants.RIGHT);
 
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
         contentPane.setLayout(contentPaneLayout);
         contentPaneLayout.setHorizontalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
-                    .addGap(4, 4, 4)
-                    .addComponent(sair_btn, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
-                    .addComponent(jLabel2)
-                    .addGap(74, 74, 74))
+                    .addGap(10, 10, 10)
+                    .addComponent(sair_btn, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 148, Short.MAX_VALUE)
+                    .addComponent(login_lbl, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE)
+                    .addGap(9, 9, 9))
                 .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
                     .addContainerGap(79, Short.MAX_VALUE)
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
@@ -90,14 +107,11 @@ public class StandFrame extends javax.swing.JFrame {
                     .addComponent(config_btn, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(clientes_btn, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
-                    .addGroup(contentPaneLayout.createParallelGroup()
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(66, 66, 66)
-                            .addComponent(jLabel2))
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(53, 53, 53)
-                            .addComponent(sair_btn, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)))
-                    .addGap(3, 3, 3))
+                    .addGap(51, 51, 51)
+                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                        .addComponent(login_lbl)
+                        .addComponent(sair_btn, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
+                    .addGap(5, 5, 5))
         );
         pack();
         setLocationRelativeTo(getOwner());
@@ -135,11 +149,11 @@ public class StandFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        /*java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new StandFrame().setVisible(true);
             }
-        });
+        });*/
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -148,6 +162,6 @@ public class StandFrame extends javax.swing.JFrame {
     private JButton clientes_btn;
     private JButton sair_btn;
     private JLabel jLabel1;
-    private JLabel jLabel2;
+    private JLabel login_lbl;
     // End of variables declaration//GEN-END:variables
 }
