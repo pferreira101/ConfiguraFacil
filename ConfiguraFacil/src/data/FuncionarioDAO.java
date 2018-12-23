@@ -46,7 +46,7 @@ public class FuncionarioDAO {
             f.setEmail(rs.getString("email"));
             f.setTipo(rs.getInt("tipo"));
         }
-        else throw new Exception("No user found for given mail");
+        else throw new Exception("Funcionário não encontrado");
 
         c.close();
 
@@ -63,7 +63,7 @@ public class FuncionarioDAO {
         st = c.prepareStatement("SELECT * FROM funcionario;");
 
         ResultSet rs = st.executeQuery();
-        if(rs.next()) {
+        while(rs.next()) {
             f = new Funcionario();
             f.setID(rs.getInt("id_funcionario"));
             f.setNome(rs.getString("nome"));
@@ -73,18 +73,42 @@ public class FuncionarioDAO {
             f.setTipo(rs.getInt("tipo"));
 
             r.add(f);
-
-            System.out.println(f.getID()); // FIXME: 12/22/2018 DEBUGGING
-            System.out.println(f.getNome()); // FIXME: 12/22/2018 DEBUGGING
-            System.out.println(f.getPassword()); // FIXME: 12/22/2018 DEBUGGING
         }
-        else throw new Exception("No user found for given mail");
 
         c.close();
 
         return r;
     }
 
+
+    public void remove(int id) throws SQLException {
+        Connection c = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "12345");
+
+        PreparedStatement st;
+        st = c.prepareStatement("DELETE FROM funcionario WHERE id_funcionario = ?;");
+        st.setInt(1, id);
+
+        st.executeQuery();
+
+        c.close();
+    }
+
+
+    public int size() throws SQLException {
+        int r = 0;
+	    Connection c = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "12345");
+
+        PreparedStatement st;
+        st = c.prepareStatement("SELECT count(*) FROM funcionario;");
+
+        ResultSet rs = st.executeQuery();
+        if(rs.next()) {
+            r = Integer.parseInt(rs.getString(1));
+        }
+        c.close();
+
+        return r;
+    }
 
 
 }

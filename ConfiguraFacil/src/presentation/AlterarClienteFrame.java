@@ -5,6 +5,8 @@
  */
 package presentation;
 
+import business.Cliente;
+
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.GroupLayout;
@@ -15,11 +17,17 @@ import javax.swing.GroupLayout;
  */
 public class AlterarClienteFrame extends javax.swing.JFrame {
 
+    Cliente cliente;
+
     /**
      * Creates new form NovoClienteFrame
      */
-    public AlterarClienteFrame() {
+    public AlterarClienteFrame(Cliente c) {
         initComponents();
+        this.cliente = c;
+        this.nome_txt.setText(c.getNome());
+        this.telemovel_txt.setText(String.valueOf(c.getTelemovel()));
+        // FIXME: 12/23/2018 this.email_txt.setText(c.get);
     }
 
     /**
@@ -149,11 +157,11 @@ public class AlterarClienteFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        /*java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new AlterarClienteFrame().setVisible(true);
             }
-        });
+        });*/
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

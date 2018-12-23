@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq l {space :p:19:p, par t {comp label2:::p::p, comp label3::t:p::p, comp label1::t:p::p}, space :::p, par t:::p {comp telemovel_txt::l:::x, comp nome_txt::l:::x, comp email_txt::l:p:108:p}, space ::40:x}, seq t {space :::p, comp sair_btn:::p:48:p, space ::94:x, comp registar_btn:::p::p, space :::p}}"
-			"$verticalGroup": "par l {seq l {space :p:44:p, par b {comp nome_txt::b:p::p, comp label1::b:p::p}, space :::p, par b {comp telemovel_txt::b:p::p, comp label2::b:p::p}, space :::p, par b {comp email_txt::b:p::p, comp label3::b:p::p}, space ::30:x, par b {comp registar_btn::b:p::p, comp sair_btn::b:p::p}, space :::p}}"
+			"$horizontalGroup": "par l {seq t {space :::p, comp sair_btn:::p:53:p, space ::89:x, comp registar_btn:::p::p, space :::p}, seq l {space :p:19:p, par t {comp label2:::p::p, comp label3::t:p::p, comp label1::t:p::p}, space :::p, par l:::p {comp telemovel_txt::l:::x, comp nome_txt::l:::x, comp email_txt::l::108:x, comp error_txt::l::108:x}, space ::40:x}}"
+			"$verticalGroup": "par l {seq l {space :p:44:p, par b {comp nome_txt::b:p::p, comp label1::b:p::p}, space :::p, par b {comp telemovel_txt::b:p::p, comp label2::b:p::p}, space :::p, par b {comp email_txt::b:p::p, comp label3::b:p::p}, space :::p, comp error_txt:::p::p, space ::13:x, par b {comp registar_btn::b:p::p, comp sair_btn::b:p::p}, space :::p}}"
 		} ) {
 			name: "this"
 			"defaultCloseOperation": 2
@@ -23,6 +23,7 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "registar_btn"
 				"text": "Registar"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "registar_btnActionPerformed", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label1"
@@ -39,6 +40,11 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "sair_btn"
 				"text": "Sair"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "error_txt"
+				"foreground": sfield java.awt.Color red
+				"font": new java.awt.Font( "Segoe UI", 0, 9 )
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"size": new java.awt.Dimension( 230, 220 )
