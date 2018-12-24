@@ -9,6 +9,7 @@ new FormModel {
 		} ) {
 			name: "this"
 			"defaultCloseOperation": 2
+			"title": "Nova Componente"
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "nome_txt"
 			} )

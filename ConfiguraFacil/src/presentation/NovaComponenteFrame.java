@@ -44,6 +44,7 @@ public class NovaComponenteFrame extends javax.swing.JFrame {
 
         //======== this ========
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Nova Componente");
         Container contentPane = getContentPane();
 
         //---- jComboBox1 ----

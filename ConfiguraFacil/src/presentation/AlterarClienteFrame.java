@@ -27,7 +27,7 @@ public class AlterarClienteFrame extends javax.swing.JFrame {
         this.cliente = c;
         this.nome_txt.setText(c.getNome());
         this.telemovel_txt.setText(String.valueOf(c.getTelemovel()));
-        // FIXME: 12/23/2018 this.email_txt.setText(c.get);
+        this.email_txt.setText(c.getEmail());
     }
 
     /**
@@ -48,7 +48,8 @@ public class AlterarClienteFrame extends javax.swing.JFrame {
         label1 = new JLabel();
 
         //======== this ========
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Alterar Cliente");
         Container contentPane = getContentPane();
 
         //---- atualizar_btn ----

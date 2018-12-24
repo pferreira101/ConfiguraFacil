@@ -38,6 +38,7 @@ public class EncomendasFrame extends javax.swing.JFrame {
 
         //======== this ========
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Encomendas");
         Container contentPane = getContentPane();
 
         //======== jScrollPane1 ========

@@ -9,6 +9,7 @@ new FormModel {
 		} ) {
 			name: "this"
 			"defaultCloseOperation": 2
+			"title": "Stand"
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "config_btn"
 				"font": new java.awt.Font( "Tahoma", 0, 12 )

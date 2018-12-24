@@ -53,6 +53,7 @@ public class RegistaEncomendaFrame extends javax.swing.JFrame {
 
         //======== this ========
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Regista Encomenda");
         Container contentPane = getContentPane();
 
         //---- cliente_txt ----

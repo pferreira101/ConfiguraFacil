@@ -9,6 +9,7 @@ new FormModel {
 		} ) {
 			name: "this"
 			"defaultCloseOperation": 2
+			"title": "Encomendas"
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 				name: "jScrollPane1"
 				add( new FormComponent( "javax.swing.JTable" ) {

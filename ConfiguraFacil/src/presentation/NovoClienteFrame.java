@@ -48,6 +48,10 @@ public class NovoClienteFrame extends javax.swing.JFrame {
 
     }
 
+    private void nome_txtActionPerformed(ActionEvent e) {
+        // TODO add your code here
+    }
+
 
     /**
      * Creates new form NovoClienteFrame
@@ -78,10 +82,12 @@ public class NovoClienteFrame extends javax.swing.JFrame {
 
         //======== this ========
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Novo Cliente");
         Container contentPane = getContentPane();
 
         //---- nome_txt ----
         nome_txt.setToolTipText("");
+        nome_txt.addActionListener(e -> nome_txtActionPerformed(e));
 
         //---- registar_btn ----
         registar_btn.setText("Registar");
@@ -152,7 +158,7 @@ public class NovoClienteFrame extends javax.swing.JFrame {
                         .addComponent(label3))
                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(error_txt)
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(registar_btn)
                         .addComponent(sair_btn))

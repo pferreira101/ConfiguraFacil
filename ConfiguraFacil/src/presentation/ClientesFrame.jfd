@@ -8,7 +8,8 @@ new FormModel {
 			"$verticalGroup": "par l {seq t {space :p:27:p, comp jScrollPane1::::157:x, space u:::p, comp cliente_txt:::p::p, space :p:18:p, par b {comp sair_btn::b:p::p, comp novo_cliente_btn::b:p::p}, space :::p}}"
 		} ) {
 			name: "this"
-			"defaultCloseOperation": 3
+			"defaultCloseOperation": 2
+			"title": "Clientes"
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "sair_btn"
 				"text": "Sair"
@@ -22,6 +23,7 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "cliente_txt"
 				"toolTipText": "Procurar cliente"
+				addEvent( new FormEvent( "java.awt.event.KeyListener", "keyReleased", "cliente_txtKeyReleased", true ) )
 			} )
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 				name: "jScrollPane1"

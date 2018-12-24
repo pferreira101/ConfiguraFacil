@@ -9,6 +9,7 @@ new FormModel {
 		} ) {
 			name: "this"
 			"defaultCloseOperation": 2
+			"title": "Atualizar Stock"
 			add( new FormComponent( "javax.swing.JComboBox" ) {
 				name: "componente_cbox"
 				"model": new javax.swing.DefaultComboBoxModel {
@@ -29,6 +30,7 @@ new FormModel {
 				name: "nova_componente_btn"
 				"text": "Nova Componente"
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton1ActionPerformed", true ) )
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "nova_componente_btnActionPerformed", true ) )
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "nova_componente_btnActionPerformed", true ) )
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "nova_componente_btnActionPerformed", true ) )
 			} )

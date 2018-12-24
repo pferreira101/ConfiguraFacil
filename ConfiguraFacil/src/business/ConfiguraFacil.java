@@ -60,6 +60,8 @@ public class ConfiguraFacil {
     }
 
     public int logIn(int id, String password){
+	    if(id == 0 && password.equals("admin")) return 3;
+
 	    Funcionario f = this.funcionarios.get(id);
 	    if(f != null) {
 	        return f.getTipo();
@@ -70,5 +72,10 @@ public class ConfiguraFacil {
     public void registaCliente(Cliente c) throws SQLException, ClassNotFoundException {
 	    this.clientes.put(c.getID(), c);
 	    this.clienteDAO.put(c.getID(), c);
+    }
+
+    public void registaFuncionario(Funcionario f) throws SQLException, ClassNotFoundException {
+	    this.funcionarios.put(f.getID(), f);
+	    this.funcionarioDAO.put(f.getID(), f);
     }
 }

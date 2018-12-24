@@ -12,6 +12,7 @@ import business.ConfiguraFacil;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Collection;
+import java.util.stream.Collectors;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle;
@@ -61,6 +62,15 @@ public class ClientesFrame extends javax.swing.JFrame {
         }
     }
 
+    private void cliente_txtKeyReleased(KeyEvent e) {
+        String to_search = cliente_txt.getText();
+
+        Collection<Cliente> clientes = this.cf.clientes.values().stream().filter(c -> c.getNome().contains(to_search))
+                                                                         .collect(Collectors.toList());
+
+        updateTable(clientes);
+    }
+
 
 
     /**
@@ -89,7 +99,8 @@ public class ClientesFrame extends javax.swing.JFrame {
         display_tbl = new JTable();
 
         //======== this ========
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Clientes");
         Container contentPane = getContentPane();
 
         //---- sair_btn ----
@@ -104,6 +115,12 @@ public class ClientesFrame extends javax.swing.JFrame {
 
         //---- cliente_txt ----
         cliente_txt.setToolTipText("Procurar cliente");
+        cliente_txt.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                cliente_txtKeyReleased(e);
+            }
+        });
 
         //======== jScrollPane1 ========
         {

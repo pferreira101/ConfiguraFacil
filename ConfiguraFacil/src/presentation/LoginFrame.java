@@ -5,14 +5,12 @@
  */
 package presentation;
 
-import java.awt.event.*;
 import business.ConfiguraFacil;
 import business.Funcionario;
 
-import java.awt.*;
 import javax.swing.*;
-import javax.swing.GroupLayout;
-import javax.swing.LayoutStyle;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 
 /**
  *
@@ -34,8 +32,16 @@ public class LoginFrame extends javax.swing.JFrame {
             Funcionario f = cf.funcionarios.get(id);
             new StandFrame(this.cf, f).setVisible(true);
         }
-        else if(tipo == 2) System.out.println("Tipo 2");
-        else System.out.println("Não está registado");
+        else if(tipo == 2) {
+            this.dispose();
+            Funcionario f = cf.funcionarios.get(id);
+            new FabricaFrame(this.cf, f).setVisible(true);
+        }
+        else if(tipo == 3){
+            this.dispose();
+            new FuncionariosFrame(this.cf).setVisible(true);
+        }
+        else this.error_txt.setText("Credenciais Inválidas");
     }
 
 
@@ -62,17 +68,16 @@ public class LoginFrame extends javax.swing.JFrame {
         jLabel1 = new JLabel();
         label1 = new JLabel();
         label2 = new JLabel();
+        error_txt = new JLabel();
 
         //======== this ========
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setTitle("LogIn");
         Container contentPane = getContentPane();
 
         //---- sair_btn ----
         sair_btn.setText("Sair");
         sair_btn.addActionListener(e -> sair_btnActionPerformed(e));
-
-        //---- pw_txt ----
-        pw_txt.addActionListener(e -> pw_txtActionPerformed(e));
 
         //---- login_btn ----
         login_btn.setText("Log In");
@@ -87,6 +92,11 @@ public class LoginFrame extends javax.swing.JFrame {
 
         //---- label2 ----
         label2.setText("Password");
+
+        //---- error_txt ----
+        error_txt.setText(" ");
+        error_txt.setFont(new Font("Segoe UI", Font.PLAIN, 10));
+        error_txt.setForeground(Color.red);
 
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
         contentPane.setLayout(contentPaneLayout);
@@ -104,13 +114,17 @@ public class LoginFrame extends javax.swing.JFrame {
                                 .addComponent(label1))
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                .addGroup(contentPaneLayout.createSequentialGroup()
-                                    .addComponent(sair_btn, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(login_btn))
                                 .addComponent(pw_txt, GroupLayout.PREFERRED_SIZE, 159, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(id_txt, GroupLayout.PREFERRED_SIZE, 159, GroupLayout.PREFERRED_SIZE))))
-                    .addContainerGap(64, Short.MAX_VALUE))
+                                .addComponent(id_txt, GroupLayout.PREFERRED_SIZE, 159, GroupLayout.PREFERRED_SIZE)
+                                .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
+                                    .addComponent(sair_btn, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(login_btn)))))
+                    .addContainerGap(54, Short.MAX_VALUE))
+                .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
+                    .addGap(0, 98, Short.MAX_VALUE)
+                    .addComponent(error_txt, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
+                    .addGap(89, 89, 89))
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
@@ -125,11 +139,13 @@ public class LoginFrame extends javax.swing.JFrame {
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(pw_txt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addComponent(label2))
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(sair_btn)
-                        .addComponent(login_btn))
-                    .addContainerGap(18, Short.MAX_VALUE))
+                    .addGap(2, 2, 2)
+                    .addComponent(error_txt)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(contentPaneLayout.createParallelGroup()
+                        .addComponent(login_btn)
+                        .addComponent(sair_btn))
+                    .addContainerGap(8, Short.MAX_VALUE))
         );
         pack();
         setLocationRelativeTo(getOwner());
@@ -139,9 +155,6 @@ public class LoginFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_sair_btnActionPerformed
 
-    private void pw_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pw_txtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pw_txtActionPerformed
 
     /**
      * @param args the command line arguments
@@ -198,5 +211,6 @@ public class LoginFrame extends javax.swing.JFrame {
     private JLabel jLabel1;
     private JLabel label1;
     private JLabel label2;
+    private JLabel error_txt;
     // End of variables declaration//GEN-END:variables
 }

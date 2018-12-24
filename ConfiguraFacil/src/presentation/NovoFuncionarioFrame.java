@@ -5,9 +5,15 @@
  */
 package presentation;
 
+import business.ConfiguraFacil;
+import business.Funcionario;
+
 import java.awt.*;
+import java.awt.event.*;
+import java.sql.SQLException;
 import javax.swing.*;
 import javax.swing.GroupLayout;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,11 +21,34 @@ import javax.swing.GroupLayout;
  */
 public class NovoFuncionarioFrame extends javax.swing.JFrame {
 
+    ConfiguraFacil cf;
+    FuncionariosFrame to_update_table;
+
+    private void registar_btnActionPerformed(ActionEvent e) throws SQLException, ClassNotFoundException {
+        int id = this.cf.funcionarios.size() + 1;
+        String nome = nome_txt.getText();
+        String password = pw_txt.getText();
+        int tipo;
+        if(tipo_cbox.getSelectedIndex() == 0) tipo = 1;
+        else tipo = 2;
+        int telemovel = Integer.parseInt(tlmv_txt.getText());
+        String email = mail_txt.getText();
+
+        Funcionario f = new Funcionario(id, nome, password, tipo, telemovel, email);
+
+        this.cf.registaFuncionario(f);
+        this.to_update_table.updateTable(this.cf.funcionarios.values()); //não sei se é a melhor maneira para atualizar a tabela mas funciona
+        this.dispose();
+    }
+
+
     /**
      * Creates new form NewFuncionarioFrame
      */
-    public NovoFuncionarioFrame() {
+    public NovoFuncionarioFrame(ConfiguraFacil cf, FuncionariosFrame f) {
         initComponents();
+        this.cf = cf;
+        this.to_update_table = f;
     }
 
     /**
@@ -29,7 +58,7 @@ public class NovoFuncionarioFrame extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    // Generated using JFormDesigner Evaluation license - unknown
+    // Generated using JFormDesigner Evaluation license - Pedro Moreira
     private void initComponents() {
         nome_txt = new JTextField();
         pw_txt = new JTextField();
@@ -37,71 +66,137 @@ public class NovoFuncionarioFrame extends javax.swing.JFrame {
         mail_txt = new JTextField();
         tipo_cbox = new JComboBox<>();
         registar_btn = new JButton();
+        label1 = new JLabel();
+        label2 = new JLabel();
+        label3 = new JLabel();
+        label4 = new JLabel();
+        label5 = new JLabel();
+        button1 = new JButton();
+        error_txt = new JLabel();
 
         //======== this ========
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Novo Funcion\u00e1rio");
         Container contentPane = getContentPane();
-
-        //---- nome_txt ----
-        nome_txt.setText("Nome");
-
-        //---- pw_txt ----
-        pw_txt.setText("Password");
-
-        //---- tlmv_txt ----
-        tlmv_txt.setText("Telemovel");
-
-        //---- mail_txt ----
-        mail_txt.setText("E-mail");
 
         //---- tipo_cbox ----
         tipo_cbox.setModel(new DefaultComboBoxModel<>(new String[] {
-            "Item 1",
-            "Item 2",
-            "Item 3",
-            "Item 4"
+            "1 - Funcion\u00e1rio de loja",
+            "2 - Gestor de f\u00e1brica"
         }));
 
         //---- registar_btn ----
         registar_btn.setText("Registar");
+        registar_btn.addActionListener(e -> {
+            try {
+                registar_btnActionPerformed(e);
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            } catch (ClassNotFoundException e1) {
+                e1.printStackTrace();
+            }
+        });
+
+        //---- label1 ----
+        label1.setText("Nome");
+
+        //---- label2 ----
+        label2.setText("Password");
+
+        //---- label3 ----
+        label3.setText("Tipo");
+
+        //---- label4 ----
+        label4.setText("Telem\u00f3vel");
+
+        //---- label5 ----
+        label5.setText("E-mail");
+
+        //---- button1 ----
+        button1.setText("Sair");
+
+        //---- error_txt ----
+        error_txt.setText(" ");
+        error_txt.setFont(new Font("Segoe UI", Font.PLAIN, 10));
+        error_txt.setForeground(Color.red);
 
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
         contentPane.setLayout(contentPaneLayout);
         contentPaneLayout.setHorizontalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
+                    .addContainerGap()
                     .addGroup(contentPaneLayout.createParallelGroup()
                         .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(60, 60, 60)
-                            .addGroup(contentPaneLayout.createParallelGroup()
-                                .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                    .addComponent(mail_txt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tlmv_txt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                                .addComponent(tipo_cbox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                    .addComponent(pw_txt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(nome_txt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(160, 160, 160)
-                            .addComponent(registar_btn)))
-                    .addContainerGap(167, Short.MAX_VALUE))
+                            .addGap(26, 26, 26)
+                            .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                .addGroup(contentPaneLayout.createSequentialGroup()
+                                    .addComponent(label3)
+                                    .addGap(8, 8, 8)
+                                    .addComponent(tipo_cbox, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE))
+                                .addGroup(contentPaneLayout.createSequentialGroup()
+                                    .addComponent(label2)
+                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(pw_txt, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE))
+                                .addGroup(contentPaneLayout.createSequentialGroup()
+                                    .addComponent(label1)
+                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(nome_txt, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE))
+                                .addGroup(contentPaneLayout.createSequentialGroup()
+                                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                        .addGroup(contentPaneLayout.createSequentialGroup()
+                                            .addComponent(label4)
+                                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED))
+                                        .addGroup(contentPaneLayout.createSequentialGroup()
+                                            .addComponent(label5)
+                                            .addGap(5, 5, 5)))
+                                    .addGroup(contentPaneLayout.createParallelGroup()
+                                        .addComponent(tlmv_txt, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(mail_txt, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE))))
+                            .addGap(35, 35, 35))
+                        .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
+                            .addComponent(button1, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                            .addComponent(error_txt, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(registar_btn)
+                            .addContainerGap())))
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addGap(42, 42, 42)
-                    .addComponent(nome_txt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addGap(23, 23, 23)
+                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(label1)
+                        .addComponent(nome_txt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addGap(18, 18, 18)
-                    .addComponent(pw_txt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(label2)
+                        .addComponent(pw_txt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addGap(18, 18, 18)
-                    .addComponent(tipo_cbox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
-                    .addComponent(tlmv_txt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
-                    .addComponent(mail_txt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
-                    .addComponent(registar_btn)
-                    .addContainerGap(45, Short.MAX_VALUE))
+                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(label3)
+                        .addComponent(tipo_cbox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(label4)
+                        .addComponent(tlmv_txt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(contentPaneLayout.createParallelGroup()
+                        .addComponent(mail_txt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGap(4, 4, 4)
+                            .addComponent(label5)))
+                    .addGroup(contentPaneLayout.createParallelGroup()
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGap(18, 18, 18)
+                            .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(registar_btn)
+                                .addComponent(button1)))
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGap(6, 6, 6)
+                            .addComponent(error_txt)))
+                    .addContainerGap(3, Short.MAX_VALUE))
         );
         pack();
         setLocationRelativeTo(getOwner());
@@ -141,21 +236,22 @@ public class NovoFuncionarioFrame extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new NovoFuncionarioFrame().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - unknown
+    // Generated using JFormDesigner Evaluation license - Pedro Moreira
     private JTextField nome_txt;
     private JTextField pw_txt;
     private JTextField tlmv_txt;
     private JTextField mail_txt;
     private JComboBox<String> tipo_cbox;
     private JButton registar_btn;
+    private JLabel label1;
+    private JLabel label2;
+    private JLabel label3;
+    private JLabel label4;
+    private JLabel label5;
+    private JButton button1;
+    private JLabel error_txt;
     // End of variables declaration//GEN-END:variables
 }

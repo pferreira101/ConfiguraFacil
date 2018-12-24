@@ -25,6 +25,7 @@ public class AtualizarStockFrame extends javax.swing.JFrame {
         // TODO add your code here
     }
 
+
     public AtualizarStockFrame() {
         initComponents();
     }
@@ -47,6 +48,7 @@ public class AtualizarStockFrame extends javax.swing.JFrame {
 
         //======== this ========
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Atualizar Stock");
         Container contentPane = getContentPane();
 
         //---- componente_cbox ----
@@ -60,8 +62,6 @@ public class AtualizarStockFrame extends javax.swing.JFrame {
         //---- nova_componente_btn ----
         nova_componente_btn.setText("Nova Componente");
         nova_componente_btn.addActionListener(e -> {
-			jButton1ActionPerformed(e);
-			nova_componente_btnActionPerformed(e);
 			nova_componente_btnActionPerformed(e);
 		});
 
@@ -143,12 +143,6 @@ public class AtualizarStockFrame extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AtualizarStockFrame().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

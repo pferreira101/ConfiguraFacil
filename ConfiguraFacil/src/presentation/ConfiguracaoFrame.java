@@ -46,6 +46,7 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
 
         //======== this ========
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Configura\u00e7\u00e3o");
         Container contentPane = getContentPane();
 
         //---- sair_btn ----

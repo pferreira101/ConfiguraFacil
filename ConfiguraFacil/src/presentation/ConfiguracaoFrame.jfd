@@ -9,6 +9,7 @@ new FormModel {
 		} ) {
 			name: "this"
 			"defaultCloseOperation": 2
+			"title": "Configuração"
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "sair_btn"
 				"text": "Sair"

@@ -55,6 +55,7 @@ public class StandFrame extends javax.swing.JFrame {
 
         //======== this ========
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Stand");
         Container contentPane = getContentPane();
 
         //---- config_btn ----
