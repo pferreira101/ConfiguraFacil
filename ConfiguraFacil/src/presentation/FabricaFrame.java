@@ -6,7 +6,7 @@
 package presentation;
 
 import business.ConfiguraFacil;
-import business.Funcionario;
+import business.gConta.Funcionario;
 
 import java.awt.*;
 import java.awt.event.*;

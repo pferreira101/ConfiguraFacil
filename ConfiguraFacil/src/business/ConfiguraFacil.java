@@ -5,8 +5,12 @@ import data.ClienteDAO;
 import data.FuncionarioDAO;
 import data.EncomendaDAO;
 import data.PacoteDAO;
+import business.gFabrica.*;
+import business.gConta.*;
+import business.gConfig.*;
 
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +20,7 @@ public class ConfiguraFacil {
 	public Pacote _pacotes;
 	public Map<Integer, Cliente> clientes;
 	public Map<Integer, Funcionario> funcionarios;
+	public Map<Integer, Encomenda> encomendas;
 	public Encomenda _encomendas;
 	public ComponenteDAO _unnamed_ComponenteDAO_;
 	public ClienteDAO clienteDAO;
@@ -77,5 +82,81 @@ public class ConfiguraFacil {
     public void registaFuncionario(Funcionario f) throws SQLException, ClassNotFoundException {
 	    this.funcionarios.put(f.getID(), f);
 	    this.funcionarioDAO.put(f.getID(), f);
+    }
+
+    /**
+     * Método para atualizar a informação relativa a um funcionário.
+     * @param id Id do funcionário a atualizar.
+     * @param nome Novo nome do funcionário.
+     * @param password Nova password do funcionário.
+     * @param tipo Novo tipo de funcionário.
+     * @param telemovel Novo número de telemóvel do funcionário.
+     * @param email Novo email do funcionário.
+     */
+
+
+    public void alteraFuncionario(int id, String nome, String password, int tipo, int telemovel, String email){
+	    Funcionario f = this.funcionarios.get(id);
+
+	    f.setALL(nome,password,tipo,telemovel,email);
+
+	    // com dao isto vai ter que mudar e o DSI tb!!!1
+    }
+
+    /**
+     * Método para verificar se um dado funcionário existe no sistema.
+     * @param id Id do funcionário a verificar.
+     * @return
+     */
+
+
+    public boolean existeFuncionario(int id){
+	    return this.funcionarios.containsKey(id);
+    }
+
+    /**
+     * Método do facade para atualizar os campos de um cliente.
+     * @param id
+     * @param nome
+     * @param tel
+     * @param mail
+     */
+
+    public void alteraCliente(int id,String nome,int tel,String mail){
+	    Cliente c = this.clientes.get(id);
+	    c.setALL(nome,tel,mail);
+
+	    //isto com daos vai mudar e o DSI tb !!!!
+    }
+
+    /**
+     * Método para dado um orçamento e uma prioridade calcular a configuração ótima correspondente.
+     * @param orcamento Valor do orçamento dado.
+     * @param prio Prioridade das escolhas.
+     * @return
+     */
+
+    public Configuracao calculaConfigO(int orcamento,int prio){
+        return  null;
+    }
+
+    /**
+     * Método para devolver todas as encomendas até ao momento.
+     * @return Coleção com todas as encomendas.
+     */
+
+
+    public Collection<Encomenda> getEncomendas(){
+        return this.encomendas.values();
+    }
+
+    /**
+     * Método para devolver uma dada encomenda.
+     * @param cod Identificador da encomenda.
+     * @return Encomenda pretendida.
+     */
+
+    public Encomenda getEncomenda(int cod){
+        return  this.encomendas.get(cod);
     }
 }

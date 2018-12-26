@@ -5,7 +5,7 @@
  */
 package presentation;
 
-import business.Funcionario;
+import business.gConta.Funcionario;
 
 import java.awt.*;
 import javax.swing.*;
