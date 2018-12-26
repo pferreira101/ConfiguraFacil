@@ -180,4 +180,14 @@ public class Componente {
 		this.complementares = new ArrayList<>();
 		this.incompativeis = new ArrayList<>();
 	}
+
+	/**
+	 * Método que verifica se uma componente tem outras complementares.
+	 * @return
+	 */
+
+	public boolean temComplementares(){
+		boolean fim = this.complementares.size() > 0 ? true : false;
+		return  fim;
+	}
 }

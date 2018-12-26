@@ -3,6 +3,10 @@ package business;
 import business.gConfig.Componente;
 import java.util.Comparator;
 
+/**
+ * Classe para ordenar compomentes pela razão entre o custo e o número de componentes.
+ */
+
 public class SortRazao implements Comparator<Componente> {
 
     public int compare(Componente a,Componente b){

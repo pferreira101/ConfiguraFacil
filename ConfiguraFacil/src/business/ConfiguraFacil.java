@@ -10,15 +10,11 @@ import business.gConta.*;
 import business.gConfig.*;
 
 import java.sql.SQLException;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ConfiguraFacil {
-	public Componente _componentes;
-	public Pacote _pacotes;
 	public Map<Integer, Cliente> clientes;
+    public Map<Integer, Componente> componentes;
 	public Map<Integer, Funcionario> funcionarios;
 	public Map<Integer, Encomenda> encomendas;
 	public Encomenda _encomendas;
@@ -136,8 +132,22 @@ public class ConfiguraFacil {
      * @return
      */
 
-    public Configuracao calculaConfigO(int orcamento,int prio){
-        return  null;
+    public Configuracao calculaConfigO(double orcamento,int prio){
+         List<Componente> sgd = new ArrayList<>();
+         List<Componente> prim = new ArrayList<>();
+
+         for(Componente c : componentes.values()){
+             if (c.temComplementares())
+                 prim.add(c);
+             else sgd.add(c);
+         }
+
+         Collections.sort(prim,new SortRazao());
+         Collections.sort(prim,new SortBaixo());
+
+         double sum = 0;
+
+         return null;
     }
 
     /**

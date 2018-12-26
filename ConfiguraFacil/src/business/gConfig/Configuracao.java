@@ -1,10 +1,9 @@
 package business.gConfig;
 
-import java.util.Vector;
-import business.gFabrica.Encomenda;
+import java.util.*;
 
 public class Configuracao {
-	public Vector<Componente> _componentes = new Vector<Componente>();
-	public Pacote _pacotes;
-	public Encomenda _unnamed_Encomenda_;
+	private List<Componente> componentes;
+	private List<Pacote> pacotes;
+
 }
