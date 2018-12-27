@@ -65,7 +65,7 @@ public class ConfiguraFacil {
 	    if(id == 0 && password.equals("admin")) return 3;
 
 	    Funcionario f = this.funcionarios.get(id);
-	    if(f != null) {
+	    if(f != null && f.getPassword().equals(password)) {
 	        return f.getTipo();
         }
 	    else return 0;
