@@ -164,4 +164,19 @@ public class Funcionario {
         this.email = email;
     }
 
+    /**
+     * Método que dado a password calcula as permissões do funcionário na aplicação.
+     * @param password Password introduzida.
+     * @return Permissões atribuidas.
+     */
+
+    public int authenticate(String password) {
+        int r = -1;
+
+        if (this.password.equals(password)) {
+            r = this.tipo;
+        }
+
+        return r;
+    }
 }

@@ -6,7 +6,7 @@ public class Componente {
 	private int id;
 	private String designacao;
 	private double preco;
-	private String tipo;
+	private int tipo;
 	private List<Componente> complementares;
 	private List<Componente> incompativeis;
 
@@ -43,7 +43,7 @@ public class Componente {
 	 * @return String com o tipo da componente.
 	 */
 
-	public String getTipo() {
+	public int getTipo() {
 		return tipo;
 	}
 
@@ -94,7 +94,7 @@ public class Componente {
 	 * Método set para o tipo da componente.
 	 */
 
-	public void setTipo(String tipo) {
+	public void setTipo(int tipo) {
 		this.tipo = tipo;
 	}
 
@@ -128,7 +128,7 @@ public class Componente {
 	 * @param incompativeis
 	 */
 
-	public Componente(int id, String designacao, double preco, String tipo, List<Componente> complementares, List<Componente> incompativeis) {
+	public Componente(int id, String designacao, double preco, int tipo, List<Componente> complementares, List<Componente> incompativeis) {
 		this.id = id;
 		this.designacao = designacao;
 		this.preco = preco;
@@ -156,9 +156,7 @@ public class Componente {
 		return id == that.id &&
 				Double.compare(that.preco, preco) == 0 &&
 				Objects.equals(designacao, that.designacao) &&
-				Objects.equals(tipo, that.tipo) &&
-				Objects.equals(complementares, that.complementares) &&
-				Objects.equals(incompativeis, that.incompativeis);
+				Objects.equals(tipo, that.tipo);
 	}
 
 	@Override
@@ -176,7 +174,7 @@ public class Componente {
 
 		this.designacao = "";
 		this.preco = -1;
-		this.tipo = "";
+		this.tipo = -1;
 		this.complementares = new ArrayList<>();
 		this.incompativeis = new ArrayList<>();
 	}

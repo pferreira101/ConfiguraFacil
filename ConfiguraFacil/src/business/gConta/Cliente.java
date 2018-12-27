@@ -1,13 +1,10 @@
 package business.gConta;
 
-import business.gFabrica.Encomenda;
-
 public class Cliente {
 	private int id;
 	private String nome;
 	private int telemovel;
 	private String email;
-	public Encomenda _unnamed_Encomenda_;
 
     /**
      * Método get para o id de um cliente.

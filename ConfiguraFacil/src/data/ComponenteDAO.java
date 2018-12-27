@@ -1,6 +1,5 @@
 package data;
 
-import business.Componente;
 import business.Funcionario;
 
 import java.sql.*;

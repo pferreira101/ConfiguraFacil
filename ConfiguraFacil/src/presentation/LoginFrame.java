@@ -5,7 +5,6 @@
  */
 package presentation;
 
-import business.Componente;
 import business.ConfiguraFacil;
 import business.gConta.Funcionario;
 
