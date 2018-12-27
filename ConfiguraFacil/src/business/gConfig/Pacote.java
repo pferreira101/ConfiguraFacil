@@ -1,9 +1,9 @@
 package business.gConfig;
 
-import java.util.Vector;
+import java.util.*;
 
 public class Pacote {
-	private int _id;
-	private double _desconto;
-	private Vector<Componente> _componentes = new Vector<Componente>();
+	private int id;
+	private double desconto;
+	private List<Componente> componentes = new ArrayList<>();
 }

@@ -146,6 +146,7 @@ public class ConfiguraFacil {
          Collections.sort(prim,new SortBaixo());
 
          double sum = 0;
+         //falta acabar
 
          return null;
     }
