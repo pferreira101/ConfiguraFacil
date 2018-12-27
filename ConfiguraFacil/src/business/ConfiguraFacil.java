@@ -17,7 +17,7 @@ public class ConfiguraFacil {
     public Map<Integer, Componente> componentes;
 	public Map<Integer, Funcionario> funcionarios;
 	public Map<Integer, Encomenda> encomendas;
-	public Encomenda _encomendas;
+	public Fabrica fabrica;
 	public ComponenteDAO componenteDAO;
 	public ClienteDAO clienteDAO;
 	public FuncionarioDAO funcionarioDAO;
@@ -64,11 +64,13 @@ public class ConfiguraFacil {
     public int logIn(int id, String password){
 	    if(id == 0 && password.equals("admin")) return 3;
 
-	    Funcionario f = this.funcionarios.get(id);
-	    if(f != null && f.getPassword().equals(password)) {
-	        return f.getTipo();
+	    int r = -1;
+
+	    if (this.funcionarios.containsKey(id)) {
+            Funcionario f = this.funcionarios.get(id);
+            r = f.authenticate(password);
         }
-	    else return 0;
+        return r;
     }
 
     public void registaCliente(Cliente c) throws SQLException, ClassNotFoundException {
@@ -112,6 +114,17 @@ public class ConfiguraFacil {
     }
 
     /**
+     * Método para verificar se um dado cliente existe no sistema.
+     * @param id Id do cliente a verificar.
+     * @return
+     */
+
+
+    public boolean existeCliente(int id){
+        return this.clientes.containsKey(id);
+    }
+
+    /**
      * Método do facade para atualizar os campos de um cliente.
      * @param id
      * @param nome
@@ -147,9 +160,51 @@ public class ConfiguraFacil {
          Collections.sort(prim,new SortBaixo());
 
          double sum = 0;
-         //falta acabar
+         double sum2 = 0;
 
-         return null;
+         List<Componente> list;
+         boolean todos,valid1,rep,valid;
+
+         Configuracao config = new Configuracao();
+
+         for(Componente c : prim){
+             if (sum >= orcamento)
+                 break;
+             list = c.getComplementares();
+             valid1 = config.compativel(c);
+             todos = true;
+             for(Componente i : list){
+                 if (sum < orcamento && valid1){
+                     sum2 = i.getPreco();
+                     valid = config.compativel(i);
+                     rep = config.incluido(i);
+                 }
+                 else break;
+                 if (valid && (sum + sum2 < orcamento) && !rep){
+                     config.add(i);
+                     sum += sum2;
+                 }
+                 else if (valid == false || (sum+sum2 > orcamento))
+                     todos = false;
+             }
+
+             sum2 = c.getPreco();
+             if (todos && (sum2 + sum < orcamento) && valid1){
+                 config.add(c);
+             }
+
+         }
+        for(Componente c : sgd){
+             valid = config.compativel(c);
+             sum2 = c.getPreco();
+             rep = config.incluido(c);
+             if (valid && sum+sum2 < orcamento && !rep){
+                 sum += sum2;
+                 config.add(c);
+             }
+        }
+
+         return config;
     }
 
     /**
@@ -172,6 +227,7 @@ public class ConfiguraFacil {
         return  this.encomendas.get(cod);
     }
 
+
     public List<Componente> getComponentes() throws Exception {
         return this.componenteDAO.list();
     }
@@ -182,5 +238,52 @@ public class ConfiguraFacil {
 
     public List<Cliente> getClientes() throws Exception {
         return this.clienteDAO.list();
+    }
+
+    /**
+     * Método para devolver um lista com o stock atual das componentes.
+     * @return List com o stock das componentes.
+     */
+
+    public List<Stock> getStockList(){
+        return this.fabrica.getStockList();
+    }
+
+    /**
+     * Método para verificar uma dada componente já se encontra no sistema.
+     * @param cod Chave do componente a procurar.
+     * @return Boolean que representa a existência de um elemento no sistema.
+     */
+
+    public boolean existeStock(int cod){
+        return this.fabrica.existeStock(cod);
+    }
+
+    /**
+     * Método para adicionar um nova componente ao sistema
+     * @param nome  Designação da nova componente.
+     * @param preco Preço da nova componente.
+     * @param tipo Tipo da nova componente.
+     * @param comp Lista com as componentes complementares.
+     * @param incomp Lsita com as componente incompatíveis.
+     */
+
+    public void adicionarComponente(String nome,double preco,int tipo,List<Componente> comp,List<Componente> incomp){
+        int id = this.componentes.size();
+        Componente c = new Componente(id,nome,preco,tipo,comp,incomp);
+
+        this.componentes.put(id,c);
+
+        this.fabrica.adicionarStockNovo(c);
+    }
+
+    /**
+     * Método para encomendar e atualizar stock de uma componente.
+     * @param idcomp Id da componente a atualizar.
+     * @param quantidade Quantidade nova a introduzir.
+     */
+
+    public void encomendar(int idcomp,int quantidade){
+        this.fabrica.atualizarStock(idcomp,quantidade);
     }
 }

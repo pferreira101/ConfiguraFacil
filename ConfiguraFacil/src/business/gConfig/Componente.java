@@ -156,9 +156,7 @@ public class Componente {
 		return id == that.id &&
 				Double.compare(that.preco, preco) == 0 &&
 				Objects.equals(designacao, that.designacao) &&
-				Objects.equals(tipo, that.tipo) &&
-				Objects.equals(complementares, that.complementares) &&
-				Objects.equals(incompativeis, that.incompativeis);
+				Objects.equals(tipo, that.tipo);
 	}
 
 	@Override
