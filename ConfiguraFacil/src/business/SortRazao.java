@@ -30,7 +30,7 @@ public class SortRazao implements Comparator<Componente> {
         razaoB = razaoB / nB;
 
         int fim;
-        fim = razaoA < razaoB ? 1 : -1;
+        fim = razaoA < razaoB ? -1 : 1;
 
         return fim;
     }
