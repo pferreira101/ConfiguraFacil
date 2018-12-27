@@ -31,6 +31,11 @@ public class StandFrame extends javax.swing.JFrame {
         new ClientesFrame(cf).setVisible(true);
     }
 
+    private void sair_btnActionPerformed(ActionEvent e) {
+        this.dispose();
+        new LoginFrame().setVisible(true);
+    }
+
     public StandFrame(ConfiguraFacil cf, Funcionario f) {
         initComponents();
         this.cf = cf;
@@ -61,7 +66,13 @@ public class StandFrame extends javax.swing.JFrame {
         //---- config_btn ----
         config_btn.setFont(new Font("Tahoma", Font.PLAIN, 12));
         config_btn.setText("Iniciar Configura\u00e7\u00e3o");
-        config_btn.addActionListener(e -> config_btnActionPerformed(e));
+        config_btn.addActionListener(e -> {
+            try {
+                config_btnActionPerformed(e);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        });
 
         //---- clientes_btn ----
         clientes_btn.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -70,6 +81,7 @@ public class StandFrame extends javax.swing.JFrame {
 
         //---- sair_btn ----
         sair_btn.setText("Sair");
+        sair_btn.addActionListener(e -> sair_btnActionPerformed(e));
 
         //---- jLabel1 ----
         jLabel1.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -118,8 +130,8 @@ public class StandFrame extends javax.swing.JFrame {
         setLocationRelativeTo(getOwner());
     }// </editor-fold>//GEN-END:initComponents
 
-    private void config_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_config_btnActionPerformed
-        new ConfiguracaoFrame().setVisible(true);
+    private void config_btnActionPerformed(java.awt.event.ActionEvent evt) throws Exception {//GEN-FIRST:event_config_btnActionPerformed
+        new ConfiguracaoFrame(this.cf).setVisible(true);
     }//GEN-LAST:event_config_btnActionPerformed
 
     /**

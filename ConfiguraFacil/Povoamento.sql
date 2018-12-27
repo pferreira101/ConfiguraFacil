@@ -2,10 +2,11 @@
 # POVOAMENTO FUNCIONARIOS
 
 INSERT INTO funcionario
-VALUES (1, "Pedro", 92, "pedro", 1, "pedro");
+VALUES (1, "Pedro", 92, "pedro", 1, "pedro"),
+	   (2, "Pedro", 92, "pedro", 2, "pedro");
 
 SELECT * FROM funcionario;
-
+DELETE FROM funcionario WHERE id_funcionario > 0;
 
 
 

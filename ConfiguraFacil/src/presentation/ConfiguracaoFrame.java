@@ -5,27 +5,108 @@
  */
 package presentation;
 
+import business.Componente;
+import business.ConfiguraFacil;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle;
+import javax.swing.event.*;
+import javax.swing.table.*;
 
 /**
  *
  * @author Pedro
  */
+
+class Selection{
+
+    DefaultTableModel model;
+    int selected;
+
+    public Selection(){
+        this.model = new DefaultTableModel();
+        this.selected = -1;
+    }
+
+    public Selection(DefaultTableModel model, int selected){
+        this.model = model;
+        this.selected = selected;
+    }
+}
+
+
+
 public class ConfiguracaoFrame extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ConfiguraFrame
-     */
+    Selection[] selections;
+    ConfiguraFacil cf;
+
     private void registar_btnActionPerformed(ActionEvent e) {
         new RegistaEncomendaFrame().setVisible(true);
     }
 
-    public ConfiguracaoFrame() {
+    private void sair_btnActionPerformed(ActionEvent e) {
+        this.dispose();
+    }
+
+
+    private void type_listValueChanged(ListSelectionEvent e) {
+
+    }
+
+
+    private DefaultTableModel createModel(List<Componente> list){
+        DefaultTableModel r = new DefaultTableModel();
+        Object row_data[] = new Object[3];
+
+        r.setRowCount(0);
+
+        // Adiciona novos
+        for(Componente c : list){
+            row_data[0] = c.getID();
+            row_data[1] = c.getDesignacao();
+            row_data[2] = c.getPreco();
+            r.addRow(row_data);
+        }
+
+        return r;
+    }
+
+    private void createSelections(int tipo) throws Exception {
+        List<Componente> componentes = this.cf.componenteDAO.list();
+
+        List<Componente> comp_by_type = componentes.stream().filter(c -> c.getTipo() == tipo + 1).collect(Collectors.toList());
+
+        DefaultTableModel model = createModel(comp_by_type);
+        int selected = -1;
+
+        Selection s = new Selection(model, selected);
+
+        this.selections[tipo] = s;
+
+    }
+
+
+    private void loadSelection(int tipo){
+        cmp_tbl.setModel(selections[tipo-1].model);
+        cmp_tbl.setRowSelectionInterval(selections[tipo].selected, selections[tipo].selected);
+    }
+
+    /**
+     * Creates new form ConfiguraFrame
+     */
+    public ConfiguracaoFrame(ConfiguraFacil cf) throws Exception {
         initComponents();
+        this.cf = cf;
+        this.selections = new Selection[6];
+        for(int i = 0; i < 6; i++){
+            createSelections(i);
+        }
     }
 
     /**
@@ -40,9 +121,9 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
         sair_btn = new JButton();
         registar_btn = new JButton();
         jScrollPane1 = new JScrollPane();
-        jList1 = new JList<>();
+        type_list = new JList<>();
         jScrollPane2 = new JScrollPane();
-        table1 = new JTable();
+        cmp_tbl = new JTable();
 
         //======== this ========
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -51,6 +132,7 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
 
         //---- sair_btn ----
         sair_btn.setText("Sair");
+        sair_btn.addActionListener(e -> sair_btnActionPerformed(e));
 
         //---- registar_btn ----
         registar_btn.setText("Registar Encomenda");
@@ -59,26 +141,49 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
         //======== jScrollPane1 ========
         {
 
-            //---- jList1 ----
-            jList1.setModel(new AbstractListModel<String>() {
+            //---- type_list ----
+            type_list.setModel(new AbstractListModel<String>() {
                 String[] values = {
-                    "Item 1",
-                    "Item 2",
-                    "Item 3",
-                    "Item 4",
-                    "Item 5"
+                    "1 - Pintura",
+                    "2 - Jantes",
+                    "3 - Pneus",
+                    "4 - Motoriza\u00e7\u00e3o",
+                    "5 - Vidros",
+                    "6 - Estofos"
                 };
                 @Override
                 public int getSize() { return values.length; }
                 @Override
                 public String getElementAt(int i) { return values[i]; }
             });
-            jScrollPane1.setViewportView(jList1);
+            type_list.addListSelectionListener(e -> {
+			type_listValueChanged(e);
+		});
+            jScrollPane1.setViewportView(type_list);
         }
 
         //======== jScrollPane2 ========
         {
-            jScrollPane2.setViewportView(table1);
+
+            //---- cmp_tbl ----
+            cmp_tbl.setModel(new DefaultTableModel(
+                new Object[][] {
+                    {null, null, null},
+                    {null, null, null},
+                },
+                new String[] {
+                    "ID", "Designa\u00e7\u00e3o", "Pre\u00e7o"
+                }
+            ) {
+                boolean[] columnEditable = new boolean[] {
+                    false, false, false
+                };
+                @Override
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return columnEditable[columnIndex];
+                }
+            });
+            jScrollPane2.setViewportView(cmp_tbl);
         }
 
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
@@ -116,49 +221,14 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
         setLocationRelativeTo(getOwner());
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Windows look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Windows (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ConfiguracaoFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ConfiguracaoFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ConfiguracaoFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ConfiguracaoFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ConfiguracaoFrame().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // Generated using JFormDesigner Evaluation license - Pedro Moreira
     private JButton sair_btn;
     private JButton registar_btn;
     private JScrollPane jScrollPane1;
-    private JList<String> jList1;
+    private JList<String> type_list;
     private JScrollPane jScrollPane2;
-    private JTable table1;
+    private JTable cmp_tbl;
     // End of variables declaration//GEN-END:variables
 }

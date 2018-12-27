@@ -5,6 +5,7 @@
  */
 package presentation;
 
+import business.Componente;
 import business.ConfiguraFacil;
 import business.gConta.Funcionario;
 
@@ -151,15 +152,14 @@ public class LoginFrame extends javax.swing.JFrame {
         setLocationRelativeTo(getOwner());
     }// </editor-fold>//GEN-END:initComponents
 
-    private void sair_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sair_btnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_sair_btnActionPerformed
-
+    private void sair_btnActionPerformed(java.awt.event.ActionEvent evt) {
+        this.dispose();
+    }
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws Exception {
         /* Set the Windows look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Windows (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -189,9 +189,10 @@ public class LoginFrame extends javax.swing.JFrame {
         cf = new ConfiguraFacil();
         cf.loadFuncionarios();
 
-
-
-
+        // FIXME: 12/27/2018 DEBUGGING
+        Componente teste = cf.componenteDAO.get(1);
+        System.out.println("Incompatível: " + teste.getIncompativeis().get(0).getDesignacao());
+        System.out.println("Complementar: " + teste.getComplementares().get(0).getDesignacao());
 
 
         /* Create and display the form */

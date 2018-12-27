@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq {space :::p, comp button1:::p:49:p, space ::106:x, comp adicionar_btn:::p::p, space :::p}, seq l {space :p:18:p, par t {comp label4:::p::p, comp label1:::p::p, comp label2:::p::p, comp label3:::p::p}, space :::p, par l:::p {comp preco_txt:::::x, comp quantidade_txt:::::x, comp jComboBox1::l:::x, comp nome_txt::l:p:104:p}, space ::58:x}}"
-			"$verticalGroup": "par l {seq l {space :p:44:p, par b {comp nome_txt::b:p::p, comp label1::b:p::p}, space s:::p, par b {comp jComboBox1::b:p::p, comp label2::b:p::p}, space s:::p, par b {comp quantidade_txt::b:p::p, comp label3::b:p::p}, space u:::p, par b {comp label4::b:p::p, comp preco_txt::b:p::p}, space s:::p, par b {comp button1::b:p::p, comp adicionar_btn::b:p::p}, space ::8:x}}"
+			"$horizontalGroup": "par l {seq {par l {seq {par l {seq l {space :p:55:p, par t {comp label2:::p::p, comp label4:::p::p}, space :::p, par l {comp jComboBox1:::p:103:p, comp preco_txt:::::x}}, seq l {space :p:51:p, comp label1:::p::p, space :::p, comp nome_txt:::p:104:p}}, space :p:30:p}, seq l {space :p:46:p, comp button1:::p:49:p, space s:::p, comp adicionar_btn:::p::p, space :::x}}, comp scrollPane1:::p:362:p, space :p:22:p}}"
+			"$verticalGroup": "par l {seq {par l {seq {space :p:32:p, par b {comp nome_txt::b:p::p, comp label1::b:p::p}, space :p:13:p, par b {comp label2::b:p::p, comp jComboBox1::b:p::p}, space u:::p, par b {comp label4::b:p::p, comp preco_txt::b:p::p}, space :p:28:p, par b {comp adicionar_btn::b:p::p, comp button1::b:p::p}}, seq l {space :p:17:p, comp scrollPane1:::p:180:p}}, space ::36:x}}"
 		} ) {
 			name: "this"
 			"defaultCloseOperation": 2
@@ -16,20 +16,17 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JComboBox" ) {
 				name: "jComboBox1"
 				"model": new javax.swing.DefaultComboBoxModel {
-					selectedItem: "Item 1"
-					addElement( "Item 1" )
-					addElement( "Item 2" )
-					addElement( "Item 3" )
-					addElement( "Item 4" )
+					selectedItem: "1 - Pintura"
+					addElement( "1 - Pintura" )
+					addElement( "2 - Jantes" )
+					addElement( "3 - Pneus" )
+					addElement( "4 - Motorização" )
+					addElement( "5 - Vidros" )
+					addElement( "6 - Estofos" )
 				}
 				auxiliary() {
 					"JavaCodeGenerator.typeParameters": "String"
 				}
-			} )
-			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "quantidade_txt"
-				"toolTipText": ""
-				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "quantidade_txtActionPerformed", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "adicionar_btn"
@@ -44,10 +41,6 @@ new FormModel {
 				"text": "Tipo"
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label3"
-				"text": "Quantidade"
-			} )
-			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label4"
 				"text": "Preço"
 			} )
@@ -58,9 +51,49 @@ new FormModel {
 				name: "button1"
 				"text": "Sair"
 			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "scrollPane1"
+				add( new FormComponent( "javax.swing.JTable" ) {
+					name: "table1"
+					"model": new com.jformdesigner.model.SwingTableModel( new java.util.Vector {
+						add( new java.util.Vector {
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+						} )
+						add( new java.util.Vector {
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+						} )
+					}, new java.util.Vector {
+						add( "ID" )
+						add( "Designação" )
+						add( "Incompatíveis" )
+						add( "Complementar" )
+					}, new java.util.Vector {
+						add( null )
+						add( null )
+						add( class java.lang.Boolean )
+						add( class java.lang.Boolean )
+					}, new java.util.Vector {
+						add( false )
+						add( null )
+						add( null )
+						add( true )
+					}, new java.util.Vector {
+						add( null )
+						add( null )
+						add( null )
+						add( null )
+					} )
+				} )
+			} )
 		}, new FormLayoutConstraints( null ) {
-			"size": new java.awt.Dimension( 250, 270 )
-			"location": new java.awt.Point( 0, 10 )
+			"size": new java.awt.Dimension( 610, 265 )
+			"location": new java.awt.Point( 0, 5 )
 		} )
 	}
 }

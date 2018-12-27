@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FuncionarioDAO {
-	public ConfiguraFacil ConfiguraFacil;
 
 
 	public void put(int id, Funcionario f) throws SQLException, ClassNotFoundException {
