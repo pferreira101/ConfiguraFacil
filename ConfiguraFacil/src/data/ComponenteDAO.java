@@ -1,7 +1,6 @@
 package data;
 
-import business.Componente;
-import business.Funcionario;
+import business.gConfig.Componente;
 
 import java.sql.*;
 import java.util.ArrayList;

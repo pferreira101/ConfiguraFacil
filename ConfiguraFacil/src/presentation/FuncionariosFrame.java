@@ -60,7 +60,7 @@ public class FuncionariosFrame extends javax.swing.JFrame {
 
             Funcionario selected = this.cf.funcionarios.get(id);
 
-            new AlterarFuncionarioFrame(selected).setVisible(true);
+            new AlterarFuncionarioFrame(this.cf, selected).setVisible(true);
         }
     }
 
@@ -103,10 +103,7 @@ public class FuncionariosFrame extends javax.swing.JFrame {
 
         //---- novo_funcionario_btn ----
         novo_funcionario_btn.setText("Adicionar funcion\u00e1rio");
-        novo_funcionario_btn.addActionListener(e -> {
-			novo_cliente_btnActionPerformed(e);
-			novo_funcionario_btnActionPerformed(e);
-		});
+        novo_funcionario_btn.addActionListener(e -> novo_funcionario_btnActionPerformed(e));
 
         //======== jScrollPane1 ========
         {

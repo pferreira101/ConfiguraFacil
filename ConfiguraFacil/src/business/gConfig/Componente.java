@@ -6,7 +6,7 @@ public class Componente {
 	private int id;
 	private String designacao;
 	private double preco;
-	private String tipo;
+	private int tipo;
 	private List<Componente> complementares;
 	private List<Componente> incompativeis;
 
@@ -16,7 +16,7 @@ public class Componente {
 	 * @return Int com o id da componente.
 	 */
 
-	public int getId() {
+	public int getID() {
 		return id;
 	}
 
@@ -43,7 +43,7 @@ public class Componente {
 	 * @return String com o tipo da componente.
 	 */
 
-	public String getTipo() {
+	public int getTipo() {
 		return tipo;
 	}
 
@@ -70,7 +70,7 @@ public class Componente {
 	 * Método set para o valor do id da componente.
 	 */
 
-	public void setId(int id) {
+	public void setID(int id) {
 		this.id = id;
 	}
 
@@ -92,9 +92,10 @@ public class Componente {
 
 	/**
 	 * Método set para o tipo da componente.
-	 */
+     * @param tipo
+     */
 
-	public void setTipo(String tipo) {
+	public void setTipo(int tipo) {
 		this.tipo = tipo;
 	}
 
@@ -127,8 +128,7 @@ public class Componente {
 	 * @param complementares
 	 * @param incompativeis
 	 */
-
-	public Componente(int id, String designacao, double preco, String tipo, List<Componente> complementares, List<Componente> incompativeis) {
+	public Componente(int id, String designacao, double preco, int tipo, List<Componente> complementares, List<Componente> incompativeis) {
 		this.id = id;
 		this.designacao = designacao;
 		this.preco = preco;
@@ -173,10 +173,9 @@ public class Componente {
 
 	public Componente(){
 		this.id = -1;
-
 		this.designacao = "";
 		this.preco = -1;
-		this.tipo = "";
+		this.tipo = -1;
 		this.complementares = new ArrayList<>();
 		this.incompativeis = new ArrayList<>();
 	}

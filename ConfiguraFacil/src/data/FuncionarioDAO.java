@@ -88,7 +88,7 @@ public class FuncionarioDAO {
         st = c.prepareStatement("DELETE FROM funcionario WHERE id_funcionario = ?;");
         st.setInt(1, id);
 
-        st.executeQuery();
+        st.execute();
 
         c.close();
     }

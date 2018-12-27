@@ -6,6 +6,7 @@
 package presentation;
 
 import business.ConfiguraFacil;
+import business.gConfig.Configuracao;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -20,6 +21,7 @@ import javax.swing.LayoutStyle;
 public class RegistaEncomendaFrame extends javax.swing.JFrame {
 
     ConfiguraFacil cf;
+    Configuracao config;
     /**
      * Creates new form RegistaEncomendaFrame
      */
@@ -27,8 +29,10 @@ public class RegistaEncomendaFrame extends javax.swing.JFrame {
         new NovoClienteFrame(this.cf).setVisible(true);
     }
 
-    public RegistaEncomendaFrame() {
+    public RegistaEncomendaFrame(ConfiguraFacil cf, Configuracao config) {
         initComponents();
+        this.cf = cf;
+        this.config = config;
     }
 
     /**
@@ -156,41 +160,6 @@ public class RegistaEncomendaFrame extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(getOwner());
     }// </editor-fold>//GEN-END:initComponents
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Windows look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Windows (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RegistaEncomendaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RegistaEncomendaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RegistaEncomendaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RegistaEncomendaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new RegistaEncomendaFrame().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // Generated using JFormDesigner Evaluation license - Pedro Moreira
