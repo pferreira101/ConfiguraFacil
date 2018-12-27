@@ -16,7 +16,7 @@ public class Componente {
 	 * @return Int com o id da componente.
 	 */
 
-	public int getId() {
+	public int getID() {
 		return id;
 	}
 
@@ -70,7 +70,7 @@ public class Componente {
 	 * Método set para o valor do id da componente.
 	 */
 
-	public void setId(int id) {
+	public void setID(int id) {
 		this.id = id;
 	}
 
@@ -92,7 +92,8 @@ public class Componente {
 
 	/**
 	 * Método set para o tipo da componente.
-	 */
+     * @param tipo
+     */
 
 	public void setTipo(int tipo) {
 		this.tipo = tipo;
@@ -127,7 +128,10 @@ public class Componente {
 	 * @param complementares
 	 * @param incompativeis
 	 */
+<<<<<<< HEAD
 
+=======
+>>>>>>> d4d31ca0ac3e4a3c178102e35223fefdb5afdf28
 	public Componente(int id, String designacao, double preco, int tipo, List<Componente> complementares, List<Componente> incompativeis) {
 		this.id = id;
 		this.designacao = designacao;
@@ -171,7 +175,6 @@ public class Componente {
 
 	public Componente(){
 		this.id = -1;
-
 		this.designacao = "";
 		this.preco = -1;
 		this.tipo = -1;

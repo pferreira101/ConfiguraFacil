@@ -6,6 +6,7 @@
 package presentation;
 
 import business.ConfiguraFacil;
+import business.gConfig.Componente;
 import business.gConta.Funcionario;
 
 import javax.swing.*;
@@ -23,7 +24,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
     private void login_btnActionPerformed(ActionEvent e) {
         int id = Integer.parseInt(id_txt.getText());
-        String password = pw_txt.getText();
+        String password = new String(pw_txt.getPassword()).trim();
 
         int tipo = cf.logIn(id, password);
 
@@ -187,11 +188,6 @@ public class LoginFrame extends javax.swing.JFrame {
 
         cf = new ConfiguraFacil();
         cf.loadFuncionarios();
-
-        // FIXME: 12/27/2018 DEBUGGING
-        Componente teste = cf.componenteDAO.get(1);
-        System.out.println("Incompatível: " + teste.getIncompativeis().get(0).getDesignacao());
-        System.out.println("Complementar: " + teste.getComplementares().get(0).getDesignacao());
 
 
         /* Create and display the form */

@@ -1,6 +1,10 @@
 package data;
 
+<<<<<<< HEAD
 import business.Funcionario;
+=======
+import business.gConfig.Componente;
+>>>>>>> d4d31ca0ac3e4a3c178102e35223fefdb5afdf28
 
 import java.sql.*;
 import java.util.ArrayList;

@@ -5,9 +5,13 @@
  */
 package presentation;
 
+import java.awt.event.*;
+
+import business.ConfiguraFacil;
 import business.gConta.Funcionario;
 
 import java.awt.*;
+import java.sql.SQLException;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle;
@@ -18,14 +22,27 @@ import javax.swing.LayoutStyle;
  */
 public class AlterarFuncionarioFrame extends javax.swing.JFrame {
 
-
+    ConfiguraFacil cf;
     Funcionario f;
+
+
+    private void remover_btnActionPerformed(ActionEvent e) throws SQLException {
+        this.cf.funcionarios.remove(f.getID());
+        this.cf.funcionarioDAO.remove(f.getID());
+        this.dispose();
+    }
+
+    private void alterar_btnActionPerformed(ActionEvent e) {
+        // TODO add your code here
+    }
+
 
     /**
      * Creates new form NewFuncionarioFrame
      */
-    public AlterarFuncionarioFrame(Funcionario f) {
+    public AlterarFuncionarioFrame(ConfiguraFacil cf, Funcionario f){
         initComponents();
+        this.cf = cf;
         this.f = f;
         this.nome_txt.setText(f.getNome());
         this.tlmv_txt.setText(String.valueOf(f.getTelemovel()));
@@ -61,9 +78,17 @@ public class AlterarFuncionarioFrame extends javax.swing.JFrame {
 
         //---- alterar_btn ----
         alterar_btn.setText("Alterar");
+        alterar_btn.addActionListener(e -> alterar_btnActionPerformed(e));
 
         //---- remover_btn ----
         remover_btn.setText("Remover");
+        remover_btn.addActionListener(e -> {
+            try {
+                remover_btnActionPerformed(e);
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+        });
 
         //---- label1 ----
         label1.setText("Nome");
@@ -126,7 +151,7 @@ public class AlterarFuncionarioFrame extends javax.swing.JFrame {
                             .addComponent(label1)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(nome_txt, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE)))
-                    .addContainerGap(46, Short.MAX_VALUE))
+                    .addContainerGap(44, Short.MAX_VALUE))
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()

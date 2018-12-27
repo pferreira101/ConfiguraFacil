@@ -6,6 +6,7 @@ public class Configuracao {
 	private List<Componente> componentes;
 	private List<Pacote> pacotes;
 
+<<<<<<< HEAD
 	/**
 	 * Construtor sem parametros da classe configuração.
 	 */
@@ -64,4 +65,14 @@ public class Configuracao {
 	public void add(Componente c){
 		this.componentes.add(c);
 	}
+=======
+	public void addComponente(Componente c){
+	    this.componentes.add(c);
+    }
+
+    public void addPacote(Pacote p){
+	    this.pacotes.add(p);
+    }
+
+>>>>>>> d4d31ca0ac3e4a3c178102e35223fefdb5afdf28
 }
