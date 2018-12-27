@@ -64,17 +64,11 @@ public class ConfiguraFacil {
     public int logIn(int id, String password){
 	    if(id == 0 && password.equals("admin")) return 3;
 
-<<<<<<< HEAD
 	    int r = -1;
 
-	    if (this.funcionarios.containsKey(id)){
-	        Funcionario f = this.funcionarios.get(id);
-	        r = f.authenticate(password);
-=======
-	    Funcionario f = this.funcionarios.get(id);
-	    if(f != null && f.getPassword().equals(password)) {
-	        return f.getTipo();
->>>>>>> d4d31ca0ac3e4a3c178102e35223fefdb5afdf28
+	    if (this.funcionarios.containsKey(id)) {
+            Funcionario f = this.funcionarios.get(id);
+            r = f.authenticate(password);
         }
         return r;
     }

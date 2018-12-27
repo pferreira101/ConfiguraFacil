@@ -128,10 +128,6 @@ public class Componente {
 	 * @param complementares
 	 * @param incompativeis
 	 */
-<<<<<<< HEAD
-
-=======
->>>>>>> d4d31ca0ac3e4a3c178102e35223fefdb5afdf28
 	public Componente(int id, String designacao, double preco, int tipo, List<Componente> complementares, List<Componente> incompativeis) {
 		this.id = id;
 		this.designacao = designacao;
