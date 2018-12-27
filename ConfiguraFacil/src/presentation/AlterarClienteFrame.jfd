@@ -32,7 +32,6 @@ new FormModel {
 				name: "nome_txt"
 				"toolTipText": ""
 				"editable": false
-				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "nome_txtActionPerformed", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label1"

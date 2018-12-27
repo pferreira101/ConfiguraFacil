@@ -171,4 +171,16 @@ public class ConfiguraFacil {
     public Encomenda getEncomenda(int cod){
         return  this.encomendas.get(cod);
     }
+
+    public List<Componente> getComponentes() throws Exception {
+        return this.componenteDAO.list();
+    }
+
+    public int getNextClienteID() throws SQLException {
+        return this.clienteDAO.size() + 1;
+    }
+
+    public List<Cliente> getClientes() throws Exception {
+        return this.clienteDAO.list();
+    }
 }

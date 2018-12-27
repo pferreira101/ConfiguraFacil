@@ -4,20 +4,48 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq {par l {seq l {space :30:30:p, par t:::p {comp jScrollPane1::l::322:x, seq l {comp cliente_txt:::p:69:p, space :::x, comp novo_cliente_btn:::p::p}, seq l {comp jScrollPane2:::p:197:p, space :p:24:p, par l {comp jLabel2:::p::p, comp jLabel1:::p::p}}}, space :0:0:x}, seq l {space :::p, comp sair_btn:::p::p, space ::154:x, comp registar_encomenda_btn:::p::p}}, space :::p}}"
-			"$verticalGroup": "par l {seq l {space :p:29:p, par b {comp novo_cliente_btn::b:p::p, comp cliente_txt::b:p:24:p}, space u:::p, comp jScrollPane1:::p:82:p, par l {seq {space :p:60:p, comp jLabel1:::p::p, space :::p, comp jLabel2:::p::p, space ::58:x}, seq t {space ::39:x, comp jScrollPane2:::p:88:p, space :p:29:p}}, par b {comp sair_btn::b:p::p, comp registar_encomenda_btn::b:p::p}, space :::p}}"
+			"$horizontalGroup": "par l {seq {par l {seq l {space :30:30:p, par t:::p {comp jScrollPane1::l::366:x, seq t {comp cliente_txt:::p:100:p, space :::x, comp novo_cliente_btn:::p::p}, seq l {comp jScrollPane2:::p:197:p, space :::x, par l {seq t {comp jLabel1:::p::p, space :::p, comp preco_txt:::p:86:p}, seq l {par l {comp jLabel2:::p::p, comp label1::t:p::p}, space :::p, par l:::p {comp desconto_txt::::86:x, comp total_txt::::86:x}}}}}}, seq l {space :::p, comp sair_btn:::p::p, space ::199:x, comp registar_encomenda_btn:::p::p}}, space :::p}}"
+			"$verticalGroup": "par l {seq l {space :p:29:p, par b {comp novo_cliente_btn::b:p::p, comp cliente_txt::b:p:24:p}, space u:::p, comp jScrollPane1:::p:82:p, space ::38:x, par l {seq t {comp jScrollPane2:::p:88:p, space :p:29:p}, seq t {par b {comp jLabel1::b:p::p, comp preco_txt::b:p::p}, space :::p, par b {comp jLabel2::b:p::p, comp desconto_txt::b:p::p}, space :::p, par b {comp label1::b:p::p, comp total_txt::b:p::p}, space :p:34:p}}, par b {comp sair_btn::b:p::p, comp registar_encomenda_btn::b:p::p}, space :::p}}"
 		} ) {
 			name: "this"
 			"defaultCloseOperation": 2
 			"title": "Regista Encomenda"
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "cliente_txt"
-				"text": "Cliente"
+				addEvent( new FormEvent( "java.awt.event.KeyListener", "keyReleased", "cliente_txtKeyReleased", true ) )
 			} )
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 				name: "jScrollPane1"
 				add( new FormComponent( "javax.swing.JTable" ) {
-					name: "table1"
+					name: "clientes_tbl"
+					"model": new com.jformdesigner.model.SwingTableModel( new java.util.Vector {
+						add( new java.util.Vector {
+							add( null )
+							add( null )
+							add( null )
+						} )
+						add( new java.util.Vector {
+							add( null )
+							add( null )
+							add( null )
+						} )
+					}, new java.util.Vector {
+						add( "ID" )
+						add( "Nome" )
+						add( "Telemóvel" )
+					}, new java.util.Vector {
+						add( null )
+						add( null )
+						add( null )
+					}, new java.util.Vector {
+						add( false )
+						add( false )
+						add( false )
+					}, new java.util.Vector {
+						add( null )
+						add( null )
+						add( null )
+					} )
 				} )
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
@@ -27,18 +55,36 @@ new FormModel {
 			} )
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 				name: "jScrollPane2"
-				add( new FormComponent( "javax.swing.JList" ) {
-					name: "jList2"
-					"model": new javax.swing.DefaultListModel {
-						addElement( "Item 1" )
-						addElement( "Item 2" )
-						addElement( "Item 3" )
-						addElement( "Item 4" )
-						addElement( "Item 5" )
-					}
-					auxiliary() {
-						"JavaCodeGenerator.typeParameters": "String"
-					}
+				add( new FormComponent( "javax.swing.JTable" ) {
+					name: "cmp_tbl"
+					"model": new com.jformdesigner.model.SwingTableModel( new java.util.Vector {
+						add( new java.util.Vector {
+							add( null )
+							add( null )
+							add( null )
+						} )
+						add( new java.util.Vector {
+							add( null )
+							add( null )
+							add( null )
+						} )
+					}, new java.util.Vector {
+						add( "ID" )
+						add( "Designação" )
+						add( "Preço" )
+					}, new java.util.Vector {
+						add( null )
+						add( null )
+						add( null )
+					}, new java.util.Vector {
+						add( false )
+						add( false )
+						add( false )
+					}, new java.util.Vector {
+						add( null )
+						add( null )
+						add( null )
+					} )
 				} )
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
@@ -52,13 +98,31 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "sair_btn"
 				"text": "Sair"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "sair_btnActionPerformed", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "registar_encomenda_btn"
 				"text": "Registar Encomenda"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "registar_encomenda_btnActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label1"
+				"text": "Total"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "preco_txt"
+				"editable": false
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "desconto_txt"
+				"editable": false
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "total_txt"
+				"editable": false
 			} )
 		}, new FormLayoutConstraints( null ) {
-			"size": new java.awt.Dimension( 380, 365 )
+			"size": new java.awt.Dimension( 425, 365 )
 			"location": new java.awt.Point( 0, 0 )
 		} )
 	}

@@ -68,20 +68,20 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
     SelectionPacote[] selections_pacotes;
     ConfiguraFacil cf;
 
-    private void registar_btnActionPerformed(ActionEvent e) {
+    private void registar_btnActionPerformed(ActionEvent e) throws Exception {
         Configuracao config = new Configuracao();
 
         for(Selection s : this.selections){
-            if(s.selected != -1 || s.selected != 0){
-                Componente c = s.comps.get(s.selected);
+            if(s.selected != -1 && s.selected != 0){
+                Componente c = s.comps.get(s.selected - 1); // -1 acho
                 config.addComponente(c);
             }
         }
-        for(SelectionPacote s : this.selections_pacotes){
+        /*for(SelectionPacote s : this.selections_pacotes){
             if(s.selected != -1){
                 config.addPacote(s.comps.get(s.selected));
             }
-        }
+        }*/
 
         new RegistaEncomendaFrame(this.cf, config).setVisible(true);
     }
@@ -208,7 +208,13 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
 
         //---- registar_btn ----
         registar_btn.setText("Registar Encomenda");
-        registar_btn.addActionListener(e -> registar_btnActionPerformed(e));
+        registar_btn.addActionListener(e -> {
+            try {
+                registar_btnActionPerformed(e);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        });
 
         //======== jScrollPane1 ========
         {

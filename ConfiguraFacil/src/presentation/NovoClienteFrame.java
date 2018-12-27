@@ -36,7 +36,7 @@ public class NovoClienteFrame extends javax.swing.JFrame {
 
         if(nome != "" && email != ""){ // FIXME: 12/23/2018
             if(isNumeric(telemovel)){
-                int id = this.cf.clientes.size()+1;
+                int id = this.cf.getNextClienteID();
                 Cliente c = new Cliente(id, nome, Integer.parseInt(telemovel), email);
 
                 this.cf.registaCliente(c);
@@ -48,8 +48,9 @@ public class NovoClienteFrame extends javax.swing.JFrame {
 
     }
 
-    private void nome_txtActionPerformed(ActionEvent e) {
-        // TODO add your code here
+
+    private void sair_btnActionPerformed(ActionEvent e) {
+        this.dispose();
     }
 
 
@@ -87,7 +88,6 @@ public class NovoClienteFrame extends javax.swing.JFrame {
 
         //---- nome_txt ----
         nome_txt.setToolTipText("");
-        nome_txt.addActionListener(e -> nome_txtActionPerformed(e));
 
         //---- registar_btn ----
         registar_btn.setText("Registar");
@@ -112,6 +112,7 @@ public class NovoClienteFrame extends javax.swing.JFrame {
 
         //---- sair_btn ----
         sair_btn.setText("Sair");
+        sair_btn.addActionListener(e -> sair_btnActionPerformed(e));
 
         //---- error_txt ----
         error_txt.setForeground(Color.red);
