@@ -1,6 +1,6 @@
 package data;
 
-import business.Cliente;
+import business.gConta.Cliente;
 import business.ConfiguraFacil;
 
 import java.sql.*;

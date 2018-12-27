@@ -1,7 +1,7 @@
 package data;
 
 import business.ConfiguraFacil;
-import business.Funcionario;
+import business.gConta.Funcionario;
 
 import java.sql.*;
 import java.util.ArrayList;

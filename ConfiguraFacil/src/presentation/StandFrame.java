@@ -8,7 +8,7 @@ package presentation;
 import java.awt.event.*;
 
 import business.ConfiguraFacil;
-import business.Funcionario;
+import business.gConta.Funcionario;
 
 import java.awt.*;
 import javax.swing.*;

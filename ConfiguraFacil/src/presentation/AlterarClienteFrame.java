@@ -5,7 +5,7 @@
  */
 package presentation;
 
-import business.Cliente;
+import business.gConta.Cliente;
 
 import java.awt.*;
 import javax.swing.*;

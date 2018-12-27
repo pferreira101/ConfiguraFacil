@@ -6,7 +6,7 @@
 package presentation;
 
 import javax.swing.table.*;
-import business.Cliente;
+import business.gConta.Cliente;
 import business.ConfiguraFacil;
 
 import java.awt.*;

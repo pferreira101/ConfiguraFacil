@@ -5,7 +5,7 @@
  */
 package presentation;
 
-import business.Cliente;
+import business.gConta.Cliente;
 import business.ConfiguraFacil;
 import com.mysql.cj.util.StringUtils;
 
