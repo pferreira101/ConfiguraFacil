@@ -8,6 +8,7 @@ package presentation;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.GroupLayout;
+import javax.swing.table.*;
 
 /**
  *
@@ -33,14 +34,14 @@ public class NovaComponenteFrame extends javax.swing.JFrame {
     private void initComponents() {
         nome_txt = new JTextField();
         jComboBox1 = new JComboBox<>();
-        quantidade_txt = new JTextField();
         adicionar_btn = new JButton();
         label1 = new JLabel();
         label2 = new JLabel();
-        label3 = new JLabel();
         label4 = new JLabel();
         preco_txt = new JTextField();
         button1 = new JButton();
+        scrollPane1 = new JScrollPane();
+        table1 = new JTable();
 
         //======== this ========
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -49,15 +50,13 @@ public class NovaComponenteFrame extends javax.swing.JFrame {
 
         //---- jComboBox1 ----
         jComboBox1.setModel(new DefaultComboBoxModel<>(new String[] {
-            "Item 1",
-            "Item 2",
-            "Item 3",
-            "Item 4"
+            "1 - Pintura",
+            "2 - Jantes",
+            "3 - Pneus",
+            "4 - Motoriza\u00e7\u00e3o",
+            "5 - Vidros",
+            "6 - Estofos"
         }));
-
-        //---- quantidade_txt ----
-        quantidade_txt.setToolTipText("");
-        quantidade_txt.addActionListener(e -> quantidade_txtActionPerformed(e));
 
         //---- adicionar_btn ----
         adicionar_btn.setText("Adicionar");
@@ -68,64 +67,100 @@ public class NovaComponenteFrame extends javax.swing.JFrame {
         //---- label2 ----
         label2.setText("Tipo");
 
-        //---- label3 ----
-        label3.setText("Quantidade");
-
         //---- label4 ----
         label4.setText("Pre\u00e7o");
 
         //---- button1 ----
         button1.setText("Sair");
 
+        //======== scrollPane1 ========
+        {
+
+            //---- table1 ----
+            table1.setModel(new DefaultTableModel(
+                new Object[][] {
+                    {null, null, null, null},
+                    {null, null, null, null},
+                },
+                new String[] {
+                    "ID", "Designa\u00e7\u00e3o", "Incompat\u00edveis", "Complementar"
+                }
+            ) {
+                Class<?>[] columnTypes = new Class<?>[] {
+                    Object.class, Object.class, Boolean.class, Boolean.class
+                };
+                boolean[] columnEditable = new boolean[] {
+                    false, true, true, true
+                };
+                @Override
+                public Class<?> getColumnClass(int columnIndex) {
+                    return columnTypes[columnIndex];
+                }
+                @Override
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return columnEditable[columnIndex];
+                }
+            });
+            scrollPane1.setViewportView(table1);
+        }
+
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
         contentPane.setLayout(contentPaneLayout);
         contentPaneLayout.setHorizontalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(button1, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
-                    .addComponent(adicionar_btn)
-                    .addContainerGap())
-                .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addGap(18, 18, 18)
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                        .addComponent(label4)
-                        .addComponent(label1)
-                        .addComponent(label2)
-                        .addComponent(label3))
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                        .addComponent(preco_txt)
-                        .addComponent(quantidade_txt)
-                        .addComponent(jComboBox1)
-                        .addComponent(nome_txt, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(58, Short.MAX_VALUE))
+                    .addGroup(contentPaneLayout.createParallelGroup()
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGroup(contentPaneLayout.createParallelGroup()
+                                .addGroup(contentPaneLayout.createSequentialGroup()
+                                    .addGap(55, 55, 55)
+                                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                        .addComponent(label2)
+                                        .addComponent(label4))
+                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(contentPaneLayout.createParallelGroup()
+                                        .addComponent(jComboBox1, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(preco_txt)))
+                                .addGroup(contentPaneLayout.createSequentialGroup()
+                                    .addGap(51, 51, 51)
+                                    .addComponent(label1)
+                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(nome_txt, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)))
+                            .addGap(30, 30, 30))
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGap(46, 46, 46)
+                            .addComponent(button1, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(adicionar_btn)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 362, GroupLayout.PREFERRED_SIZE)
+                    .addGap(22, 22, 22))
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addGap(44, 44, 44)
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(nome_txt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(label1))
-                    .addGap(18, 18, 18)
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(jComboBox1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(label2))
-                    .addGap(18, 18, 18)
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(quantidade_txt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(label3))
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(label4)
-                        .addComponent(preco_txt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addGap(18, 18, 18)
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(button1)
-                        .addComponent(adicionar_btn))
-                    .addContainerGap(8, Short.MAX_VALUE))
+                    .addGroup(contentPaneLayout.createParallelGroup()
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGap(32, 32, 32)
+                            .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(nome_txt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(label1))
+                            .addGap(13, 13, 13)
+                            .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(label2)
+                                .addComponent(jComboBox1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(label4)
+                                .addComponent(preco_txt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                            .addGap(28, 28, 28)
+                            .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(adicionar_btn)
+                                .addComponent(button1)))
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGap(17, 17, 17)
+                            .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 180, GroupLayout.PREFERRED_SIZE)))
+                    .addContainerGap(36, Short.MAX_VALUE))
         );
         pack();
         setLocationRelativeTo(getOwner());
@@ -174,13 +209,13 @@ public class NovaComponenteFrame extends javax.swing.JFrame {
     // Generated using JFormDesigner Evaluation license - Pedro Moreira
     private JTextField nome_txt;
     private JComboBox<String> jComboBox1;
-    private JTextField quantidade_txt;
     private JButton adicionar_btn;
     private JLabel label1;
     private JLabel label2;
-    private JLabel label3;
     private JLabel label4;
     private JTextField preco_txt;
     private JButton button1;
+    private JScrollPane scrollPane1;
+    private JTable table1;
     // End of variables declaration//GEN-END:variables
 }

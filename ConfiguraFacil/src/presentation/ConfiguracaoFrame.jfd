@@ -13,6 +13,7 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "sair_btn"
 				"text": "Sair"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "sair_btnActionPerformed", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "registar_btn"
@@ -22,23 +23,54 @@ new FormModel {
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 				name: "jScrollPane1"
 				add( new FormComponent( "javax.swing.JList" ) {
-					name: "jList1"
+					name: "type_list"
 					"model": new javax.swing.DefaultListModel {
-						addElement( "Item 1" )
-						addElement( "Item 2" )
-						addElement( "Item 3" )
-						addElement( "Item 4" )
-						addElement( "Item 5" )
+						addElement( "1 - Pintura" )
+						addElement( "2 - Jantes" )
+						addElement( "3 - Pneus" )
+						addElement( "4 - Motorização" )
+						addElement( "5 - Vidros" )
+						addElement( "6 - Estofos" )
 					}
 					auxiliary() {
 						"JavaCodeGenerator.typeParameters": "String"
 					}
+					addEvent( new FormEvent( "javax.swing.event.ListSelectionListener", "valueChanged", "jList1ValueChanged", true ) )
+					addEvent( new FormEvent( "javax.swing.event.ListSelectionListener", "valueChanged", "type_listValueChanged", true ) )
 				} )
 			} )
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 				name: "jScrollPane2"
 				add( new FormComponent( "javax.swing.JTable" ) {
-					name: "table1"
+					name: "cmp_tbl"
+					"model": new com.jformdesigner.model.SwingTableModel( new java.util.Vector {
+						add( new java.util.Vector {
+							add( null )
+							add( null )
+							add( null )
+						} )
+						add( new java.util.Vector {
+							add( null )
+							add( null )
+							add( null )
+						} )
+					}, new java.util.Vector {
+						add( "ID" )
+						add( "Designação" )
+						add( "Preço" )
+					}, new java.util.Vector {
+						add( null )
+						add( null )
+						add( null )
+					}, new java.util.Vector {
+						add( false )
+						add( false )
+						add( false )
+					}, new java.util.Vector {
+						add( null )
+						add( null )
+						add( null )
+					} )
 				} )
 			} )
 		}, new FormLayoutConstraints( null ) {

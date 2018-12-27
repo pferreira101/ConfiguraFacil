@@ -65,6 +65,11 @@ public class FuncionariosFrame extends javax.swing.JFrame {
         }
     }
 
+    private void sair_btnActionPerformed(ActionEvent e) {
+        this.dispose();
+        new LoginFrame().setVisible(true);
+    }
+
 
 
     public FuncionariosFrame(ConfiguraFacil cf) {
@@ -95,6 +100,7 @@ public class FuncionariosFrame extends javax.swing.JFrame {
 
         //---- sair_btn ----
         sair_btn.setText("Sair");
+        sair_btn.addActionListener(e -> sair_btnActionPerformed(e));
 
         //---- novo_funcionario_btn ----
         novo_funcionario_btn.setText("Adicionar funcion\u00e1rio");

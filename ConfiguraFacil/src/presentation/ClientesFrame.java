@@ -71,6 +71,10 @@ public class ClientesFrame extends javax.swing.JFrame {
         updateTable(clientes);
     }
 
+    private void sair_btnActionPerformed(ActionEvent e) {
+        this.dispose();
+    }
+
 
 
     /**
@@ -105,11 +109,11 @@ public class ClientesFrame extends javax.swing.JFrame {
 
         //---- sair_btn ----
         sair_btn.setText("Sair");
+        sair_btn.addActionListener(e -> sair_btnActionPerformed(e));
 
         //---- novo_cliente_btn ----
         novo_cliente_btn.setText("Adicionar Cliente");
         novo_cliente_btn.addActionListener(e -> {
-			novo_cliente_btnActionPerformed(e);
 			novo_cliente_btnActionPerformed(e);
 		});
 

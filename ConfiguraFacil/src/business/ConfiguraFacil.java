@@ -17,7 +17,7 @@ public class ConfiguraFacil {
 	public Map<Integer, Cliente> clientes;
 	public Map<Integer, Funcionario> funcionarios;
 	public Encomenda _encomendas;
-	public ComponenteDAO _unnamed_ComponenteDAO_;
+	public ComponenteDAO componenteDAO;
 	public ClienteDAO clienteDAO;
 	public FuncionarioDAO funcionarioDAO;
 	public EncomendaDAO _unnamed_EncomendaDAO_;
@@ -29,6 +29,7 @@ public class ConfiguraFacil {
 	    this.funcionarios = new HashMap<>();
 	    this.clienteDAO = new ClienteDAO();
 	    this.funcionarioDAO = new FuncionarioDAO();
+	    this.componenteDAO = new ComponenteDAO();
     }
 
 
