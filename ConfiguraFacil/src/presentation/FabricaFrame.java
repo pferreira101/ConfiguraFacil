@@ -30,8 +30,8 @@ public class FabricaFrame extends javax.swing.JFrame {
     }
 
 
-    private void encomendas_btnActionPerformed(ActionEvent e) {
-        new EncomendasFrame().setVisible(true);
+    private void encomendas_btnActionPerformed(ActionEvent e) throws Exception {
+        new EncomendasFrame(this.cf).setVisible(true);
     }
 
     private void sair_btnActionPerformed(ActionEvent e) {
@@ -78,7 +78,13 @@ public class FabricaFrame extends javax.swing.JFrame {
         //---- encomendas_btn ----
         encomendas_btn.setFont(new Font("Tahoma", Font.PLAIN, 12));
         encomendas_btn.setText("Visualizar Encomendas");
-        encomendas_btn.addActionListener(e -> encomendas_btnActionPerformed(e));
+        encomendas_btn.addActionListener(e -> {
+            try {
+                encomendas_btnActionPerformed(e);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        });
 
         //---- stock_btn ----
         stock_btn.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -144,34 +150,6 @@ public class FabricaFrame extends javax.swing.JFrame {
         setLocationRelativeTo(getOwner());
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Windows look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Windows (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FabricaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FabricaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FabricaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FabricaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // Generated using JFormDesigner Evaluation license - Pedro Moreira

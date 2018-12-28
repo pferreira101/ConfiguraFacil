@@ -32,8 +32,16 @@ public class AlterarFuncionarioFrame extends javax.swing.JFrame {
         this.dispose();
     }
 
-    private void alterar_btnActionPerformed(ActionEvent e) {
-        // TODO add your code here
+    private void alterar_btnActionPerformed(ActionEvent e) throws SQLException, ClassNotFoundException {
+        int tipo;
+        if(tipo_cbox.getSelectedIndex() == 0) tipo = 1;
+        else tipo = 2;
+        int telemovel = Integer.parseInt(tlmv_txt.getText());
+        String email = mail_txt.getText();
+
+        this.cf.alteraFuncionario(f.getID(), f.getNome(), f.getPassword(), tipo, telemovel, email);
+
+        this.dispose();
     }
 
 
@@ -78,7 +86,15 @@ public class AlterarFuncionarioFrame extends javax.swing.JFrame {
 
         //---- alterar_btn ----
         alterar_btn.setText("Alterar");
-        alterar_btn.addActionListener(e -> alterar_btnActionPerformed(e));
+        alterar_btn.addActionListener(e -> {
+            try {
+                alterar_btnActionPerformed(e);
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            } catch (ClassNotFoundException e1) {
+                e1.printStackTrace();
+            }
+        });
 
         //---- remover_btn ----
         remover_btn.setText("Remover");
@@ -98,6 +114,9 @@ public class AlterarFuncionarioFrame extends javax.swing.JFrame {
 
         //---- nome_txt ----
         nome_txt.setEditable(false);
+
+        //---- pw_txt ----
+        pw_txt.setEditable(false);
 
         //---- label3 ----
         label3.setText("Tipo");

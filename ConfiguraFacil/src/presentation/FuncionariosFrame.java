@@ -12,6 +12,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle;
@@ -55,9 +56,9 @@ public class FuncionariosFrame extends javax.swing.JFrame {
     private void display_tblMouseClicked(MouseEvent e){
         if(e.getClickCount()==2){
             int row = this.display_tbl.getSelectedRow();
-            int id = (int) this.display_tbl.getModel().getValueAt(row, 0);
+            int array_index = (int) this.display_tbl.getModel().getValueAt(row, 0) - 1;
 
-            Funcionario selected = this.funcionarios.get(id);
+            Funcionario selected = this.funcionarios.get(array_index);
 
             new AlterarFuncionarioFrame(this.cf, selected).setVisible(true);
         }
@@ -66,6 +67,15 @@ public class FuncionariosFrame extends javax.swing.JFrame {
     private void sair_btnActionPerformed(ActionEvent e) {
         this.dispose();
         new LoginFrame().setVisible(true);
+    }
+
+    private void funcionario_txtKeyReleased(KeyEvent e) {
+        String to_search = funcionario_txt.getText();
+
+        Collection<Funcionario> funcs = this.funcionarios.stream().filter(f -> f.getNome().contains(to_search))
+                                                                  .collect(Collectors.toList());
+
+        updateTable(funcs);
     }
 
 
@@ -105,6 +115,14 @@ public class FuncionariosFrame extends javax.swing.JFrame {
         novo_funcionario_btn.setText("Adicionar funcion\u00e1rio");
         novo_funcionario_btn.addActionListener(e -> novo_funcionario_btnActionPerformed(e));
 
+        //---- funcionario_txt ----
+        funcionario_txt.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                funcionario_txtKeyReleased(e);
+            }
+        });
+
         //======== jScrollPane1 ========
         {
 
@@ -128,11 +146,7 @@ public class FuncionariosFrame extends javax.swing.JFrame {
             display_tbl.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    try {
-                        display_tblMouseClicked(e);
-                    } catch (Exception e1) {
-                        e1.printStackTrace();
-                    }
+                    display_tblMouseClicked(e);
                 }
             });
             jScrollPane1.setViewportView(display_tbl);

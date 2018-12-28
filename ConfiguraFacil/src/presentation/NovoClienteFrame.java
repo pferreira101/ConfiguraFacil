@@ -32,14 +32,11 @@ public class NovoClienteFrame extends javax.swing.JFrame {
         String telemovel = this.telemovel_txt.getText();
         String email = this.email_txt.getText();
 
-        System.out.println(email == ""); // FIXME: 12/23/2018 DEBUGGING
 
-        if(nome != "" && email != ""){ // FIXME: 12/23/2018
+        if(nome != "" || email != "" || telemovel == ""){ // FIXME: 12/23/2018
             if(isNumeric(telemovel)){
-                int id = this.cf.getNextClienteID();
-                Cliente c = new Cliente(id, nome, Integer.parseInt(telemovel), email);
+                this.cf.registaCliente(nome, Integer.parseInt(telemovel), email);
 
-                this.cf.registaCliente(c);
                 this.dispose();
             }
             else this.error_txt.setText("Insira um número válido");

@@ -48,6 +48,7 @@ new FormModel {
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "pw_txt"
+				"editable": false
 			} )
 			add( new FormComponent( "javax.swing.JComboBox" ) {
 				name: "tipo_cbox"

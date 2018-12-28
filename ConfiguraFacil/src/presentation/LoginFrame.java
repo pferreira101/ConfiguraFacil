@@ -21,13 +21,18 @@ public class LoginFrame extends javax.swing.JFrame {
     private static ConfiguraFacil cf;
 
 
-    private void login_btnActionPerformed(ActionEvent e) throws Exception {
-        int id = Integer.parseInt(id_txt.getText());
-        String password = new String(pw_txt.getPassword()).trim();
+    private void login_btnActionPerformed(ActionEvent evt) throws Exception {
+        int id = -1;
+        String password = "";
+
+        try{
+            id = Integer.parseInt(id_txt.getText());
+            password = new String(pw_txt.getPassword()).trim();
+        }catch (Exception e){
+            this.error_txt.setText("Insira os campos");
+        }
 
         int tipo = cf.logIn(id, password);
-
-        System.out.println(tipo);// FIXME: 12/28/2018 DEBUGGING
 
         if(tipo == 1) {
             this.dispose();
@@ -44,10 +49,6 @@ public class LoginFrame extends javax.swing.JFrame {
             new FuncionariosFrame(this.cf).setVisible(true);
         }
         else this.error_txt.setText("Credenciais Inválidas");
-    }
-
-    private void pw_txtActionPerformed(ActionEvent e) {
-        // TODO add your code here
     }
 
 
@@ -84,9 +85,6 @@ public class LoginFrame extends javax.swing.JFrame {
         //---- sair_btn ----
         sair_btn.setText("Sair");
         sair_btn.addActionListener(e -> sair_btnActionPerformed(e));
-
-        //---- pw_txt ----
-        pw_txt.addActionListener(e -> pw_txtActionPerformed(e));
 
         //---- login_btn ----
         login_btn.setText("Log In");

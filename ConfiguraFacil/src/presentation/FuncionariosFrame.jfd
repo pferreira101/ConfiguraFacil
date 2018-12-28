@@ -22,6 +22,7 @@ new FormModel {
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "funcionario_txt"
+				addEvent( new FormEvent( "java.awt.event.KeyListener", "keyReleased", "funcionario_txtKeyReleased", true ) )
 			} )
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 				name: "jScrollPane1"

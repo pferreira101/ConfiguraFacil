@@ -6,7 +6,7 @@ VALUES (1, "Pedro", 921233456, "pedro@gmail.com", 1, "1"),
 	   (2, "Tiago", 951234123, "tiago@gmail.com", 2, "2");
 
 SELECT * FROM funcionario;
-DELETE FROM funcionario WHERE id_funcionario > 0;
+-- DELETE FROM funcionario WHERE id_funcionario > 0;
 
 
 
@@ -31,7 +31,7 @@ VALUES (1, 'Cinzento', 50.0, 1),
 	   (6, '21\"', 250.0, 2);
 
 SELECT * FROM componente;
-DELETE FROM componente WHERE id_componente > 0;
+-- DELETE FROM componente WHERE id_componente > 0;
 
 
 INSERT INTO incompativel
@@ -43,3 +43,11 @@ INSERT INTO complementar
 VALUES (1, 3);
 
 SELECT * FROM complementar;
+
+
+# POVOAMENTO STOCK
+INSERT INTO stock
+VALUES (1, 2),
+	   (2, 4);
+       
+SELECT * FROM stock;

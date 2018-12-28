@@ -30,7 +30,7 @@ public class EncomendaDAO {
         List<Componente> lC = conf.getComponentes();
 
         st = con.prepareStatement("INSERT INTO componentesencomenda VALUES (?, ?);");
-        for (int i=0;i<lC.size();i++){
+        for(int i = 0; i < lC.size(); i++){
             st.setInt(1, id);
             st.setInt(2, lC.get(i).getID());
             st.execute();
@@ -52,14 +52,14 @@ public class EncomendaDAO {
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "12345");
 
         PreparedStatement st;
-        st = con.prepareStatement("SELECT * FROM encomenda WHERE id = ?;");
+        st = con.prepareStatement("SELECT * FROM encomenda WHERE id_encomenda = ?;");
         st.setInt(1, id);
 
         ResultSet rs = st.executeQuery();
         if(rs.next()) {
             e = new Encomenda();
             e.setID(rs.getInt("id_encomenda"));
-            e.setFuncionario(rs.getInt("id_funcionario"));
+            e.setFuncionario(rs.getInt("funcionario"));
             e.setCliente(rs.getInt("cliente"));
         }
         else throw new Exception("No order found for given ID");
@@ -84,7 +84,7 @@ public class EncomendaDAO {
         while (rs.next()) {
             e = new Encomenda();
             e.setID(rs.getInt("id_encomenda"));
-            e.setFuncionario(rs.getInt("id_funcionario"));
+            e.setFuncionario(rs.getInt("funcionario"));
             e.setCliente(rs.getInt("cliente"));
 
             // falta ir buscar pacotes e componentes (fiz um bcd no DAO do Pacote)

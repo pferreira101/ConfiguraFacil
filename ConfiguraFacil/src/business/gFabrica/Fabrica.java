@@ -1,13 +1,15 @@
 package business.gFabrica;
 
+import java.sql.SQLException;
 import java.util.*;
 
 import business.gConfig.Componente;
 import data.StockDAO;
 
 public class Fabrica {
-	private Map<Integer,Stock> stocks;
+	private Map<Integer, Stock> stocks;
 	private List<Encomenda> queue;
+	private StockDAO stockDAO;
 
     /**
      * Construtor parameterizado para a classe da Fábrica.
@@ -18,6 +20,7 @@ public class Fabrica {
     public Fabrica(Map<Integer, Stock> stocks, List<Encomenda> queue) {
         this.stocks = stocks;
         this.queue = queue;
+        this.stockDAO = new StockDAO();
     }
 
     /**
@@ -27,6 +30,7 @@ public class Fabrica {
     public Fabrica(){
         this.stocks = new HashMap<>();
         this.queue = new ArrayList<>();
+        this.stockDAO = new StockDAO();
     }
 
     /**
@@ -46,7 +50,7 @@ public class Fabrica {
 	public void setStocks(Map<Integer, Stock> stocks) {
 		this.stocks = new HashMap<>();
         for(Stock s : stocks.values())
-            this.stocks.put(s.getId(),s);
+            this.stocks.put(s.getID(),s);
 	}
 
     /**
@@ -93,7 +97,7 @@ public class Fabrica {
      */
 
     public boolean existeStock(int cod){
-	    return this.stocks.containsKey(cod);
+	    return this.stocks.containsKey(cod) && this.stocks.get(cod).getQuantidade() > 0;
     }
 
     /**
@@ -102,19 +106,23 @@ public class Fabrica {
      */
 
     public void adicionarStockNovo(Componente c){
-        Stock s = new Stock(c.getID(),0,c);
-        this.stocks.put(c.getID(),s);
+        Stock s = new Stock(c.getID(), 0, c);
+        this.stocks.put(c.getID(), s);
     }
 
     /**
      * Método para atualizar o stock de uma dada componente.
-     * @param idcomp Id da componente a atualizar.
+     * @param id_comp Id da componente a atualizar.
      * @param quant Quantidade nova a adicionar.
      */
 
-    public void atualizarStock(int idcomp,int quant){
-        Stock st = this.stocks.get(idcomp);
-        st.add(quant);
+    public void atualizarStock(int id_comp, int quant) throws SQLException, ClassNotFoundException {
+        /*if(this.stocks.get(id_comp) != null){
+            Stock st = this.stocks.get(id_comp);
+            st.add(quant);
+        }*/ // FIXME: 12/28/2018 versao normal
+
+        this.stockDAO.put(id_comp, quant);
     }
 
     /**

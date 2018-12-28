@@ -20,7 +20,6 @@ new FormModel {
 			} )
 			add( new FormComponent( "javax.swing.JPasswordField" ) {
 				name: "pw_txt"
-				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "pw_txtActionPerformed", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "login_btn"

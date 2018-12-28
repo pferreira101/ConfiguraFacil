@@ -5,10 +5,18 @@
  */
 package presentation;
 
+import business.ConfiguraFacil;
+import business.gConfig.Configuracao;
+import business.gFabrica.Encomenda;
+import business.gFabrica.Stock;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Collection;
+import java.util.List;
 import javax.swing.*;
 import javax.swing.GroupLayout;
+import javax.swing.table.*;
 
 /**
  *
@@ -16,15 +24,48 @@ import javax.swing.GroupLayout;
  */
 public class EncomendasFrame extends javax.swing.JFrame {
 
-    /**
-     * Creates new form EncomendasFrame
-     */
+    ConfiguraFacil cf;
+    List<Encomenda> encomendas;
+
     private void sair_btnActionPerformed(ActionEvent e) {
         this.dispose();
     }
 
-    public EncomendasFrame() {
+    private void updateTable(Collection<Encomenda> enc){
+        DefaultTableModel model = (DefaultTableModel) encomendas_tbl.getModel();
+        Object row_data[] = new Object[3];
+
+        // Remove todos
+        model.setRowCount(0);
+
+        // Adiciona novos
+        for(Encomenda e : enc){
+            row_data[0] = e.getID();
+            row_data[1] = e.getCliente();
+            model.addRow(row_data);
+        }
+    }
+
+    private void pro_encomenda_btnActionPerformed(ActionEvent evt) {
+        int row = encomendas_tbl.getSelectedRow();
+        int array_index = (int) this.encomendas_tbl.getModel().getValueAt(row, 0) - 1;
+
+        Encomenda e = this.encomendas.get(array_index);
+        List<Stock> stocks = this.cf.getStockList();
+
+        // verificar se existe stock para todas as componentes da encomenda
+    }
+
+
+    /**
+     * Creates new form EncomendasFrame
+     */
+    public EncomendasFrame(ConfiguraFacil cf) throws Exception {
         initComponents();
+        this.cf = cf;
+        this.encomendas = cf.getEncomendas();
+        updateTable(this.encomendas);
+
     }
 
     /**
@@ -48,11 +89,35 @@ public class EncomendasFrame extends javax.swing.JFrame {
 
         //======== jScrollPane1 ========
         {
+
+            //---- encomendas_tbl ----
+            encomendas_tbl.setModel(new DefaultTableModel(
+                new Object[][] {
+                    {null, null},
+                    {null, null},
+                },
+                new String[] {
+                    "ID", "Cliente"
+                }
+            ) {
+                boolean[] columnEditable = new boolean[] {
+                    false, false
+                };
+                @Override
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return columnEditable[columnIndex];
+                }
+            });
+            {
+                TableColumnModel cm = encomendas_tbl.getColumnModel();
+                cm.getColumn(0).setPreferredWidth(4);
+            }
             jScrollPane1.setViewportView(encomendas_tbl);
         }
 
         //---- pro_encomenda_btn ----
         pro_encomenda_btn.setText("Produzir Encomenda");
+        pro_encomenda_btn.addActionListener(e -> pro_encomenda_btnActionPerformed(e));
 
         //---- sair_btn ----
         sair_btn.setText("Sair");
