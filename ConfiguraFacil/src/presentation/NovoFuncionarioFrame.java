@@ -11,6 +11,7 @@ import business.gConta.Funcionario;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
+import java.util.List;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 import javax.swing.table.DefaultTableModel;
@@ -22,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
 public class NovoFuncionarioFrame extends javax.swing.JFrame {
 
     ConfiguraFacil cf;
-    FuncionariosFrame to_update_table;
+    FuncionariosFrame to_update;
 
     private void registar_btnActionPerformed(ActionEvent e) throws Exception {
         int id = this.cf.getNextFuncionarioID();
@@ -37,7 +38,9 @@ public class NovoFuncionarioFrame extends javax.swing.JFrame {
         Funcionario f = new Funcionario(id, nome, password, tipo, telemovel, email);
 
         this.cf.registaFuncionario(f);
-        this.to_update_table.updateTable(this.cf.getFuncionarios()); //não sei se é a melhor maneira para atualizar a tabela mas funciona
+        List<Funcionario> list = this.cf.getFuncionarios();
+        this.to_update.updateTable(list); //não sei se é a melhor maneira para atualizar a tabela mas funciona
+        this.to_update.updateList(list);
         this.dispose();
     }
 
@@ -48,7 +51,7 @@ public class NovoFuncionarioFrame extends javax.swing.JFrame {
     public NovoFuncionarioFrame(ConfiguraFacil cf, FuncionariosFrame f) {
         initComponents();
         this.cf = cf;
-        this.to_update_table = f;
+        this.to_update = f;
     }
 
     /**

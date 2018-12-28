@@ -4,45 +4,45 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq l {space :p:14:p, comp sair_btn:::p::p, space ::155:x, comp pro_encomenda_btn:::p::p, space :p:15:p}, seq l {space :p:32:p, comp jScrollPane1:::p:331:p, space ::35:x}}"
-			"$verticalGroup": "par l {seq l {space :p:22:p, comp jScrollPane1:::p:155:p, space ::61:x, par b {comp sair_btn::b:p::p, comp pro_encomenda_btn::b:p::p}, space :::p}}"
+			"$horizontalGroup": "par l {seq l {space :p:14:p, comp scrollPane1:::p:368:p, space ::16:x}, seq t {space ::312:x, comp sair_btn:::p::p, space :p:12:p}}"
+			"$verticalGroup": "par l {seq l {space :p:14:p, comp scrollPane1:::p:166:p, space ::8:x, comp sair_btn:::p::p, space :::p}}"
 		} ) {
 			name: "this"
+			"title": "Detalhes Encomenda"
 			"defaultCloseOperation": 2
-			"title": "Encomendas"
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
-				name: "jScrollPane1"
+				name: "scrollPane1"
 				add( new FormComponent( "javax.swing.JTable" ) {
-					name: "encomendas_tbl"
+					name: "cmp_tbl"
 					"model": new com.jformdesigner.model.SwingTableModel( new java.util.Vector {
 						add( new java.util.Vector {
 							add( null )
 							add( null )
+							add( null )
 						} )
 						add( new java.util.Vector {
+							add( null )
 							add( null )
 							add( null )
 						} )
 					}, new java.util.Vector {
 						add( "ID" )
-						add( "Cliente" )
+						add( "Designação" )
+						add( "Preço" )
 					}, new java.util.Vector {
+						add( null )
 						add( null )
 						add( null )
 					}, new java.util.Vector {
 						add( false )
 						add( false )
+						add( false )
 					}, new java.util.Vector {
-						add( new com.jformdesigner.model.SwingTableColumn( null, 4, 0, 0, true ) )
+						add( null )
+						add( null )
 						add( null )
 					} )
-					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "encomendas_tblMouseClicked", true ) )
 				} )
-			} )
-			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "pro_encomenda_btn"
-				"text": "Produzir Encomenda"
-				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "pro_encomenda_btnActionPerformed", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "sair_btn"
@@ -50,8 +50,8 @@ new FormModel {
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "sair_btnActionPerformed", true ) )
 			} )
 		}, new FormLayoutConstraints( null ) {
-			"size": new java.awt.Dimension( 400, 300 )
 			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 400, 250 )
 		} )
 	}
 }

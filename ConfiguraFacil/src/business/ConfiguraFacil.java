@@ -21,7 +21,7 @@ public class ConfiguraFacil {
 	public ComponenteDAO componenteDAO;
 	public ClienteDAO clienteDAO;
 	public FuncionarioDAO funcionarioDAO;
-	public EncomendaDAO encomendaDAO;
+	//public EncomendaDAO encomendaDAO;
 	public PacoteDAO pacoteDAO;
 
 
@@ -32,7 +32,7 @@ public class ConfiguraFacil {
 	    this.funcionarioDAO = new FuncionarioDAO();
 	    this.componenteDAO = new ComponenteDAO();
 	    this.fabrica = new Fabrica();
-        this.encomendaDAO = new EncomendaDAO();
+        //this.encomendaDAO = new EncomendaDAO();
     }
 
 
@@ -249,7 +249,7 @@ public class ConfiguraFacil {
 
     public List<Encomenda> getEncomendas() throws Exception {
        //return this.encomendas.values();
-        return this.encomendaDAO.list();
+        return this.fabrica.getEncomendas();
     }
 
     /**
@@ -258,8 +258,9 @@ public class ConfiguraFacil {
      * @return Encomenda pretendida.
      */
 
-    public Encomenda getEncomenda(int cod){
-        return  this.encomendas.get(cod);
+    public Encomenda getEncomenda(int cod) throws Exception {
+        //return  this.encomendas.get(cod);
+        return this.fabrica.getEncomenda(cod);
     }
 
 

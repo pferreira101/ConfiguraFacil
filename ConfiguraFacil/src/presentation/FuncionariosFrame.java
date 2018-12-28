@@ -78,7 +78,9 @@ public class FuncionariosFrame extends javax.swing.JFrame {
         updateTable(funcs);
     }
 
-
+    public void updateList(List<Funcionario> list) {
+        this.funcionarios = list;
+    }
 
     public FuncionariosFrame(ConfiguraFacil cf) throws Exception {
         initComponents();
@@ -195,5 +197,7 @@ public class FuncionariosFrame extends javax.swing.JFrame {
     private JTextField funcionario_txt;
     private JScrollPane jScrollPane1;
     private JTable display_tbl;
+
+
     // End of variables declaration//GEN-END:variables
 }

@@ -38,7 +38,7 @@ public class ClienteDAO {
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "12345");
 
         PreparedStatement st;
-        st = con.prepareStatement("SELECT * FROM cliente WHERE id = ?;");
+        st = con.prepareStatement("SELECT * FROM cliente WHERE id_cliente = ?;");
         st.setInt(1, id);
 
         ResultSet rs = st.executeQuery();
