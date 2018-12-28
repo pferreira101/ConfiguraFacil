@@ -296,7 +296,7 @@ public class ConfiguraFacil {
 
         this.componentes.put(id,c);
 
-        this.fabrica.adicionarStockNovo(c);
+        //this.fabrica.adicionarStockNovo(c);
     }
 
     /**
@@ -316,7 +316,7 @@ public class ConfiguraFacil {
      * @return Lista com as componentes em falta.
      */
 
-    public List<Componente> checkStock(int i){
+    public List<Componente> checkStock(int i) throws Exception {
         Encomenda e = this.fabrica.getEncomenda(i);
 
         return this.fabrica.stockEmFalta(e.getComponentes());
