@@ -1,16 +1,16 @@
 package business.gConfig;
 
+import business.ConfiguraFacil;
+
 import java.util.*;
 
 public class Configuracao {
 	private List<Componente> componentes;
 	private List<Pacote> pacotes;
 
-<<<<<<< HEAD
 	/**
 	 * Construtor sem parametros da classe configuração.
 	 */
-
 	public Configuracao() {
 		this.componentes = new ArrayList<>();
 		this.componentes = new ArrayList<>();
@@ -61,11 +61,6 @@ public class Configuracao {
 	 * Método para adicionar um componente a uma configuração
 	 * @param c Componente a adicionar.
 	 */
-
-	public void add(Componente c){
-		this.componentes.add(c);
-	}
-=======
 	public void addComponente(Componente c){
 	    this.componentes.add(c);
     }
@@ -74,5 +69,41 @@ public class Configuracao {
 	    this.pacotes.add(p);
     }
 
->>>>>>> d4d31ca0ac3e4a3c178102e35223fefdb5afdf28
+
+    public List<Componente> getComponentes() {
+        return this.componentes;
+    }
+
+    public void setComponentes(List<Componente> componentes) {
+        this.componentes = componentes;
+    }
+
+    public List<Pacote> getPacotes() {
+        return this.pacotes;
+    }
+
+    public void setPacotes(List<Pacote> pacotes) {
+        this.pacotes = pacotes;
+    }
+
+
+    public double calculaPreco() {
+	    double r = 0;
+
+	    for(Componente c : this.componentes) r += c.getPreco();
+	    for(Pacote p : this.pacotes){
+	        for(Componente c : p.getComponentes()) r += c.getPreco();
+	    }
+
+	    return r;
+    }
+
+    public double calculaDesconto(){
+	    double r = 0;
+
+	    for (Pacote p : this.pacotes) r += p.getDesconto();
+
+	    return r;
+    }
+
 }

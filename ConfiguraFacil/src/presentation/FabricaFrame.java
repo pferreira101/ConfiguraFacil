@@ -25,8 +25,8 @@ public class FabricaFrame extends javax.swing.JFrame {
 
 
 
-    private void stock_btnActionPerformed(ActionEvent e) {
-        new AtualizarStockFrame().setVisible(true);
+    private void stock_btnActionPerformed(ActionEvent e) throws Exception {
+        new AtualizarStockFrame(this.cf).setVisible(true);
     }
 
 
@@ -36,6 +36,11 @@ public class FabricaFrame extends javax.swing.JFrame {
 
     private void config_btnActionPerformed(ActionEvent e) {
         // TODO add your code here
+    }
+
+    private void sair_btnActionPerformed(ActionEvent e) {
+        this.dispose();
+        new LoginFrame().setVisible(true);
     }
 
 
@@ -85,10 +90,17 @@ public class FabricaFrame extends javax.swing.JFrame {
         //---- stock_btn ----
         stock_btn.setFont(new Font("Tahoma", Font.PLAIN, 12));
         stock_btn.setText("Atualizar Stock");
-        stock_btn.addActionListener(e -> stock_btnActionPerformed(e));
+        stock_btn.addActionListener(e -> {
+            try {
+                stock_btnActionPerformed(e);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        });
 
         //---- sair_btn ----
         sair_btn.setText("Sair");
+        sair_btn.addActionListener(e -> sair_btnActionPerformed(e));
 
         //---- login_lbl ----
         login_lbl.setFont(new Font("Tahoma", Font.PLAIN, 8));

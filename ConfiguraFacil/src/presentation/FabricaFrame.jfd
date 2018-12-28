@@ -32,6 +32,7 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "sair_btn"
 				"text": "Sair"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "sair_btnActionPerformed", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "login_lbl"

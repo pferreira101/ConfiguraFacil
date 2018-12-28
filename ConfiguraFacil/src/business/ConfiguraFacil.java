@@ -227,6 +227,19 @@ public class ConfiguraFacil {
         return  this.encomendas.get(cod);
     }
 
+
+    public List<Componente> getComponentes() throws Exception {
+        return this.componenteDAO.list();
+    }
+
+    public int getNextClienteID() throws SQLException {
+        return this.clienteDAO.size() + 1;
+    }
+
+    public List<Cliente> getClientes() throws Exception {
+        return this.clienteDAO.list();
+    }
+
     /**
      * Método para devolver um lista com o stock atual das componentes.
      * @return List com o stock das componentes.

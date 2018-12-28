@@ -29,14 +29,12 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "nova_componente_btn"
 				"text": "Nova Componente"
-				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton1ActionPerformed", true ) )
-				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "nova_componente_btnActionPerformed", true ) )
-				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "nova_componente_btnActionPerformed", true ) )
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "nova_componente_btnActionPerformed", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "atualizar_btn"
 				"text": "Atualizar"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "atualizar_btnActionPerformed", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label1"

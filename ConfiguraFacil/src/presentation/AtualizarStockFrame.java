@@ -5,8 +5,13 @@
  */
 package presentation;
 
+import business.ConfiguraFacil;
+import business.gConfig.Componente;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 
@@ -16,18 +21,26 @@ import javax.swing.GroupLayout;
  */
 public class AtualizarStockFrame extends javax.swing.JFrame {
 
+    ConfiguraFacil cf;
 
     private void nova_componente_btnActionPerformed(ActionEvent e) {
         new NovaComponenteFrame().setVisible(true);
     }
 
-    private void jButton1ActionPerformed(ActionEvent e) {
+    private void atualizar_btnActionPerformed(ActionEvent e) {
         // TODO add your code here
     }
 
 
-    public AtualizarStockFrame() {
+
+    public AtualizarStockFrame(ConfiguraFacil cf) throws Exception {
         initComponents();
+        this.cf = cf;
+        List<String> l = new ArrayList<>();
+        for(Componente c : this.cf.getComponentes()){
+            l.add(c.getID() + " - " + c.getDesignacao());
+        }
+        componente_cbox.setModel(new DefaultComboBoxModel(l.toArray()));
     }
 
     /**
@@ -61,12 +74,11 @@ public class AtualizarStockFrame extends javax.swing.JFrame {
 
         //---- nova_componente_btn ----
         nova_componente_btn.setText("Nova Componente");
-        nova_componente_btn.addActionListener(e -> {
-			nova_componente_btnActionPerformed(e);
-		});
+        nova_componente_btn.addActionListener(e -> nova_componente_btnActionPerformed(e));
 
         //---- atualizar_btn ----
         atualizar_btn.setText("Atualizar");
+        atualizar_btn.addActionListener(e -> atualizar_btnActionPerformed(e));
 
         //---- label1 ----
         label1.setText("Componente");

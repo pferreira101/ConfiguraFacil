@@ -13,7 +13,6 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "nome_txt"
 				"toolTipText": ""
-				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "nome_txtActionPerformed", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "telemovel_txt"
@@ -41,6 +40,7 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "sair_btn"
 				"text": "Sair"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "sair_btnActionPerformed", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "error_txt"
