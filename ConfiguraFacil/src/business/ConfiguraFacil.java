@@ -268,7 +268,14 @@ public class ConfiguraFacil {
      */
 
     public List<Stock> getStockList(){
-        return this.fabrica.getStockList();
+        List<Stock> aux;
+        try{
+            aux = this.fabrica.getStockList();
+        }
+        catch(Exception e){
+            aux = new ArrayList<>();
+        }
+        return aux;
     }
 
     /**
@@ -290,11 +297,11 @@ public class ConfiguraFacil {
      * @param incomp Lista com as componente incompatíveis.
      */
 
-    public void adicionarComponente(String nome,double preco,int tipo,List<Componente> comp,List<Componente> incomp){
-        int id = this.componentes.size();
+    public void adicionarComponente(String nome,double preco,int tipo,List<Componente> comp,List<Componente> incomp) throws SQLException,ClassNotFoundException{
+        int id = this.componenteDAO.size();
         Componente c = new Componente(id,nome,preco,tipo,comp,incomp);
 
-        this.componentes.put(id,c);
+        this.componenteDAO.put(id,c);
         this.fabrica.adicionarStockNovo(id);
     }
 
@@ -304,7 +311,7 @@ public class ConfiguraFacil {
      * @param quantidade Quantidade nova a introduzir.
      */
 
-    public void encomendar(int idcomp,int quantidade) throws SQLException, ClassNotFoundException {
+    public void encomendar(int idcomp,int quantidade) throws SQLException, ClassNotFoundException,Exception {
         this.fabrica.atualizarStock(idcomp, quantidade);
     }
 
@@ -318,7 +325,7 @@ public class ConfiguraFacil {
     public List<Componente> checkStock(int i){
         try {
             Encomenda e = this.fabrica.getEncomenda(i);
-            return this.fabrica.stockEmFalta(e.getComponentes());
+            return this.fabrica.stockEmFalta(e.getAllComponentes());
         }
         catch (Exception e){}
         return  null;
@@ -329,7 +336,7 @@ public class ConfiguraFacil {
      * @param i Id da encomenda na queue.
      */
 
-    public void processaEncomenda(int i){
+    public void processaEncomenda(int i) throws Exception{
         this.fabrica.processaEncomenda(i);
     }
 
@@ -342,12 +349,6 @@ public class ConfiguraFacil {
      */
 
     public void registaEncomenda(Configuracao config, int cliente, int funcionario) throws SQLException, ClassNotFoundException {
-        /*int id = this.encomendas.size() + 1;
-
-        Encomenda e = new Encomenda(id, cliente, funcionario, config);
-        this.encomendas.put(id,e);
-        this.fabrica.adicionarEncomenda(e);*/ // FIXME: 12/28/2018 normal
-
         this.fabrica.registaEncomenda(config, cliente, funcionario);
     }
 
@@ -369,7 +370,7 @@ public class ConfiguraFacil {
 
     }
 
-    public void atualizarStock(int id_comp, int quantidade) throws SQLException, ClassNotFoundException {
+    public void atualizarStock(int id_comp, int quantidade) throws SQLException, ClassNotFoundException,Exception {
         this.fabrica.atualizarStock(id_comp, quantidade);
     }
 
