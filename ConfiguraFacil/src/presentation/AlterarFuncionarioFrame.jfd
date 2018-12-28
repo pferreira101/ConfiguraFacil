@@ -4,18 +4,21 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq {space :p:15:p, par l {seq l {space :22:22:p, comp label1:::p::p, space :6:6:p, comp nome_txt:::p:99:p}, seq l {space :5:5:p, comp label2:::p::p, space :6:6:p, comp pw_txt:::p:99:p}, seq l {space :31:31:p, comp label3:::p::p, space :6:6:p, comp tipo_cbox:::p:99:p}, seq l {comp label4:::p::p, space :6:6:p, comp tlmv_txt:::p:99:p}, seq l {space :21:21:p, comp label5:::p::p, space :6:6:p, comp mail_txt:::p:99:p}, seq l {comp remover_btn:::p::p, space :p:40:p, comp registar_btn:::p::p}}, space ::12:x}}"
-			"$verticalGroup": "par l {seq l {space :p:30:p, par l {seq l {space :4:4:p, comp label1:::p::p}, comp nome_txt:::p::p}, space :18:18:p, par l {seq l {space :4:4:p, comp label2:::p::p}, comp pw_txt:::p::p}, space :18:18:p, par l {seq l {space :4:4:p, comp label3:::p::p}, comp tipo_cbox:::p::p}, space :12:12:p, par l {seq l {space :4:4:p, comp label4:::p::p}, comp tlmv_txt:::p::p}, space :12:12:p, par l {seq l {space :4:4:p, comp label5:::p::p}, comp mail_txt:::p::p}, space s:::p, par l {comp remover_btn:::p::p, comp registar_btn:::p::p}, space :::x}}"
+			"$horizontalGroup": "par l {seq {space :0:0:x, comp remover_btn:::p::p, space :::p, comp alterar_btn:::p::p, space :::p}, seq l {par l {seq l {space :p:36:p, comp label2:::p::p, space :::p, comp pw_txt:::::x}, seq l {space :p:62:p, comp label3:::p::p, space :::p, comp tipo_cbox:::::x}, seq l {space :p:53:p, comp label1:::p::p, space :::p, comp nome_txt:::p:160:p}, seq l {par l {seq l {space :p:52:p, comp label5:::p::p}, seq l {space :p:31:p, comp label4:::p::p}}, space :::p, par l {comp tlmv_txt:::::x, comp mail_txt:::::x}}}, space :p:44:p}}"
+			"$verticalGroup": "par l {seq l {space :p:30:p, par b {comp label1::b:p::p, comp nome_txt::b:p::p}, par l {seq l {space :p:18:p, comp label2:::p::p}, seq l {space :p:14:p, comp pw_txt:::p::p}}, par l {seq l {space :p:22:p, comp label3:::p::p}, seq l {space :p:18:p, comp tipo_cbox:::p::p}}, par l {seq {space :p:16:p, comp label4:::p::p}, seq {space :p:12:p, comp tlmv_txt:::p::p}}, par l {seq l {space :p:16:p, comp label5:::p::p}, seq l {space :p:12:p, comp mail_txt:::p::p}}, space u:::p, par b {comp alterar_btn::b:p::p, comp remover_btn::b:p::p}, space :::x}}"
 		} ) {
 			name: "this"
-			"defaultCloseOperation": 3
+			"defaultCloseOperation": 2
+			"title": "Alterar Funcionário"
 			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "registar_btn"
-				"text": "Registar"
+				name: "alterar_btn"
+				"text": "Alterar"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "alterar_btnActionPerformed", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "remover_btn"
 				"text": "Remover"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "remover_btnActionPerformed", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label1"
@@ -45,15 +48,14 @@ new FormModel {
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "pw_txt"
+				"editable": false
 			} )
 			add( new FormComponent( "javax.swing.JComboBox" ) {
 				name: "tipo_cbox"
 				"model": new javax.swing.DefaultComboBoxModel {
-					selectedItem: "Item 1"
-					addElement( "Item 1" )
-					addElement( "Item 2" )
-					addElement( "Item 3" )
-					addElement( "Item 4" )
+					selectedItem: "1 - Funcionário de loja"
+					addElement( "1 - Funcionário de loja" )
+					addElement( "2 - Gestor de fábrica" )
 				}
 				auxiliary() {
 					"JavaCodeGenerator.typeParameters": "String"
@@ -64,7 +66,7 @@ new FormModel {
 				"text": "Password"
 			} )
 		}, new FormLayoutConstraints( null ) {
-			"size": new java.awt.Dimension( 220, 290 )
+			"size": new java.awt.Dimension( 300, 280 )
 			"location": new java.awt.Point( 10, 10 )
 		} )
 	}

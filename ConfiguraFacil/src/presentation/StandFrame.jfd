@@ -4,11 +4,12 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq t {space :p:4:p, comp sair_btn:::p:43:p, space ::168:x, comp jLabel2:::p::p, space :p:74:p}, seq t {space ::79:x, par t:::p {comp jLabel1::::176:x, comp config_btn::t::176:x, comp clientes_btn::l::176:x}, space :p:78:p}}"
-			"$verticalGroup": "par l {seq {space :p:27:p, comp jLabel1:::p:48:p, space ::31:x, comp config_btn:::p:41:p, space :::p, comp clientes_btn:::p:41:p, par l {seq {space :p:66:p, comp jLabel2:::p::p}, seq {space :p:53:p, comp sair_btn:::p:23:p}}, space :3:3:p}}"
+			"$horizontalGroup": "par l {seq t {space :p:10:p, comp sair_btn:::p:53:p, space ::148:x, comp login_lbl:::p:113:p, space :p:9:p}, seq t {space ::79:x, par t:::p {comp jLabel1::::176:x, comp config_btn::t::176:x, comp clientes_btn::l::176:x}, space :p:78:p}}"
+			"$verticalGroup": "par l {seq {space :p:27:p, comp jLabel1:::p:48:p, space ::31:x, comp config_btn:::p:41:p, space :::p, comp clientes_btn:::p:41:p, space :p:51:p, par t {comp login_lbl:::p::p, comp sair_btn:::p:23:p}, space :5:5:p}}"
 		} ) {
 			name: "this"
 			"defaultCloseOperation": 2
+			"title": "Stand"
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "config_btn"
 				"font": new java.awt.Font( "Tahoma", 0, 12 )
@@ -19,10 +20,12 @@ new FormModel {
 				name: "clientes_btn"
 				"font": new java.awt.Font( "Tahoma", 0, 12 )
 				"text": "Consultar Clientes"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "clientes_btnActionPerformed", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "sair_btn"
 				"text": "Sair"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "sair_btnActionPerformed", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "jLabel1"
@@ -31,13 +34,14 @@ new FormModel {
 				"text": "- STAND"
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "jLabel2"
+				name: "login_lbl"
 				"font": new java.awt.Font( "Tahoma", 0, 8 )
 				"text": "Logged in as"
+				"horizontalAlignment": 4
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"size": new java.awt.Dimension( 335, 305 )
-			"location": new java.awt.Point( 0, 0 )
+			"location": new java.awt.Point( 5, 0 )
 		} )
 	}
 }

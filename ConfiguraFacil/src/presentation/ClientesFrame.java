@@ -5,11 +5,19 @@
  */
 package presentation;
 
+import javax.swing.table.*;
+import business.gConta.Cliente;
+import business.ConfiguraFacil;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -17,15 +25,67 @@ import javax.swing.LayoutStyle;
  */
 public class ClientesFrame extends javax.swing.JFrame {
 
+    ConfiguraFacil cf;
+    List<Cliente> clientes;
+    /**
+     * Método que atualiza a tabela dos clientes
+     * @param clientes nova lista de clientes a exibir
+     */
+    private void updateTable(Collection<Cliente> clientes){
+        DefaultTableModel model = (DefaultTableModel) display_tbl.getModel();
+        Object row_data[] = new Object[3];
+
+        // Remove todos
+        model.setRowCount(0);
+
+        // Adiciona novos
+        for(Cliente c : clientes){
+            row_data[0] = c.getID();
+            row_data[1] = c.getNome();
+            row_data[2] = c.getTelemovel();
+            model.addRow(row_data);
+        }
+    }
+
+
+    private void novo_cliente_btnActionPerformed(ActionEvent e) {
+        new NovoClienteFrame(this.cf).setVisible(true);
+    }
+
+    private void display_tblMouseClicked(MouseEvent e) throws Exception {
+        if(e.getClickCount()==2){
+            int row = this.display_tbl.getSelectedRow();
+            int id = (int) this.display_tbl.getModel().getValueAt(row, 0);
+
+            Cliente selected = this.cf.getCliente(id);
+
+            new AlterarClienteFrame(selected).setVisible(true);
+        }
+    }
+
+    private void cliente_txtKeyReleased(KeyEvent e) {
+        String to_search = cliente_txt.getText();
+
+        Collection<Cliente> clientes = this.clientes.stream().filter(c -> c.getNome().contains(to_search))
+                                                             .collect(Collectors.toList());
+
+        updateTable(clientes);
+    }
+
+    private void sair_btnActionPerformed(ActionEvent e) {
+        this.dispose();
+    }
+
+
+
     /**
      * Creates new form ClientesFrame
      */
-    private void novo_cliente_btnActionPerformed(ActionEvent e) {
-        new NovoClienteFrame().setVisible(true);
-    }
-
-    public ClientesFrame() {
+    public ClientesFrame(ConfiguraFacil cf) throws Exception {
         initComponents();
+        this.cf = cf;
+        this.clientes = cf.getClientes();
+        updateTable(this.clientes);
     }
 
     /**
@@ -41,28 +101,68 @@ public class ClientesFrame extends javax.swing.JFrame {
         novo_cliente_btn = new JButton();
         cliente_txt = new JTextField();
         jScrollPane1 = new JScrollPane();
-        table1 = new JTable();
+        display_tbl = new JTable();
 
         //======== this ========
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Clientes");
         Container contentPane = getContentPane();
 
         //---- sair_btn ----
         sair_btn.setText("Sair");
+        sair_btn.addActionListener(e -> sair_btnActionPerformed(e));
 
         //---- novo_cliente_btn ----
         novo_cliente_btn.setText("Adicionar Cliente");
         novo_cliente_btn.addActionListener(e -> {
 			novo_cliente_btnActionPerformed(e);
-			novo_cliente_btnActionPerformed(e);
 		});
 
         //---- cliente_txt ----
         cliente_txt.setToolTipText("Procurar cliente");
+        cliente_txt.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                cliente_txtKeyReleased(e);
+            }
+        });
 
         //======== jScrollPane1 ========
         {
-            jScrollPane1.setViewportView(table1);
+
+            //---- display_tbl ----
+            display_tbl.setModel(new DefaultTableModel(
+                new Object[][] {
+                    {null, null, null},
+                },
+                new String[] {
+                    "ID", "Nome", "Telem\u00f3vel"
+                }
+            ) {
+                boolean[] columnEditable = new boolean[] {
+                    false, false, false
+                };
+                @Override
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return columnEditable[columnIndex];
+                }
+            });
+            {
+                TableColumnModel cm = display_tbl.getColumnModel();
+                cm.getColumn(0).setPreferredWidth(10);
+                cm.getColumn(2).setPreferredWidth(40);
+            }
+            display_tbl.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    try {
+                        display_tblMouseClicked(e);
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            });
+            jScrollPane1.setViewportView(display_tbl);
         }
 
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
@@ -99,40 +199,6 @@ public class ClientesFrame extends javax.swing.JFrame {
         setLocationRelativeTo(getOwner());
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Windows look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Windows (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ClientesFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ClientesFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ClientesFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ClientesFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ClientesFrame().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // Generated using JFormDesigner Evaluation license - Pedro Moreira
@@ -140,6 +206,6 @@ public class ClientesFrame extends javax.swing.JFrame {
     private JButton novo_cliente_btn;
     private JTextField cliente_txt;
     private JScrollPane jScrollPane1;
-    private JTable table1;
+    private JTable display_tbl;
     // End of variables declaration//GEN-END:variables
 }

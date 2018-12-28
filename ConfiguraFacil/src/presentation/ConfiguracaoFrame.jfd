@@ -4,14 +4,16 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq l {par l {seq l {space :p:24:p, comp jScrollPane1:::p:109:p, space s:::p, comp jScrollPane2:::p:221:p}, seq l {space :0:6:x, comp sair_btn:::p::p, space ::174:x, comp registar_btn:::p::p}}, space :::p}}"
-			"$verticalGroup": "par l {seq t {space :p:25:p, par l {comp jScrollPane2::::90:x, comp jScrollPane1::::0:x}, space :p:123:p, par b {comp registar_btn::b:p::p, comp sair_btn::b:p::p}, space :p::p}}"
+			"$horizontalGroup": "par l {seq l {par l {seq l {space :0:6:x, comp sair_btn:::p::p, space ::174:x, comp registar_btn:::p::p}, seq l {space :p:24:p, par l {seq {comp jScrollPane3:::p:109:p, space s:::p, comp jScrollPane4:::p:221:p}, seq {comp jScrollPane1:::p:109:p, space s:::p, comp jScrollPane2:::p:221:p}}, space :0:20:x}}, space :::p}}"
+			"$verticalGroup": "par l {seq t {space :p:25:p, par l {comp jScrollPane2::::90:x, comp jScrollPane1::::0:x}, space :p:21:p, par t {comp jScrollPane3:::p:90:p, comp jScrollPane4:::p:90:p}, space u:::p, par b {comp registar_btn::b:p::p, comp sair_btn::b:p::p}, space :p::p}}"
 		} ) {
 			name: "this"
 			"defaultCloseOperation": 2
+			"title": "Configuração"
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "sair_btn"
 				"text": "Sair"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "sair_btnActionPerformed", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "registar_btn"
@@ -21,23 +23,66 @@ new FormModel {
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 				name: "jScrollPane1"
 				add( new FormComponent( "javax.swing.JList" ) {
-					name: "jList1"
+					name: "type_list"
 					"model": new javax.swing.DefaultListModel {
-						addElement( "Item 1" )
-						addElement( "Item 2" )
-						addElement( "Item 3" )
-						addElement( "Item 4" )
-						addElement( "Item 5" )
+						addElement( "1 - Pintura" )
+						addElement( "2 - Jantes" )
+						addElement( "3 - Pneus" )
+						addElement( "4 - Motorização" )
+						addElement( "5 - Vidros" )
+						addElement( "6 - Estofos" )
 					}
 					auxiliary() {
 						"JavaCodeGenerator.typeParameters": "String"
 					}
+					addEvent( new FormEvent( "javax.swing.event.ListSelectionListener", "valueChanged", "type_listValueChanged", true ) )
 				} )
 			} )
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 				name: "jScrollPane2"
 				add( new FormComponent( "javax.swing.JTable" ) {
-					name: "table1"
+					name: "cmp_tbl"
+					"model": &SwingTableModel0 new com.jformdesigner.model.SwingTableModel( new java.util.Vector, new java.util.Vector {
+						add( "ID" )
+						add( "Designação" )
+						add( "Preço" )
+					}, new java.util.Vector {
+						add( null )
+						add( null )
+						add( null )
+					}, new java.util.Vector {
+						add( false )
+						add( false )
+						add( false )
+					}, new java.util.Vector {
+						add( null )
+						add( null )
+						add( null )
+					} )
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "cmp_tblMouseClicked", true ) )
+				} )
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "jScrollPane3"
+				add( new FormComponent( "javax.swing.JList" ) {
+					name: "type_list2"
+					"model": new javax.swing.DefaultListModel {
+						addElement( "-" )
+						addElement( "1 - Conforto" )
+						addElement( "2 - Sport" )
+					}
+					auxiliary() {
+						"JavaCodeGenerator.typeParameters": "String"
+					}
+					addEvent( new FormEvent( "javax.swing.event.ListSelectionListener", "valueChanged", "type_listValueChanged", true ) )
+				} )
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "jScrollPane4"
+				add( new FormComponent( "javax.swing.JTable" ) {
+					name: "cmp_tbl2"
+					"model": #SwingTableModel0
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "cmp_tblMouseClicked", true ) )
 				} )
 			} )
 		}, new FormLayoutConstraints( null ) {

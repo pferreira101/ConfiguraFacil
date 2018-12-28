@@ -5,13 +5,12 @@
  */
 package presentation;
 
-import java.awt.event.*;
 import business.ConfiguraFacil;
+import business.gConta.Funcionario;
 
-import java.awt.*;
 import javax.swing.*;
-import javax.swing.GroupLayout;
-import javax.swing.LayoutStyle;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 
 /**
  *
@@ -22,17 +21,34 @@ public class LoginFrame extends javax.swing.JFrame {
     private static ConfiguraFacil cf;
 
 
-    private void login_btnActionPerformed(ActionEvent e) {
-        int id = Integer.parseInt(id_txt.getText());
-        String password = pw_txt.getText();
+    private void login_btnActionPerformed(ActionEvent evt) throws Exception {
+        int id = -1;
+        String password = "";
 
-        System.out.println("ID/PW inseridos: " + id + "/" + password); // FIXME: 12/22/2018 DEBUGGING
+        try{
+            id = Integer.parseInt(id_txt.getText());
+            password = new String(pw_txt.getPassword()).trim();
+        }catch (Exception e){
+            this.error_txt.setText("Insira os campos");
+        }
 
         int tipo = cf.logIn(id, password);
 
-        if(tipo == 1) System.out.println("Tipo 1");
-        else if(tipo == 2) System.out.println("Tipo 2");
-        else System.out.println("Não está registado");
+        if(tipo == 1) {
+            this.dispose();
+            Funcionario f = cf.getFuncionario(id);
+            new StandFrame(this.cf, f).setVisible(true);
+        }
+        else if(tipo == 2) {
+            this.dispose();
+            Funcionario f = cf.getFuncionario(id);
+            new FabricaFrame(this.cf, f).setVisible(true);
+        }
+        else if(tipo == 3){
+            this.dispose();
+            new FuncionariosFrame(this.cf).setVisible(true);
+        }
+        else this.error_txt.setText("Credenciais Inválidas");
     }
 
 
@@ -59,31 +75,41 @@ public class LoginFrame extends javax.swing.JFrame {
         jLabel1 = new JLabel();
         label1 = new JLabel();
         label2 = new JLabel();
+        error_txt = new JLabel();
 
         //======== this ========
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setTitle("LogIn");
         Container contentPane = getContentPane();
 
         //---- sair_btn ----
         sair_btn.setText("Sair");
         sair_btn.addActionListener(e -> sair_btnActionPerformed(e));
 
-        //---- pw_txt ----
-        pw_txt.addActionListener(e -> pw_txtActionPerformed(e));
-
         //---- login_btn ----
         login_btn.setText("Log In");
-        login_btn.addActionListener(e -> login_btnActionPerformed(e));
+        login_btn.addActionListener(e -> {
+            try {
+                login_btnActionPerformed(e);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        });
 
         //---- jLabel1 ----
         jLabel1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        jLabel1.setIcon(new ImageIcon(getClass().getResource("/presentation/logo.png")));
+        jLabel1.setIcon(new ImageIcon(getClass().getResource("logo.png")));
 
         //---- label1 ----
         label1.setText("ID");
 
         //---- label2 ----
         label2.setText("Password");
+
+        //---- error_txt ----
+        error_txt.setText(" ");
+        error_txt.setFont(new Font("Segoe UI", Font.PLAIN, 10));
+        error_txt.setForeground(Color.red);
 
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
         contentPane.setLayout(contentPaneLayout);
@@ -101,13 +127,17 @@ public class LoginFrame extends javax.swing.JFrame {
                                 .addComponent(label1))
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                .addGroup(contentPaneLayout.createSequentialGroup()
-                                    .addComponent(sair_btn, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(login_btn))
                                 .addComponent(pw_txt, GroupLayout.PREFERRED_SIZE, 159, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(id_txt, GroupLayout.PREFERRED_SIZE, 159, GroupLayout.PREFERRED_SIZE))))
-                    .addContainerGap(64, Short.MAX_VALUE))
+                                .addComponent(id_txt, GroupLayout.PREFERRED_SIZE, 159, GroupLayout.PREFERRED_SIZE)
+                                .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
+                                    .addComponent(sair_btn, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(login_btn)))))
+                    .addContainerGap(54, Short.MAX_VALUE))
+                .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
+                    .addGap(0, 98, Short.MAX_VALUE)
+                    .addComponent(error_txt, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
+                    .addGap(89, 89, 89))
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
@@ -122,28 +152,26 @@ public class LoginFrame extends javax.swing.JFrame {
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(pw_txt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addComponent(label2))
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(sair_btn)
-                        .addComponent(login_btn))
-                    .addContainerGap(18, Short.MAX_VALUE))
+                    .addGap(2, 2, 2)
+                    .addComponent(error_txt)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(contentPaneLayout.createParallelGroup()
+                        .addComponent(login_btn)
+                        .addComponent(sair_btn))
+                    .addContainerGap(8, Short.MAX_VALUE))
         );
         pack();
         setLocationRelativeTo(getOwner());
     }// </editor-fold>//GEN-END:initComponents
 
-    private void sair_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sair_btnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_sair_btnActionPerformed
-
-    private void pw_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pw_txtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pw_txtActionPerformed
+    private void sair_btnActionPerformed(java.awt.event.ActionEvent evt) {
+        this.dispose();
+    }
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws Exception {
         /* Set the Windows look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Windows (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -171,11 +199,6 @@ public class LoginFrame extends javax.swing.JFrame {
         /* INICIA CONFIGURA FACIL */
 
         cf = new ConfiguraFacil();
-        cf.loadFuncionarios();
-
-
-
-
 
 
         /* Create and display the form */
@@ -195,5 +218,6 @@ public class LoginFrame extends javax.swing.JFrame {
     private JLabel jLabel1;
     private JLabel label1;
     private JLabel label2;
+    private JLabel error_txt;
     // End of variables declaration//GEN-END:variables
 }

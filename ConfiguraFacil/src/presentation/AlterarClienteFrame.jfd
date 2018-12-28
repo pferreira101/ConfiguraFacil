@@ -8,7 +8,8 @@ new FormModel {
 			"$verticalGroup": "par l {seq l {space :p:33:p, par l {seq l {space :4:4:p, comp label1:::p::p}, comp nome_txt:::p::p}, space :6:6:p, par l {seq l {space :4:4:p, comp label2:::p::p}, comp telemovel_txt:::p::p}, space :6:6:p, par l {seq l {space :4:4:p, comp label3:::p::p}, comp email_txt:::p::p}, space s:::p, comp atualizar_btn:::p::p, space ::4:x}}"
 		} ) {
 			name: "this"
-			"defaultCloseOperation": 3
+			"defaultCloseOperation": 2
+			"title": "Alterar Cliente"
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "atualizar_btn"
 				"text": "Atualizar"
@@ -31,7 +32,6 @@ new FormModel {
 				name: "nome_txt"
 				"toolTipText": ""
 				"editable": false
-				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "nome_txtActionPerformed", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label1"

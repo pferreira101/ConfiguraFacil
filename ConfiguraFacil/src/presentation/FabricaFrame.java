@@ -5,6 +5,9 @@
  */
 package presentation;
 
+import business.ConfiguraFacil;
+import business.gConta.Funcionario;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -17,15 +20,34 @@ import javax.swing.LayoutStyle;
  */
 public class FabricaFrame extends javax.swing.JFrame {
 
+    ConfiguraFacil cf;
+    Funcionario funcionario;
+
+
+
+    private void stock_btnActionPerformed(ActionEvent e) throws Exception {
+        new AtualizarStockFrame(this.cf).setVisible(true);
+    }
+
+
+    private void encomendas_btnActionPerformed(ActionEvent e) throws Exception {
+        new EncomendasFrame(this.cf).setVisible(true);
+    }
+
+    private void sair_btnActionPerformed(ActionEvent e) {
+        this.dispose();
+        new LoginFrame().setVisible(true);
+    }
+
+
     /**
      * Creates new form FabricaFrame
      */
-    private void config_btnActionPerformed(ActionEvent e) {
-        // TODO add your code here
-    }
-
-    public FabricaFrame() {
+    public FabricaFrame(ConfiguraFacil cf, Funcionario f) {
         initComponents();
+        this.cf = cf;
+        this.funcionario = f;
+        this.login_lbl.setText("Logged in as " + f.getNome());
     }
 
     /**
@@ -41,54 +63,69 @@ public class FabricaFrame extends javax.swing.JFrame {
         encomendas_btn = new JButton();
         stock_btn = new JButton();
         sair_btn = new JButton();
-        jLabel2 = new JLabel();
+        login_lbl = new JLabel();
 
         //======== this ========
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("F\u00e1brica");
         Container contentPane = getContentPane();
 
         //---- jLabel1 ----
         jLabel1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        jLabel1.setIcon(new ImageIcon(getClass().getResource("/presentation/logo.png")));
+        jLabel1.setIcon(new ImageIcon(getClass().getResource("logo.png")));
         jLabel1.setText("- F\u00c1BRICA");
 
         //---- encomendas_btn ----
         encomendas_btn.setFont(new Font("Tahoma", Font.PLAIN, 12));
         encomendas_btn.setText("Visualizar Encomendas");
-        encomendas_btn.addActionListener(e -> config_btnActionPerformed(e));
+        encomendas_btn.addActionListener(e -> {
+            try {
+                encomendas_btnActionPerformed(e);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        });
 
         //---- stock_btn ----
         stock_btn.setFont(new Font("Tahoma", Font.PLAIN, 12));
         stock_btn.setText("Atualizar Stock");
+        stock_btn.addActionListener(e -> {
+            try {
+                stock_btnActionPerformed(e);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        });
 
         //---- sair_btn ----
         sair_btn.setText("Sair");
+        sair_btn.addActionListener(e -> sair_btnActionPerformed(e));
 
-        //---- jLabel2 ----
-        jLabel2.setFont(new Font("Tahoma", Font.PLAIN, 8));
-        jLabel2.setText("Logged in as");
+        //---- login_lbl ----
+        login_lbl.setFont(new Font("Tahoma", Font.PLAIN, 8));
+        login_lbl.setText("Logged in as");
+        login_lbl.setHorizontalAlignment(SwingConstants.RIGHT);
 
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
         contentPane.setLayout(contentPaneLayout);
         contentPaneLayout.setHorizontalGroup(
             contentPaneLayout.createParallelGroup()
+                .addGroup(contentPaneLayout.createSequentialGroup()
+                    .addGap(81, 81, 81)
+                    .addGroup(contentPaneLayout.createParallelGroup()
+                        .addComponent(encomendas_btn, GroupLayout.PREFERRED_SIZE, 176, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(stock_btn, GroupLayout.PREFERRED_SIZE, 176, GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(76, Short.MAX_VALUE))
                 .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
-                    .addGap(0, 71, Short.MAX_VALUE)
+                    .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, 199, GroupLayout.PREFERRED_SIZE)
                     .addGap(63, 63, 63))
-                .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(81, 81, 81)
-                            .addGroup(contentPaneLayout.createParallelGroup()
-                                .addComponent(encomendas_btn, GroupLayout.PREFERRED_SIZE, 176, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(stock_btn, GroupLayout.PREFERRED_SIZE, 176, GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(sair_btn)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2)))
-                    .addContainerGap(76, Short.MAX_VALUE))
+                .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(sair_btn)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
+                    .addComponent(login_lbl, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
+                    .addGap(5, 5, 5))
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
@@ -101,51 +138,18 @@ public class FabricaFrame extends javax.swing.JFrame {
                     .addComponent(stock_btn, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
                     .addGroup(contentPaneLayout.createParallelGroup()
                         .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(72, 72, 72)
-                            .addComponent(jLabel2))
+                            .addGap(51, 51, 51)
+                            .addComponent(sair_btn)
+                            .addGap(7, 7, 7))
                         .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(sair_btn)
-                            .addGap(7, 7, 7))))
+                            .addComponent(login_lbl)
+                            .addGap(2, 2, 2))))
         );
         pack();
         setLocationRelativeTo(getOwner());
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Windows look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Windows (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FabricaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FabricaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FabricaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FabricaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FabricaFrame().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // Generated using JFormDesigner Evaluation license - Pedro Moreira
@@ -153,6 +157,6 @@ public class FabricaFrame extends javax.swing.JFrame {
     private JButton encomendas_btn;
     private JButton stock_btn;
     private JButton sair_btn;
-    private JLabel jLabel2;
+    private JLabel login_lbl;
     // End of variables declaration//GEN-END:variables
 }

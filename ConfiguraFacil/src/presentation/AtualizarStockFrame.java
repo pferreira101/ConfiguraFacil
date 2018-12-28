@@ -5,8 +5,14 @@
  */
 package presentation;
 
+import business.ConfiguraFacil;
+import business.gConfig.Componente;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 
@@ -16,17 +22,31 @@ import javax.swing.GroupLayout;
  */
 public class AtualizarStockFrame extends javax.swing.JFrame {
 
+    ConfiguraFacil cf;
 
     private void nova_componente_btnActionPerformed(ActionEvent e) {
         new NovaComponenteFrame().setVisible(true);
     }
 
-    private void jButton1ActionPerformed(ActionEvent e) {
-        // TODO add your code here
+    private void atualizar_btnActionPerformed(ActionEvent e) throws SQLException, ClassNotFoundException {
+        int id = componente_cbox.getSelectedIndex() + 1;
+        int quantidade = Integer.parseInt(qnt_txt.getText());
+
+        this.cf.atualizarStock(id, quantidade);
+
+        this.dispose();
     }
 
-    public AtualizarStockFrame() {
+
+
+    public AtualizarStockFrame(ConfiguraFacil cf) throws Exception {
         initComponents();
+        this.cf = cf;
+        List<String> l = new ArrayList<>();
+        for(Componente c : this.cf.getComponentes()){
+            l.add(c.getID() + " - " + c.getDesignacao());
+        }
+        componente_cbox.setModel(new DefaultComboBoxModel(l.toArray()));
     }
 
     /**
@@ -47,6 +67,7 @@ public class AtualizarStockFrame extends javax.swing.JFrame {
 
         //======== this ========
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Atualizar Stock");
         Container contentPane = getContentPane();
 
         //---- componente_cbox ----
@@ -59,14 +80,19 @@ public class AtualizarStockFrame extends javax.swing.JFrame {
 
         //---- nova_componente_btn ----
         nova_componente_btn.setText("Nova Componente");
-        nova_componente_btn.addActionListener(e -> {
-			jButton1ActionPerformed(e);
-			nova_componente_btnActionPerformed(e);
-			nova_componente_btnActionPerformed(e);
-		});
+        nova_componente_btn.addActionListener(e -> nova_componente_btnActionPerformed(e));
 
         //---- atualizar_btn ----
         atualizar_btn.setText("Atualizar");
+        atualizar_btn.addActionListener(e -> {
+            try {
+                atualizar_btnActionPerformed(e);
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            } catch (ClassNotFoundException e1) {
+                e1.printStackTrace();
+            }
+        });
 
         //---- label1 ----
         label1.setText("Componente");
@@ -116,40 +142,6 @@ public class AtualizarStockFrame extends javax.swing.JFrame {
         setLocationRelativeTo(getOwner());
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Windows look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Windows (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AtualizarStockFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AtualizarStockFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AtualizarStockFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AtualizarStockFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AtualizarStockFrame().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // Generated using JFormDesigner Evaluation license - Pedro Moreira

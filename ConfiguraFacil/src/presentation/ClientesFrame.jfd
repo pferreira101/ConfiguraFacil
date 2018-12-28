@@ -8,10 +8,12 @@ new FormModel {
 			"$verticalGroup": "par l {seq t {space :p:27:p, comp jScrollPane1::::157:x, space u:::p, comp cliente_txt:::p::p, space :p:18:p, par b {comp sair_btn::b:p::p, comp novo_cliente_btn::b:p::p}, space :::p}}"
 		} ) {
 			name: "this"
-			"defaultCloseOperation": 3
+			"defaultCloseOperation": 2
+			"title": "Clientes"
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "sair_btn"
 				"text": "Sair"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "sair_btnActionPerformed", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "novo_cliente_btn"
@@ -22,11 +24,36 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "cliente_txt"
 				"toolTipText": "Procurar cliente"
+				addEvent( new FormEvent( "java.awt.event.KeyListener", "keyReleased", "cliente_txtKeyReleased", true ) )
 			} )
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 				name: "jScrollPane1"
 				add( new FormComponent( "javax.swing.JTable" ) {
-					name: "table1"
+					name: "display_tbl"
+					"model": new com.jformdesigner.model.SwingTableModel( new java.util.Vector {
+						add( new java.util.Vector {
+							add( null )
+							add( null )
+							add( null )
+						} )
+					}, new java.util.Vector {
+						add( "ID" )
+						add( "Nome" )
+						add( "Telemóvel" )
+					}, new java.util.Vector {
+						add( null )
+						add( null )
+						add( null )
+					}, new java.util.Vector {
+						add( false )
+						add( false )
+						add( false )
+					}, new java.util.Vector {
+						add( new com.jformdesigner.model.SwingTableColumn( null, 10, 0, 0, true ) )
+						add( null )
+						add( new com.jformdesigner.model.SwingTableColumn( null, 40, 0, 0, true ) )
+					} )
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "display_tblMouseClicked", true ) )
 				} )
 			} )
 		}, new FormLayoutConstraints( null ) {

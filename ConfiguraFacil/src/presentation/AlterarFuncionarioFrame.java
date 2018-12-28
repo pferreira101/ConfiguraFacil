@@ -5,7 +5,13 @@
  */
 package presentation;
 
+import java.awt.event.*;
+
+import business.ConfiguraFacil;
+import business.gConta.Funcionario;
+
 import java.awt.*;
+import java.sql.SQLException;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle;
@@ -16,11 +22,39 @@ import javax.swing.LayoutStyle;
  */
 public class AlterarFuncionarioFrame extends javax.swing.JFrame {
 
+    ConfiguraFacil cf;
+    Funcionario f;
+
+
+    private void remover_btnActionPerformed(ActionEvent e) throws SQLException {
+        // FIXME: 12/27/2018 this.cf.funcionarios.remove(f.getID());
+        this.cf.removeFuncionario(f.getID());
+        this.dispose();
+    }
+
+    private void alterar_btnActionPerformed(ActionEvent e) throws SQLException, ClassNotFoundException {
+        int tipo;
+        if(tipo_cbox.getSelectedIndex() == 0) tipo = 1;
+        else tipo = 2;
+        int telemovel = Integer.parseInt(tlmv_txt.getText());
+        String email = mail_txt.getText();
+
+        this.cf.alteraFuncionario(f.getID(), f.getNome(), f.getPassword(), tipo, telemovel, email);
+
+        this.dispose();
+    }
+
+
     /**
      * Creates new form NewFuncionarioFrame
      */
-    public AlterarFuncionarioFrame() {
+    public AlterarFuncionarioFrame(ConfiguraFacil cf, Funcionario f){
         initComponents();
+        this.cf = cf;
+        this.f = f;
+        this.nome_txt.setText(f.getNome());
+        this.tlmv_txt.setText(String.valueOf(f.getTelemovel()));
+        this.mail_txt.setText(f.getEmail());
     }
 
     /**
@@ -32,7 +66,7 @@ public class AlterarFuncionarioFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     // Generated using JFormDesigner Evaluation license - Pedro Moreira
     private void initComponents() {
-        registar_btn = new JButton();
+        alterar_btn = new JButton();
         remover_btn = new JButton();
         label1 = new JLabel();
         mail_txt = new JTextField();
@@ -46,14 +80,31 @@ public class AlterarFuncionarioFrame extends javax.swing.JFrame {
         label2 = new JLabel();
 
         //======== this ========
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Alterar Funcion\u00e1rio");
         Container contentPane = getContentPane();
 
-        //---- registar_btn ----
-        registar_btn.setText("Registar");
+        //---- alterar_btn ----
+        alterar_btn.setText("Alterar");
+        alterar_btn.addActionListener(e -> {
+            try {
+                alterar_btnActionPerformed(e);
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            } catch (ClassNotFoundException e1) {
+                e1.printStackTrace();
+            }
+        });
 
         //---- remover_btn ----
         remover_btn.setText("Remover");
+        remover_btn.addActionListener(e -> {
+            try {
+                remover_btnActionPerformed(e);
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+        });
 
         //---- label1 ----
         label1.setText("Nome");
@@ -64,6 +115,9 @@ public class AlterarFuncionarioFrame extends javax.swing.JFrame {
         //---- nome_txt ----
         nome_txt.setEditable(false);
 
+        //---- pw_txt ----
+        pw_txt.setEditable(false);
+
         //---- label3 ----
         label3.setText("Tipo");
 
@@ -72,10 +126,8 @@ public class AlterarFuncionarioFrame extends javax.swing.JFrame {
 
         //---- tipo_cbox ----
         tipo_cbox.setModel(new DefaultComboBoxModel<>(new String[] {
-            "Item 1",
-            "Item 2",
-            "Item 3",
-            "Item 4"
+            "1 - Funcion\u00e1rio de loja",
+            "2 - Gestor de f\u00e1brica"
         }));
 
         //---- label2 ----
@@ -86,134 +138,92 @@ public class AlterarFuncionarioFrame extends javax.swing.JFrame {
         contentPaneLayout.setHorizontalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addGap(15, 15, 15)
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(remover_btn)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(alterar_btn)
+                    .addContainerGap())
+                .addGroup(contentPaneLayout.createSequentialGroup()
                     .addGroup(contentPaneLayout.createParallelGroup()
                         .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(22, 22, 22)
-                            .addComponent(label1)
-                            .addGap(6, 6, 6)
-                            .addComponent(nome_txt, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE))
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(5, 5, 5)
+                            .addGap(36, 36, 36)
                             .addComponent(label2)
-                            .addGap(6, 6, 6)
-                            .addComponent(pw_txt, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(pw_txt))
                         .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(31, 31, 31)
+                            .addGap(62, 62, 62)
                             .addComponent(label3)
-                            .addGap(6, 6, 6)
-                            .addComponent(tipo_cbox, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(tipo_cbox))
                         .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addComponent(label4)
-                            .addGap(6, 6, 6)
-                            .addComponent(tlmv_txt, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE))
+                            .addGap(53, 53, 53)
+                            .addComponent(label1)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(nome_txt, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE))
                         .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(21, 21, 21)
-                            .addComponent(label5)
-                            .addGap(6, 6, 6)
-                            .addComponent(mail_txt, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE))
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addComponent(remover_btn)
-                            .addGap(40, 40, 40)
-                            .addComponent(registar_btn)))
-                    .addContainerGap(12, Short.MAX_VALUE))
+                            .addGroup(contentPaneLayout.createParallelGroup()
+                                .addGroup(contentPaneLayout.createSequentialGroup()
+                                    .addGap(52, 52, 52)
+                                    .addComponent(label5))
+                                .addGroup(contentPaneLayout.createSequentialGroup()
+                                    .addGap(31, 31, 31)
+                                    .addComponent(label4)))
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(contentPaneLayout.createParallelGroup()
+                                .addComponent(tlmv_txt)
+                                .addComponent(mail_txt))))
+                    .addGap(44, 44, 44))
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
                     .addGap(30, 30, 30)
-                    .addGroup(contentPaneLayout.createParallelGroup()
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(4, 4, 4)
-                            .addComponent(label1))
+                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(label1)
                         .addComponent(nome_txt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addGap(18, 18, 18)
                     .addGroup(contentPaneLayout.createParallelGroup()
                         .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(4, 4, 4)
+                            .addGap(18, 18, 18)
                             .addComponent(label2))
-                        .addComponent(pw_txt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addGap(18, 18, 18)
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGap(14, 14, 14)
+                            .addComponent(pw_txt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
                     .addGroup(contentPaneLayout.createParallelGroup()
                         .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(4, 4, 4)
+                            .addGap(22, 22, 22)
                             .addComponent(label3))
-                        .addComponent(tipo_cbox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addGap(12, 12, 12)
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGap(18, 18, 18)
+                            .addComponent(tipo_cbox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
                     .addGroup(contentPaneLayout.createParallelGroup()
                         .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(4, 4, 4)
+                            .addGap(16, 16, 16)
                             .addComponent(label4))
-                        .addComponent(tlmv_txt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addGap(12, 12, 12)
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGap(12, 12, 12)
+                            .addComponent(tlmv_txt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
                     .addGroup(contentPaneLayout.createParallelGroup()
                         .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(4, 4, 4)
+                            .addGap(16, 16, 16)
                             .addComponent(label5))
-                        .addComponent(mail_txt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addGap(18, 18, 18)
-                    .addGroup(contentPaneLayout.createParallelGroup()
-                        .addComponent(remover_btn)
-                        .addComponent(registar_btn))
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGap(12, 12, 12)
+                            .addComponent(mail_txt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(alterar_btn)
+                        .addComponent(remover_btn))
                     .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pack();
         setLocationRelativeTo(getOwner());
-    }// </editor-fold>//GEN-END:initComponents
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Windows look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Windows (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AlterarFuncionarioFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AlterarFuncionarioFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AlterarFuncionarioFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AlterarFuncionarioFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AlterarFuncionarioFrame().setVisible(true);
-            }
-        });
     }
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // Generated using JFormDesigner Evaluation license - Pedro Moreira
-    private JButton registar_btn;
+    private JButton alterar_btn;
     private JButton remover_btn;
     private JLabel label1;
     private JTextField mail_txt;
