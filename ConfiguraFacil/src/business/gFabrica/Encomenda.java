@@ -2,7 +2,9 @@ package business.gFabrica;
 
 import business.gConfig.Componente;
 import business.gConfig.Configuracao;
+import business.gConfig.Pacote;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Encomenda {
@@ -52,6 +54,16 @@ public class Encomenda {
 
     public List<Componente> getComponentes(){
         return this.config.getComponentes();
+
+    }
+
+    public List<Componente> getAllComponentes(){
+        List<Componente> aux = new ArrayList<>(this.config.getComponentes());
+        for(Pacote p : this.config.getPacotes()){
+            aux.addAll(p.getComponentes());
+        }
+
+        return aux;
     }
 
     public void setConfig(Configuracao config) {

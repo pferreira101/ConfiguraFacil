@@ -314,7 +314,7 @@ public class ConfiguraFacil {
      * @param i Posição da encomenda
      * @return Lista com as componentes em falta.
      */
-    
+
     public List<Componente> checkStock(int i){
         try {
             Encomenda e = this.fabrica.getEncomenda(i);
@@ -326,7 +326,7 @@ public class ConfiguraFacil {
 
     /**
      * Método para despachar uma dada encomenda.
-     * @param i Posição da encomenda na queue.
+     * @param i Id da encomenda na queue.
      */
 
     public void processaEncomenda(int i){

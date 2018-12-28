@@ -6,7 +6,6 @@
 package presentation;
 
 import business.ConfiguraFacil;
-import business.gConfig.Configuracao;
 import business.gFabrica.Encomenda;
 import business.gFabrica.Stock;
 
@@ -62,6 +61,7 @@ public class EncomendasFrame extends javax.swing.JFrame {
             int id = (int) this.encomendas_tbl.getModel().getValueAt(row, 0);
 
             Encomenda selected = this.cf.getEncomenda(id);
+
 
             new EncomendaDetalhesFrame(selected).setVisible(true);
         }

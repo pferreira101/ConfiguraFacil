@@ -12,7 +12,7 @@ public class FuncionarioDAO {
 
 	public void put(int id, Funcionario f) throws SQLException, ClassNotFoundException {
         //Establish the connection
-        Connection c = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "12345");
+        Connection c = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "carroz98");
 
         PreparedStatement st;
         st = c.prepareStatement("INSERT INTO funcionario " +
@@ -39,7 +39,7 @@ public class FuncionarioDAO {
     public Funcionario get(int id) throws Exception {
         Funcionario f;
 
-        Connection c = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "12345");
+        Connection c = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "carroz98");
 
         PreparedStatement st;
         st = c.prepareStatement("SELECT * FROM funcionario WHERE id_funcionario = ?;");
@@ -65,7 +65,7 @@ public class FuncionarioDAO {
         List<Funcionario> r = new ArrayList<>();
 	    Funcionario f;
 
-        Connection c = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "12345");
+        Connection c = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "carroz98");
 
         PreparedStatement st;
         st = c.prepareStatement("SELECT * FROM funcionario;");
@@ -90,7 +90,7 @@ public class FuncionarioDAO {
 
 
     public void remove(int id) throws SQLException {
-        Connection c = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "12345");
+        Connection c = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "carroz98");
 
         PreparedStatement st;
         st = c.prepareStatement("DELETE FROM funcionario WHERE id_funcionario = ?;");
@@ -104,7 +104,7 @@ public class FuncionarioDAO {
 
     public int size() throws SQLException {
         int r = 0;
-	    Connection c = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "12345");
+	    Connection c = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "carroz98");
 
         PreparedStatement st;
         st = c.prepareStatement("SELECT count(*) FROM funcionario;");

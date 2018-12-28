@@ -11,7 +11,7 @@ public class ComponenteDAO {
 
     public void put(int id, Componente c) throws SQLException, ClassNotFoundException {
         //Establish the connection
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "12345");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "carroz98");
 
         PreparedStatement st;
 
@@ -51,7 +51,7 @@ public class ComponenteDAO {
     public Componente get(int id) throws Exception {
         Componente c;
 
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "12345");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "carroz98");
 
         PreparedStatement st, st_aux;
         ResultSet rs, rs_aux;
@@ -128,7 +128,7 @@ public class ComponenteDAO {
         List<Componente> r = new ArrayList<>();
         Componente c;
 
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "12345");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "carroz98");
 
         PreparedStatement st;
         st = con.prepareStatement("SELECT * FROM componente;");
@@ -149,7 +149,7 @@ public class ComponenteDAO {
 
     public int size() throws SQLException {
         int r = 0;
-        Connection c = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "12345");
+        Connection c = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "carroz98");
 
         PreparedStatement st;
         st = c.prepareStatement("SELECT count(*) FROM componente;");

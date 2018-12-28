@@ -126,15 +126,6 @@ public class Fabrica {
     public void atualizarStock(int id_comp, int quant){
         Stock st = this.stocks.get(id_comp);
         st.add(quant);
-
-<<<<<<< HEAD
-=======
-
->>>>>>> fd071cf622bf43baf0dbb9dcf127fc03a541eae9
-        //throws SQLException, ClassNotFoundException
-        //Stock st = this.stockDAO.get(id_comp);
-        //            st.add(quant);
-        //this.stockDAO.put(id_comp, st);
     }
 
 
@@ -162,12 +153,12 @@ public class Fabrica {
 
     /**
      * Método para despachar uma dada encomenda.
-     * @param i Posição da encomenda na queue.
+     * @param i Id da encomenda na queue.
      */
 
     public void processaEncomenda(int i){
         Encomenda e = this.queue.get(i);
-        this.queue.remove(i);
+        e.setStatus(true);
         int id;
         Stock s;
 
@@ -187,10 +178,29 @@ public class Fabrica {
         this.queue.add(e);
     }
 
+    /**
+     * Método para obter as encomendas que ainda não foram processadas
+     * @return
+     * @throws Exception
+     */
+
 
     public List<Encomenda> getEncomendas() throws Exception {
-        return this.encomendaDAO.list();
+        List<Encomenda> encs = new ArrayList<>();
+        for(Encomenda e : this.encomendaDAO.list()){
+            if (e.getStatus() == false){
+                encs.add(e);
+            }
+        }
+        return encs;
     }
+
+    /**
+     * Método para obter uma encomenda.
+     * @param id Id da encomenda pretendida.
+     * @return Encomenda pretendida.
+     * @throws Exception
+     */
 
     public Encomenda getEncomenda(int id) throws Exception {
         return this.encomendaDAO.get(id);
@@ -198,14 +208,10 @@ public class Fabrica {
 
 
     public void registaEncomenda(Configuracao config, int cliente, int funcionario) throws SQLException, ClassNotFoundException {
-        int id = this.getNextEncomendaID();
+        int id = this.encomendaDAO.size() + 1;
 
         Encomenda e = new Encomenda(id, cliente, funcionario, config);
 
         this.encomendaDAO.put(id, e);
-    }
-
-    private int getNextEncomendaID() throws SQLException {
-        return this.encomendaDAO.size() + 1;
     }
 }

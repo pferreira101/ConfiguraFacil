@@ -43,7 +43,7 @@ public class EncomendaDetalhesFrame extends JFrame {
     public EncomendaDetalhesFrame(Encomenda e) {
         initComponents();
         this.e = e;
-        updateTable(e.getComponentes());
+        updateTable(e.getAllComponentes());
     }
 
     private void sair_btnActionPerformed(ActionEvent e) {

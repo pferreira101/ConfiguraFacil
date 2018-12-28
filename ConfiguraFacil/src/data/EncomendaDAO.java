@@ -16,7 +16,7 @@ public class EncomendaDAO {
 
 	 public void put(int id, Encomenda e) throws SQLException, ClassNotFoundException {
         //Establish the connection
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "12345");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "carroz98");
 
         PreparedStatement st;
         st = con.prepareStatement("INSERT INTO encomenda VALUES (?, ?, ?);");
@@ -54,7 +54,7 @@ public class EncomendaDAO {
         int funcionario = 0;
 
 
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "12345");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "carroz98");
 
         // Cliente e Funcionário
         PreparedStatement st;
@@ -105,10 +105,12 @@ public class EncomendaDAO {
             pacotes.add(this.pacoteDAO.get(rs.getInt("id_pacote")));
         }
 
+
         Configuracao c = new Configuracao(comps, pacotes);
         Encomenda e = new Encomenda(id, cliente, funcionario, c);
 
         con.close();
+
 
         return e;
     }
@@ -118,7 +120,7 @@ public class EncomendaDAO {
         List<Encomenda> r = new ArrayList<>();
         Encomenda e;
 
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "12345");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "carroz98");
 
         PreparedStatement st;
         st = con.prepareStatement("SELECT * FROM encomenda;");
@@ -138,7 +140,7 @@ public class EncomendaDAO {
 
 
     public void remove(int id) throws SQLException {
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "12345");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "carroz98");
 
         PreparedStatement st;
         st = con.prepareStatement("DELETE FROM encomenda WHERE id_encomenda = ?;");
@@ -155,7 +157,7 @@ public class EncomendaDAO {
 
     public int size() throws SQLException {
         int r = 0;
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "12345");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "carroz98");
 
         PreparedStatement st;
         st = con.prepareStatement("SELECT count(*) FROM encomenda;");
