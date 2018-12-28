@@ -187,4 +187,19 @@ public class Componente {
 		boolean fim = this.complementares.size() > 0 ? true : false;
 		return  fim;
 	}
+
+	/**
+	 * Método que verifica se dois componentes sao compatiíveis.
+	 * @param comp - objeto a verificar compatibilidade
+	 * @return true - se forem compatíveis
+	 * @return false - se forem incompatíveis
+	 */
+
+	public boolean isCompativel(Componente comp){
+		for(Componente c : this.incompativeis){
+			if(c.equals(comp))
+				return false;
+		}
+		return true;
+	}
 }
