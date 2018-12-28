@@ -3,7 +3,6 @@ package business.gFabrica;
 import business.gConfig.Componente;
 import business.gConfig.Configuracao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Encomenda {
@@ -11,6 +10,7 @@ public class Encomenda {
     private int id;
     private int cliente;
     private int funcionario;
+    private boolean status;
     private Configuracao config;
 
     public int getID() {
@@ -41,6 +41,14 @@ public class Encomenda {
         return this.config;
     }
 
+    public boolean getStatus(){
+        return this.status;
+    }
+
+    public void setStatus(boolean status){
+        this.status = status;
+    }
+
     public List<Componente> getComponentes(){
         return this.config.getComponentes();
     }
@@ -53,12 +61,14 @@ public class Encomenda {
         this.id = -1;
         this.cliente = -1;
         this.funcionario = -1;
+        this.status = false;
         this.config = new Configuracao();
     }
 
     public Encomenda(int id, int cliente, int funcionario, Configuracao config) {
         this.id = id;
         this.cliente = cliente;
+        this.status = false;
         this.funcionario = funcionario;
         this.config = config;
     }
