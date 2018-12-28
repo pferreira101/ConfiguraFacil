@@ -46,7 +46,7 @@ public class StockDAO {
         con.close();
     }
 
-    public int get(int id) throws Exception {
+    public Stock get(int id) throws Exception {
         int quantidade = 0;
 
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "12345");
@@ -63,7 +63,9 @@ public class StockDAO {
 
         con.close();
 
-        return quantidade;
+        Stock s = new Stock(id,quantidade);
+
+        return s;
     }
 
     public List<Stock> list() throws Exception {
@@ -87,6 +89,19 @@ public class StockDAO {
         con.close();
 
         return r;
+    }
+
+    public boolean containsKey(int cod){
+        boolean value = false;
+        try{
+            Stock s = this.get(cod);
+            value = true;
+        }
+        catch (Exception e){
+            value = false;
+        }
+
+        return value;
     }
 
 
