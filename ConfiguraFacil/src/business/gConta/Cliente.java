@@ -82,7 +82,7 @@ public class Cliente {
      * @param mail Novo mail.
      */
 
-    public void setALL(String nome,int tel,String mail) {
+    public void setAll(String nome,int tel,String mail) {
         this.nome = nome;
         this.telemovel = tel;
         this.email = mail;
