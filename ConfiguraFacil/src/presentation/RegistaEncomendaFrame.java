@@ -83,14 +83,14 @@ public class RegistaEncomendaFrame extends javax.swing.JFrame {
             row_data[2] = c.getPreco();
             model.addRow(row_data);
         }
-        /*for(Pacote p : pac){
+        for(Pacote p : pac){
             for(Componente c : p.getComponentes()){
                 row_data[0] = c.getID();
                 row_data[1] = c.getDesignacao();
                 row_data[2] = c.getPreco();
                 model.addRow(row_data);
             }
-        }*/
+        }
     }
 
     private void cliente_txtKeyReleased(KeyEvent e) {

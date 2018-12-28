@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PacoteDAO {
-	public ConfiguraFacil ConfiguraFacil;
+	public ComponenteDAO componenteDAO = new ComponenteDAO();
 
 	public void put(int id, Pacote p) throws SQLException, ClassNotFoundException {
         //Establish the connection
@@ -35,44 +35,37 @@ public class PacoteDAO {
     }
 
     public Pacote get(int id) throws Exception {
-        Pacote p;
+        List<Componente> comps = new ArrayList<>();
+        double desconto = 0;
 
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "12345");
 
         PreparedStatement st;
-        st = con.prepareStatement("SELECT * FROM pacote WHERE id = ?;");
+        st = con.prepareStatement("SELECT c.id_componente " +
+                                  "FROM componente AS c INNER JOIN componentespacote AS cp " +
+                                                       "ON c.id_componente = cp.componente " +
+                                                       "INNER JOIN pacote as p " +
+                                                       "ON cp.pacote = p.id_pacote " +
+                                  "WHERE p.id_pacote = ?;");
         st.setInt(1, id);
 
         ResultSet rs = st.executeQuery();
-        if(rs.next()) {
-            p = new Pacote();
-            p.setID(rs.getInt("id_pacote"));
-            p.setDesconto(rs.getDouble("desconto"));
-
+        while(rs.next()) {
+            Componente c = componenteDAO.get(rs.getInt("c.id_componente"));
+            comps.add(c);
         }
-        else throw new Exception("No package found for given ID");
 
-        List<Componente> l = new ArrayList<>();
-
-        /*st = con.prepareStatement("SELECT * FROM componentespacote WHERE id_pacote = ?;");
+        st = con.prepareStatement("SELECT desconto FROM pacote WHERE id_pacote = ?;");
         st.setInt(1, id);
 
-        rs = st.executeQuery;
-        /while (rs.next()) {
-        	int idC = rs.getInt("id_componente");
+        rs = st.executeQuery();
+        if(rs.next()) desconto = rs.getDouble("desconto");
 
-        	PreparedStatement stAUX = con.prepareStatement("SELECT * FROM componente WHERE id_componente = ?;");
-        	stAUX.setInt(1, idC);
-        	
-        	ResultSet rsAUX = stAUX.executeQuery();
-        	// adicionar componente à lista
-
-        }*/
 
 
         con.close();
 
-        return p;
+        return new Pacote(id, comps, desconto);
     }
 
     public List<Pacote> list() throws Exception {
@@ -86,11 +79,7 @@ public class PacoteDAO {
 
         ResultSet rs = st.executeQuery();
         while (rs.next()) {
-            p = new Pacote();
-            p.setID(rs.getInt("id_pacote"));
-            p.setDesconto(rs.getDouble("desconto"));
-            // falta ir buscar lista dos componentes
-
+            p = this.get(rs.getInt("id_pacote"));
             r.add(p);
 
             System.out.println(p.getID()); // FIXME: 12/22/2018 DEBUGGING

@@ -32,6 +32,7 @@ public class ConfiguraFacil {
 	    this.funcionarioDAO = new FuncionarioDAO();
 	    this.componenteDAO = new ComponenteDAO();
 	    this.fabrica = new Fabrica();
+	    this.pacoteDAO = new PacoteDAO();
         //this.encomendaDAO = new EncomendaDAO();
     }
 
@@ -429,8 +430,10 @@ public class ConfiguraFacil {
         config.rmComponentes(comps);
     }
 
-    // nao tem map pacotes aqui nao da para implementar conforme dsi add pacote
-    public void getPacotes(){}
+    //
+    public List<Pacote> getPacotes() throws Exception {
+        return this.pacoteDAO.list();
+    }
 
     /**
      * Método para verificar se um Pack é compatível com uma configuração

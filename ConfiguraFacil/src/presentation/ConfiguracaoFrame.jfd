@@ -74,7 +74,8 @@ new FormModel {
 					auxiliary() {
 						"JavaCodeGenerator.typeParameters": "String"
 					}
-					addEvent( new FormEvent( "javax.swing.event.ListSelectionListener", "valueChanged", "type_listValueChanged", true ) )
+					addEvent( new FormEvent( "javax.swing.event.ListSelectionListener", "valueChanged", "type_list2ValueChanged", true ) )
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "type_list2MouseClicked", true ) )
 				} )
 			} )
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
@@ -82,7 +83,6 @@ new FormModel {
 				add( new FormComponent( "javax.swing.JTable" ) {
 					name: "cmp_tbl2"
 					"model": #SwingTableModel0
-					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "cmp_tblMouseClicked", true ) )
 				} )
 			} )
 		}, new FormLayoutConstraints( null ) {

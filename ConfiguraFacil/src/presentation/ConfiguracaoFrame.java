@@ -46,16 +46,16 @@ class Selection{
 
 class SelectionPacote{
 
-    List<Pacote> comps;
+    List<Pacote> pacotes;
     int selected;
 
     public SelectionPacote(){
-        this.comps = new ArrayList<>();
+        this.pacotes = new ArrayList<>();
         this.selected = -1;
     }
 
     public SelectionPacote(List data, int selected){
-        this.comps = data;
+        this.pacotes = data;
         this.selected = selected;
     }
 }
@@ -65,7 +65,7 @@ class SelectionPacote{
 public class ConfiguracaoFrame extends javax.swing.JFrame {
 
     Selection[] selections;
-    SelectionPacote[] selections_pacotes;
+    SelectionPacote selections_pacotes;
     ConfiguraFacil cf;
 
     private void registar_btnActionPerformed(ActionEvent e) throws Exception {
@@ -77,11 +77,10 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
                 config.addComponente(c);
             }
         }
-        /*for(SelectionPacote s : this.selections_pacotes){
-            if(s.selected != -1){
-                config.addPacote(s.comps.get(s.selected));
-            }
-        }*/
+        int selected;
+        if((selected = this.selections_pacotes.selected - 1) > -1){
+            config.addPacote(this.selections_pacotes.pacotes.get(selected));
+        }
 
         new RegistaEncomendaFrame(this.cf, config).setVisible(true);
     }
@@ -101,11 +100,19 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
         List<Componente> componentes = this.cf.getComponentes();
 
         List<Componente> comp_by_type = componentes.stream().filter(c -> c.getTipo() == tipo + 1).collect(Collectors.toList());
-        int selected = -1;
 
-        Selection s = new Selection(comp_by_type, selected);
+        Selection s = new Selection(comp_by_type, -1);
 
         this.selections[tipo] = s;
+    }
+
+    private void createSelectionsPacote() throws Exception {
+        List<Pacote> pacotes = this.cf.getPacotes();
+
+        SelectionPacote s = new SelectionPacote(pacotes, -1);
+
+        this.selections_pacotes = s;
+
     }
 
 
@@ -134,6 +141,38 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
         this.selections[type_list.getSelectedIndex()].selected = cmp_tbl.getSelectedRow();
     }
 
+    private void type_list2ValueChanged(ListSelectionEvent e) {
+        loadSelectionPacote(type_list2.getSelectedIndex());
+    }
+
+    private void loadSelectionPacote(int tipo) {
+        if(tipo > 0){
+            List<Componente> list = selections_pacotes.pacotes.get(tipo-1).getComponentes();
+
+            DefaultTableModel model = (DefaultTableModel) cmp_tbl2.getModel();
+            Object row_data[] = new Object[3];
+
+            model.setRowCount(0);
+
+            for(Componente c : list) {
+                row_data[0] = c.getID();
+                row_data[1] = c.getDesignacao();
+                row_data[2] = c.getPreco();
+
+                model.addRow(row_data);
+            }
+        }
+
+
+
+    }
+
+    private void type_list2MouseClicked(MouseEvent e) {
+        this.selections_pacotes.selected = type_list2.getSelectedIndex();
+    }
+
+
+
 
 
     /**
@@ -146,7 +185,11 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
         for(int i = 0; i < 6; i++){
             createSelections(i);
         }
-        this.selections_pacotes = new SelectionPacote[2];
+
+        this.selections_pacotes = new SelectionPacote();
+
+        createSelectionsPacote();
+
     }
 
     /**
@@ -253,7 +296,13 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
                 @Override
                 public String getElementAt(int i) { return values[i]; }
             });
-            type_list2.addListSelectionListener(e -> type_listValueChanged(e));
+            type_list2.addListSelectionListener(e -> type_list2ValueChanged(e));
+            type_list2.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    type_list2MouseClicked(e);
+                }
+            });
             jScrollPane3.setViewportView(type_list2);
         }
 
@@ -274,12 +323,6 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
                 @Override
                 public boolean isCellEditable(int rowIndex, int columnIndex) {
                     return columnEditable[columnIndex];
-                }
-            });
-            cmp_tbl2.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    cmp_tblMouseClicked(e);
                 }
             });
             jScrollPane4.setViewportView(cmp_tbl2);

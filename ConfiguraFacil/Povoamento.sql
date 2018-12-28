@@ -34,15 +34,16 @@ SELECT * FROM componente;
 -- DELETE FROM componente WHERE id_componente > 0;
 
 
-INSERT INTO incompativel
-VALUES (1, 2);
 
-SELECT * FROM incompativel;
+# POVOAMENTO PACOTES
+INSERT INTO pacote
+VALUES (1, 100),
+	   (2, 150);
+       
+INSERT INTO componentespacote
+VALUES (1, 1), (1, 4),
+	   (2, 2), (2, 5);
 
-INSERT INTO complementar
-VALUES (1, 3);
-
-SELECT * FROM complementar;
 
 
 # POVOAMENTO STOCK
@@ -58,3 +59,5 @@ SELECT * FROM stock;
 
 
 SELECT * FROM encomenda;
+
+

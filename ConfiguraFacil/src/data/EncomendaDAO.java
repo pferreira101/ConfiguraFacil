@@ -12,6 +12,8 @@ import java.util.List;
 
 public class EncomendaDAO {
 
+    PacoteDAO pacoteDAO = new PacoteDAO();
+
 	 public void put(int id, Encomenda e) throws SQLException, ClassNotFoundException {
         //Establish the connection
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "12345");
@@ -46,51 +48,71 @@ public class EncomendaDAO {
     }
 
     public Encomenda get(int id) throws Exception {
-        Encomenda e;
+        List<Componente> comps = new ArrayList<>();
+        List<Pacote> pacotes = new ArrayList<>();
+        int cliente = 0;
+        int funcionario = 0;
+
 
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "12345");
 
+        // Cliente e Funcionário
         PreparedStatement st;
-        st = con.prepareStatement("SELECT * FROM encomenda WHERE id_encomenda = ?;");
+        st = con.prepareStatement("SELECT cliente, funcionario FROM encomenda WHERE id_encomenda = ?;");
         st.setInt(1, id);
 
         ResultSet rs = st.executeQuery();
-        if(rs.next()) {
-            e = new Encomenda();
-            e.setID(rs.getInt("id_encomenda"));
-            e.setFuncionario(rs.getInt("funcionario"));
-            e.setCliente(rs.getInt("cliente"));
+        if(rs.next()){
+            cliente = rs.getInt("cliente");
+            funcionario = rs.getInt("funcionario");
         }
-        else throw new Exception("No order found for given ID");
+
+
 
         // Componentes
 
-        st = con.prepareStatement("SELECT * FROM componentesencomenda WHERE encomenda = ?");
+        st = con.prepareStatement("SELECT c.* " +
+                                  "FROM encomenda AS e INNER JOIN componentesencomenda AS ce " +
+                                                       "ON e.id_encomenda = ce.encomenda " +
+                                                       "INNER JOIN componente AS c " +
+                                                       "ON c.id_componente = ce.componente " +
+                                   "WHERE id_encomenda = ?;");
         st.setInt(1, id);
 
         rs = st.executeQuery();
-        while(rs.next()){
-            PreparedStatement st_aux;
-            st_aux = con.prepareStatement("SELECT * FROM componente WHERE id_componente = ?;");
-            st_aux.setInt(1, rs.getInt("componente"));
-            
-            ResultSet rs_aux = st_aux.executeQuery();
-            while (rs_aux.next()){
-                Componente c = new Componente();
-                c.setID(id);
-                c.setDesignacao(rs_aux.getString("designacao"));
-                c.setPreco(rs_aux.getDouble("preco"));
-                c.setTipo(rs_aux.getInt("tipo"));
-                
-                e.getComponentes().add(c);
-            }
+        while(rs.next()) {
+            Componente c = new Componente();
+            c.setID(rs.getInt("id_componente"));
+            c.setDesignacao(rs.getString("designacao"));
+            c.setPreco(rs.getDouble("preco"));
+            c.setTipo(rs.getInt("tipo"));
+
+            comps.add(c);
         }
 
-        // FIXME: 12/28/2018 FALTA PACOTE
+        // Pacotes
+
+        st = con.prepareStatement("SELECT p.id_pacote " +
+                                  "FROM encomenda AS e INNER JOIN pacotesencomenda AS pe " +
+                                                      "ON e.id_encomenda = pe.encomenda " +
+                                                      "INNER JOIN pacote AS p " +
+                                                      "ON p.id_pacote = pe.pacote " +
+                                  "WHERE id_encomenda = ?;");
+        st.setInt(1, id);
+
+        rs = st.executeQuery();
+        while(rs.next()) {
+            pacotes.add(this.pacoteDAO.get(rs.getInt("id_pacote")));
+        }
+
+        Configuracao c = new Configuracao(comps, pacotes);
+        Encomenda e = new Encomenda(id, cliente, funcionario, c);
+
         con.close();
 
         return e;
     }
+
 
     public List<Encomenda> list() throws Exception {
         List<Encomenda> r = new ArrayList<>();
@@ -103,16 +125,10 @@ public class EncomendaDAO {
 
         ResultSet rs = st.executeQuery();
         while (rs.next()) {
-            e = new Encomenda();
-            e.setID(rs.getInt("id_encomenda"));
-            e.setFuncionario(rs.getInt("funcionario"));
-            e.setCliente(rs.getInt("cliente"));
-
-            // falta ir buscar pacotes e componentes (fiz um bcd no DAO do Pacote)
+            e = get(rs.getInt("id_encomenda"));
 
             r.add(e);
 
-            System.out.println(e.getID()); // FIXME: 12/22/2018 DEBUGGING
         }
 
         con.close();

@@ -13,6 +13,7 @@ public class Encomenda {
     private int funcionario;
     private Configuracao config;
 
+
     public int getID() {
         return this.id;
     }

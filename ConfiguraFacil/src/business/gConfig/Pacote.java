@@ -7,6 +7,24 @@ public class Pacote {
 	private double desconto;
 	private List<Componente> componentes = new ArrayList<>();
 
+    public Pacote(int id, List<Componente> comps, double desconto) {
+        this.id = id;
+        this.desconto = desconto;
+        this.componentes = comps;
+    }
+
+    public Pacote() {
+        this.id = -1;
+        this.desconto = 0;
+        this.componentes = new ArrayList<>();
+    }
+
+    public Pacote(int id, double desconto, List<Componente> comps) {
+        this.id = id;
+        this.desconto = desconto;
+        this.componentes = comps;
+    }
+
 
     /**
      * Método para obter id do pacote
