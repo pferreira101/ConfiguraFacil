@@ -142,7 +142,7 @@ public class ConfiguraFacil {
 
 
     public boolean existeFuncionario(int id){
-	    return this.funcionarios.containsKey(id);
+	    return this.funcionarioDAO.containsFunc(id);
     }
 
     /**
@@ -163,12 +163,9 @@ public class ConfiguraFacil {
      * @param tel
      * @param mail
      */
-
-    public void alteraCliente(int id,String nome,int tel,String mail){
-	    Cliente c = this.clientes.get(id);
-	    //c.setALL(nome, tel, mail);
-
-	    //isto com daos vai mudar e o DSI tb !!!!
+    public void alteraCliente(int id,String nome,int tel,String mail) throws SQLException, ClassNotFoundException {
+	    Cliente c = new Cliente(id, nome, tel, mail);
+	    this.clienteDAO.put(id, c);
     }
 
     /**
@@ -360,12 +357,13 @@ public class ConfiguraFacil {
      * @param tipo Permissões.
      */
 
-    public void registaFuncionario(String nome, String pass, int tel, String email, int tipo){
+    public void registaFuncionario(String nome, String pass, int tel, String email, int tipo) throws SQLException, ClassNotFoundException {
         int id = this.funcionarios.size() + 1;
 
         Funcionario f = new Funcionario(id, nome, pass, tipo, tel, email);
 
-        this.funcionarios.put(id, f);
+
+        this.funcionarioDAO.put(id, f);
 
     }
 
