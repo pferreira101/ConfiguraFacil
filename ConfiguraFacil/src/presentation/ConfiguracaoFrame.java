@@ -96,25 +96,6 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
     }
 
 
-    private Vector createDataVector(Collection<Componente> list){
-        DefaultTableModel r = new DefaultTableModel();
-
-
-        // Adiciona novos
-        for(Componente c : list){
-            Object row_data[] = new Object[3];
-
-            row_data[0] = c.getID();
-            row_data[1] = c.getDesignacao();
-            row_data[2] = c.getPreco();
-
-            r.addRow(row_data);
-
-            System.out.println("ID AO CRIAR: " + row_data[0] + " - " + "Número de linhas: " + r.getRowCount());// FIXME: 12/27/2018 DEBUGGING
-        }
-
-        return r.getDataVector();
-    }
 
     private void createSelections(int tipo) throws Exception {
         List<Componente> componentes = this.cf.getComponentes();

@@ -56,6 +56,17 @@ public class EncomendasFrame extends javax.swing.JFrame {
         // verificar se existe stock para todas as componentes da encomenda
     }
 
+    private void encomendas_tblMouseClicked(MouseEvent e) throws Exception {
+        if(e.getClickCount()==2){
+            int row = this.encomendas_tbl.getSelectedRow();
+            int id = (int) this.encomendas_tbl.getModel().getValueAt(row, 0);
+
+            Encomenda selected = this.cf.getEncomenda(id);
+
+            new EncomendaDetalhesFrame(selected).setVisible(true);
+        }
+    }
+
 
     /**
      * Creates new form EncomendasFrame
@@ -112,6 +123,16 @@ public class EncomendasFrame extends javax.swing.JFrame {
                 TableColumnModel cm = encomendas_tbl.getColumnModel();
                 cm.getColumn(0).setPreferredWidth(4);
             }
+            encomendas_tbl.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    try {
+                        encomendas_tblMouseClicked(e);
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            });
             jScrollPane1.setViewportView(encomendas_tbl);
         }
 

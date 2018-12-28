@@ -4,12 +4,14 @@ import java.sql.SQLException;
 import java.util.*;
 
 import business.gConfig.Componente;
+import data.EncomendaDAO;
 import data.StockDAO;
 
 public class Fabrica {
 	private Map<Integer, Stock> stocks;
 	private List<Encomenda> queue;
 	private StockDAO stockDAO;
+	private EncomendaDAO encomendaDAO;
 
     /**
      * Construtor parameterizado para a classe da Fábrica.
@@ -21,6 +23,8 @@ public class Fabrica {
         this.stocks = stocks;
         this.queue = queue;
         this.stockDAO = new StockDAO();
+        this.encomendaDAO = new EncomendaDAO();
+
     }
 
     /**
@@ -31,6 +35,8 @@ public class Fabrica {
         this.stocks = new HashMap<>();
         this.queue = new ArrayList<>();
         this.stockDAO = new StockDAO();
+        this.encomendaDAO = new EncomendaDAO();
+
     }
 
     /**
@@ -183,5 +189,14 @@ public class Fabrica {
 
     public void adicionarEncomenda(Encomenda e){
         this.queue.add(e);
+    }
+
+
+    public List<Encomenda> getEncomendas() throws Exception {
+        return this.encomendaDAO.list();
+    }
+
+    public Encomenda getEncomenda(int id) throws Exception {
+        return this.encomendaDAO.get(id);
     }
 }

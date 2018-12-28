@@ -156,7 +156,7 @@ public class Funcionario {
      * @param email Email atualizado.
      */
 
-    public void setALL(String nome, String password, int tipo, int telemovel, String email){
+    public void setAll(String nome, String password, int tipo, int telemovel, String email){
         this.nome = nome;
         this.password = password;
         this.tipo = tipo;

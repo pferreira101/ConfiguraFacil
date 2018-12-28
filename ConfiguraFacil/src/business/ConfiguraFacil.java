@@ -21,7 +21,7 @@ public class ConfiguraFacil {
 	public ComponenteDAO componenteDAO;
 	public ClienteDAO clienteDAO;
 	public FuncionarioDAO funcionarioDAO;
-	public EncomendaDAO encomendaDAO;
+	//public EncomendaDAO encomendaDAO;
 	public PacoteDAO pacoteDAO;
 
 
@@ -32,7 +32,7 @@ public class ConfiguraFacil {
 	    this.funcionarioDAO = new FuncionarioDAO();
 	    this.componenteDAO = new ComponenteDAO();
 	    this.fabrica = new Fabrica();
-        this.encomendaDAO = new EncomendaDAO();
+        //this.encomendaDAO = new EncomendaDAO();
     }
 
 
@@ -249,7 +249,7 @@ public class ConfiguraFacil {
 
     public List<Encomenda> getEncomendas() throws Exception {
        //return this.encomendas.values();
-        return this.encomendaDAO.list();
+        return this.fabrica.getEncomendas();
     }
 
     /**
@@ -258,8 +258,9 @@ public class ConfiguraFacil {
      * @return Encomenda pretendida.
      */
 
-    public Encomenda getEncomenda(int cod){
-        return  this.encomendas.get(cod);
+    public Encomenda getEncomenda(int cod) throws Exception {
+        //return  this.encomendas.get(cod);
+        return this.fabrica.getEncomenda(cod);
     }
 
 
@@ -382,4 +383,74 @@ public class ConfiguraFacil {
         this.fabrica.atualizarStock(id_comp, quantidade);
     }
 
+    /**
+     * Método para verificar se um componente é compatível com uma Configuracao
+     * @param config Configuracao onde se verifica se o componente tem incompatibilidades
+     * @param comp Componente a testar
+     * @return Lista com os componentes da configuração que são incompatíveis com o componente argumento
+     */
+    public List<Componente> checkIncompativeis(Configuracao config, Componente comp){
+        return config.inconpativeis(comp);
+    }
+
+    /**
+     * Método para verificar se um dado componente obriga à instalação de outros
+     * @param comp Componente a verificar
+     * @return Lista dos componentes complementares ao componente argumento
+     */
+    public List<Componente> checkComplementares(Componente comp){
+        return comp.getComplementares();
+    }
+
+
+    /**
+     * Método para adicionar componente a uma configuração
+     * @param config Configuração em que se adiciona componente
+     * @param comp Componente a adicionar
+     */
+    public void addComponente(Configuracao config, Componente comp){
+        config.addComponente(comp);
+    }
+
+    /**
+     * Método para adicionar vários componentes a uma configuração
+     * @param config Configuração em que se adiciona componente
+     * @param comps Lista de componentes a adicionar
+     */
+    public void addComponentes(Configuracao config, List<Componente> comps){
+        for(Componente c : comps)
+            config.addComponente(c);
+    }
+
+    /**
+     * Método para remover componentes de uma configuração
+     * @param config Configuração de onde vão ser retirados os componentes
+     * @param comps Componentes a eliminar da configuração
+     */
+    public void removeComponentes(Configuracao config, List<Componente> comps){
+        config.rmComponentes(comps);
+    }
+
+    // nao tem map pacotes aqui nao da para implementar conforme dsi add pacote
+    public void getPacotes(){}
+
+    /**
+     * Método para verificar se um Pack é compatível com uma configuração
+     * @param config Configuracao a testar
+     * @param pack Pacote a testar
+     * @return Lista dos componentes da configuração que sejam incompatíveis com alguma componente do pack
+     */
+    public List<Componente> checkIncompativeis(Configuracao config, Pacote pack){
+           return config.incompativeis(pack);
+    }
+
+    /**
+     * Método para verifcar se instação de um pacote obriga à instalação de outros componentes
+     * @param pack Pacote a testar
+     * @return Lista dos componentes necessários para se poder instalar o pacote
+     */
+    public List<Componente> checkComplementares(Pacote pack){
+        return pack.getComplementares();
+    }
 }
+
