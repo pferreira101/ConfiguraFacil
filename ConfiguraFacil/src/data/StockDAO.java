@@ -27,6 +27,25 @@ public class StockDAO {
         con.close();
     }
 
+    public void put(int id, Stock s) throws SQLException, ClassNotFoundException {
+        //Establish the connection
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "12345");
+
+        PreparedStatement st;
+        st = con.prepareStatement("INSERT INTO stock " +
+                "VALUES (?, ?)" +
+                "ON DUPLICATE KEY UPDATE quantidade = ?;");
+
+        st.setInt(1, id);
+        st.setInt(2, s.getQuantidade());
+
+        st.setInt(3, s.getQuantidade());
+
+        st.execute();
+
+        con.close();
+    }
+
     public int get(int id) throws Exception {
         int quantidade = 0;
 

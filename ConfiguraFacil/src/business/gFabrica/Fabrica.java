@@ -127,7 +127,6 @@ public class Fabrica {
         Stock st = this.stocks.get(id_comp);
         st.add(quant);
 
-        }
         //throws SQLException, ClassNotFoundException
         //Stock st = this.stockDAO.get(id_comp);
         //            st.add(quant);

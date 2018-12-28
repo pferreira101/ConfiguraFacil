@@ -295,7 +295,7 @@ public class ConfiguraFacil {
 
         this.componentes.put(id,c);
 
-        this.fabrica.adicionarStockNovo(c);
+        this.fabrica.adicionarStockNovo(id);
     }
 
     /**
@@ -316,9 +316,13 @@ public class ConfiguraFacil {
      */
 
     public List<Componente> checkStock(int i){
-        Encomenda e = this.fabrica.getEncomenda(i);
+        try {
+            Encomenda e = this.fabrica.getEncomenda(i);
+            return this.fabrica.stockEmFalta(e.getComponentes());
 
-        return this.fabrica.stockEmFalta(e.getComponentes());
+        }
+        catch (Exception e){}
+        return  null;
     }
 
     /**
