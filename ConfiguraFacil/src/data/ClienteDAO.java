@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClienteDAO {
-    public ConfiguraFacil ConfiguraFacil;
 
 
     public void put(int id, Cliente c) throws SQLException, ClassNotFoundException {
@@ -16,11 +15,17 @@ public class ClienteDAO {
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "12345");
 
         PreparedStatement st;
-        st = con.prepareStatement("INSERT INTO cliente VALUES (?, ?, ?, ?);");
+        st = con.prepareStatement("INSERT INTO cliente " +
+                                  "VALUES (?, ?, ?, ?)" +
+                                  "ON DUPLICATE KEY UPDATE nome = ?, telemovel = ?, email = ?;");
         st.setInt(1, id);
         st.setString(2, c.getNome());
         st.setString(3, c.getEmail());
         st.setInt(4, c.getTelemovel());
+
+        st.setString(5, c.getNome());
+        st.setString(6, c.getEmail());
+        st.setInt(7, c.getTelemovel());
 
         st.execute();
 
@@ -70,8 +75,6 @@ public class ClienteDAO {
             c.setEmail(rs.getString("email"));
 
             r.add(c);
-
-            System.out.println(c.getNome()); // FIXME: 12/22/2018 DEBUGGING
         }
 
         con.close();

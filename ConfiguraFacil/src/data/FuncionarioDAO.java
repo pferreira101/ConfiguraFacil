@@ -15,13 +15,21 @@ public class FuncionarioDAO {
         Connection c = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "12345");
 
         PreparedStatement st;
-        st = c.prepareStatement("INSERT INTO funcionario VALUES (?, ?, ?, ?, ?, ?);");
+        st = c.prepareStatement("INSERT INTO funcionario " +
+                                "VALUES (?, ?, ?, ?, ?, ?) " +
+                                "ON DUPLICATE KEY UPDATE nome = ?, telemovel = ?, email = ?, tipo = ?, password = ?;");
         st.setInt(1, id);
         st.setString(2, f.getNome());
         st.setInt(3, f.getTelemovel());
         st.setString(4, f.getEmail());
         st.setInt(5, f.getTipo());
         st.setString(6, f.getPassword());
+
+        st.setString(7, f.getNome());
+        st.setInt(8, f.getTelemovel());
+        st.setString(9, f.getEmail());
+        st.setInt(10, f.getTipo());
+        st.setString(11, f.getPassword());
 
         st.execute();
 

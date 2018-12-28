@@ -10,6 +10,7 @@ import business.gConfig.Componente;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
@@ -27,8 +28,13 @@ public class AtualizarStockFrame extends javax.swing.JFrame {
         new NovaComponenteFrame().setVisible(true);
     }
 
-    private void atualizar_btnActionPerformed(ActionEvent e) {
-        // TODO add your code here
+    private void atualizar_btnActionPerformed(ActionEvent e) throws SQLException, ClassNotFoundException {
+        int id = componente_cbox.getSelectedIndex() + 1;
+        int quantidade = Integer.parseInt(qnt_txt.getText());
+
+        this.cf.atualizarStock(id, quantidade);
+
+        this.dispose();
     }
 
 
@@ -78,7 +84,15 @@ public class AtualizarStockFrame extends javax.swing.JFrame {
 
         //---- atualizar_btn ----
         atualizar_btn.setText("Atualizar");
-        atualizar_btn.addActionListener(e -> atualizar_btnActionPerformed(e));
+        atualizar_btn.addActionListener(e -> {
+            try {
+                atualizar_btnActionPerformed(e);
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            } catch (ClassNotFoundException e1) {
+                e1.printStackTrace();
+            }
+        });
 
         //---- label1 ----
         label1.setText("Componente");
@@ -128,34 +142,6 @@ public class AtualizarStockFrame extends javax.swing.JFrame {
         setLocationRelativeTo(getOwner());
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Windows look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Windows (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AtualizarStockFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AtualizarStockFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AtualizarStockFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AtualizarStockFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // Generated using JFormDesigner Evaluation license - Pedro Moreira

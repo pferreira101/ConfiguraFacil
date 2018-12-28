@@ -14,11 +14,34 @@ new FormModel {
 				name: "jScrollPane1"
 				add( new FormComponent( "javax.swing.JTable" ) {
 					name: "encomendas_tbl"
+					"model": new com.jformdesigner.model.SwingTableModel( new java.util.Vector {
+						add( new java.util.Vector {
+							add( null )
+							add( null )
+						} )
+						add( new java.util.Vector {
+							add( null )
+							add( null )
+						} )
+					}, new java.util.Vector {
+						add( "ID" )
+						add( "Cliente" )
+					}, new java.util.Vector {
+						add( null )
+						add( null )
+					}, new java.util.Vector {
+						add( false )
+						add( false )
+					}, new java.util.Vector {
+						add( new com.jformdesigner.model.SwingTableColumn( null, 4, 0, 0, true ) )
+						add( null )
+					} )
 				} )
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "pro_encomenda_btn"
 				"text": "Produzir Encomenda"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "pro_encomenda_btnActionPerformed", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "sair_btn"

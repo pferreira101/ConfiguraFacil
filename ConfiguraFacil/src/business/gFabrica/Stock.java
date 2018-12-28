@@ -21,7 +21,7 @@ public class Stock {
      * Construtor com parametros para a class Stock.
      * @param id Id da componente.
      * @param quantidade Quantidade atual da componente.
-     * @param componente Componete
+     * @param componente Componente
      */
 
 	public Stock(int id, int quantidade, Componente componente) {
@@ -36,8 +36,7 @@ public class Stock {
      * @return Valor do id do stock.
      */
 
-	public int getId() {
-
+	public int getID() {
 		return id;
 	}
 
@@ -46,7 +45,7 @@ public class Stock {
      * @param id Novo id para a componente.
      */
 
-	public void setId(int id) {
+	public void setID(int id) {
 		this.id = id;
 	}
 

@@ -31,6 +31,8 @@ public class ConfiguraFacil {
 	    this.clienteDAO = new ClienteDAO();
 	    this.funcionarioDAO = new FuncionarioDAO();
 	    this.componenteDAO = new ComponenteDAO();
+	    this.fabrica = new Fabrica();
+        this.encomendaDAO = new EncomendaDAO();
     }
 
 
@@ -51,8 +53,12 @@ public class ConfiguraFacil {
         return r;
     }
 
-    public void registaCliente(Cliente c) throws SQLException, ClassNotFoundException {
-	    this.clienteDAO.put(c.getID(), c);
+    public void registaCliente(String nome, int telemovel, String email) throws SQLException, ClassNotFoundException {
+	    int id = getNextClienteID();
+
+	    Cliente c = new Cliente(id, nome, telemovel, email);
+
+	    this.clienteDAO.put(id, c);
     }
 
     public void registaFuncionario(Funcionario f) throws SQLException, ClassNotFoundException {
@@ -98,11 +104,11 @@ public class ConfiguraFacil {
      * @param mail Email do cliente
      */
 
-    public void registaCliente(String nome,int tel,String mail){
-	    int id = this.clientes.size();
-	    Cliente c = new Cliente(id,nome,tel,mail);
+    /*public void registaCliente(String nome, int tel, String mail){
+	    int id = this.clientes.size() + 1;
+	    Cliente c = new Cliente(id, nome, tel, mail);
 	    this.clientes.put(id,c);
-    }
+    }*/
 
 
     /**
@@ -116,12 +122,16 @@ public class ConfiguraFacil {
      */
 
 
-    public void alteraFuncionario(int id, String nome, String password, int tipo, int telemovel, String email){
+    public void alteraFuncionario(int id, String nome, String password, int tipo, int telemovel, String email) throws SQLException, ClassNotFoundException {
+        /* // FIXME: 12/28/2018 versão normal
 	    Funcionario f = this.funcionarios.get(id);
 
-	    f.setALL(nome,password,tipo,telemovel,email);
+
+	    f.setALL(nome, password, tipo, telemovel, email);*/
 
 	    // com dao isto vai ter que mudar e o DSI tb!!!1
+        Funcionario f = new Funcionario(id, nome, password, tipo, telemovel, email);
+        this.funcionarioDAO.put(id, f);
     }
 
     /**
@@ -168,7 +178,7 @@ public class ConfiguraFacil {
      * @return
      */
 
-    public Configuracao calculaConfigO(double orcamento,int prio){
+    public Configuracao calculaConfig(double orcamento,int prio){
          List<Componente> sgd = new ArrayList<>();
          List<Componente> prim = new ArrayList<>();
 
@@ -237,8 +247,9 @@ public class ConfiguraFacil {
      */
 
 
-    public Collection<Encomenda> getEncomendas(){
-        return this.encomendas.values();
+    public List<Encomenda> getEncomendas() throws Exception {
+       //return this.encomendas.values();
+        return this.encomendaDAO.list();
     }
 
     /**
@@ -295,8 +306,8 @@ public class ConfiguraFacil {
      * @param quantidade Quantidade nova a introduzir.
      */
 
-    public void encomendar(int idcomp,int quantidade){
-        this.fabrica.atualizarStock(idcomp,quantidade);
+    public void encomendar(int idcomp,int quantidade) throws SQLException, ClassNotFoundException {
+        this.fabrica.atualizarStock(idcomp, quantidade);
     }
 
     /**
@@ -340,10 +351,10 @@ public class ConfiguraFacil {
      * @param funcionario Funcionário que realizou a encomenda.
      */
 
-    public void registaEncomenda(int cliente,Configuracao config,int funcionario){
-        int id = this.encomendas.size();
+    public void registaEncomenda(int cliente, Configuracao config, int funcionario){
+        int id = this.encomendas.size() + 1;
 
-        Encomenda e = new Encomenda(id,cliente,funcionario,config);
+        Encomenda e = new Encomenda(id, cliente, funcionario, config);
         this.encomendas.put(id,e);
 
         this.fabrica.adicionarEncomenda(e);
@@ -358,13 +369,17 @@ public class ConfiguraFacil {
      * @param tipo Permissões.
      */
 
-    public void registaFuncionario(String nome,String pass,int tel,String email,int tipo){
-        int id = this.funcionarios.size();
+    public void registaFuncionario(String nome, String pass, int tel, String email, int tipo){
+        int id = this.funcionarios.size() + 1;
 
-        Funcionario f = new Funcionario(id,nome,pass,tipo,tel,email);
+        Funcionario f = new Funcionario(id, nome, pass, tipo, tel, email);
 
-        this.funcionarios.put(id,f);
+        this.funcionarios.put(id, f);
 
+    }
+
+    public void atualizarStock(int id_comp, int quantidade) throws SQLException, ClassNotFoundException {
+        this.fabrica.atualizarStock(id_comp, quantidade);
     }
 
 }
