@@ -166,7 +166,7 @@ public class ConfiguraFacil {
 
     public void alteraCliente(int id,String nome,int tel,String mail){
 	    Cliente c = this.clientes.get(id);
-	    c.setALL(nome,tel,mail);
+	    //c.setALL(nome, tel, mail);
 
 	    //isto com daos vai mudar e o DSI tb !!!!
     }
@@ -341,9 +341,6 @@ public class ConfiguraFacil {
         this.fabrica.processaEncomenda(i);
     }
 
-    public void registaEncomenda(Encomenda e) {
-
-    }
 
     /**
      * Método para registar uma encomenda no sistema.
@@ -352,13 +349,14 @@ public class ConfiguraFacil {
      * @param funcionario Funcionário que realizou a encomenda.
      */
 
-    public void registaEncomenda(int cliente, Configuracao config, int funcionario){
-        int id = this.encomendas.size() + 1;
+    public void registaEncomenda(Configuracao config, int cliente, int funcionario) throws SQLException, ClassNotFoundException {
+        /*int id = this.encomendas.size() + 1;
 
         Encomenda e = new Encomenda(id, cliente, funcionario, config);
         this.encomendas.put(id,e);
+        this.fabrica.adicionarEncomenda(e);*/ // FIXME: 12/28/2018 normal
 
-        this.fabrica.adicionarEncomenda(e);
+        this.fabrica.registaEncomenda(config, cliente, funcionario);
     }
 
     /**
@@ -390,7 +388,7 @@ public class ConfiguraFacil {
      * @return Lista com os componentes da configuração que são incompatíveis com o componente argumento
      */
     public List<Componente> checkIncompativeis(Configuracao config, Componente comp){
-        return config.inconpativeis(comp);
+        return config.incompativeis(comp);
     }
 
     /**

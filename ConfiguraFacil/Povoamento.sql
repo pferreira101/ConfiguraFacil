@@ -51,3 +51,10 @@ VALUES (1, 2),
 	   (2, 4);
        
 SELECT * FROM stock;
+
+
+# POVOAMENTO ENCOMENDA
+
+
+
+SELECT * FROM encomenda;

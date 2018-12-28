@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 import business.gConfig.Componente;
+import business.gConfig.Configuracao;
 import data.EncomendaDAO;
 import data.StockDAO;
 
@@ -198,5 +199,18 @@ public class Fabrica {
 
     public Encomenda getEncomenda(int id) throws Exception {
         return this.encomendaDAO.get(id);
+    }
+
+
+    public void registaEncomenda(Configuracao config, int cliente, int funcionario) throws SQLException, ClassNotFoundException {
+        int id = this.getNextEncomendaID();
+
+        Encomenda e = new Encomenda(id, cliente, funcionario, config);
+
+        this.encomendaDAO.put(id, e);
+    }
+
+    private int getNextEncomendaID() throws SQLException {
+        return this.encomendaDAO.size() + 1;
     }
 }

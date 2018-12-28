@@ -141,7 +141,7 @@ public class Configuracao {
 	 * Método para remover um Componente da configuração
 	 * @param c Componente a remover
 	 */
-	public void rmComponente(Componente c){this.componentes.remove(c)};
+	public void rmComponente(Componente c){this.componentes.remove(c);}
 
 
 	/**
@@ -163,7 +163,7 @@ public class Configuracao {
 
 		for(Componente c : componentesConfig) {
 			flag = comp.isCompativel(c);
-			if(!flag) incompt.add(c)
+			if(!flag) incompt.add(c);
 		}
 		return incompt;
 	}
