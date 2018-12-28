@@ -1,5 +1,6 @@
 package data;
 
+import business.gConfig.Componente;
 import business.gConfig.Pacote;
 import business.ConfiguraFacil;
 

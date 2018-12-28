@@ -13,7 +13,7 @@ public class Configuracao {
 	 */
 	public Configuracao() {
 		this.componentes = new ArrayList<>();
-		this.componentes = new ArrayList<>();
+		this.pacotes = new ArrayList<>();
 	}
 
 	/**

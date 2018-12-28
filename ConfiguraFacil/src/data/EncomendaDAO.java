@@ -1,5 +1,8 @@
 package data;
 
+import business.gConfig.Componente;
+import business.gConfig.Configuracao;
+import business.gConfig.Pacote;
 import business.gFabrica.Encomenda;
 import business.ConfiguraFacil;
 
@@ -17,14 +20,14 @@ public class EncomendaDAO {
         PreparedStatement st;
         st = con.prepareStatement("INSERT INTO encomenda VALUES (?, ?, ?);");
         st.setInt(1, id);
-        st.setString(2, e.getFuncionario());
-        st.setString(3, e.getCliente());
+        st.setInt(2, e.getFuncionario());
+        st.setInt(3, e.getCliente());
 
         st.execute();
 
         Configuracao conf = e.getConfig();
         List<Pacote> lP = conf.getPacotes();
-        List<Componentes> lC = conf.getComponentes();
+        List<Componente> lC = conf.getComponentes();
 
         st = con.prepareStatement("INSERT INTO componentesencomenda VALUES (?, ?);");
         for (int i=0;i<lC.size();i++){
@@ -56,9 +59,8 @@ public class EncomendaDAO {
         if(rs.next()) {
             e = new Encomenda();
             e.setID(rs.getInt("id_encomenda"));
-            e.setFuncionario(rs.getString("id_funcionario"));
+            e.setFuncionario(rs.getInt("id_funcionario"));
             e.setCliente(rs.getInt("cliente"));
-
         }
         else throw new Exception("No order found for given ID");
 
@@ -82,7 +84,7 @@ public class EncomendaDAO {
         while (rs.next()) {
             e = new Encomenda();
             e.setID(rs.getInt("id_encomenda"));
-            e.setFuncionario(rs.getString("id_funcionario"));
+            e.setFuncionario(rs.getInt("id_funcionario"));
             e.setCliente(rs.getInt("cliente"));
 
             // falta ir buscar pacotes e componentes (fiz um bcd no DAO do Pacote)

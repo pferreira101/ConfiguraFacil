@@ -49,6 +49,13 @@ public class Encomenda {
         this.config = config;
     }
 
+    public Encomenda(){
+        this.id = -1;
+        this.cliente = -1;
+        this.funcionario = -1;
+        this.config = new Configuracao();
+    }
+
     public Encomenda(int id, int cliente, int funcionario, Configuracao config) {
         this.id = id;
         this.cliente = cliente;
