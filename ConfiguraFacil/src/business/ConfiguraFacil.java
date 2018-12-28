@@ -1,10 +1,5 @@
 package business;
 
-import data.ComponenteDAO;
-import data.ClienteDAO;
-import data.FuncionarioDAO;
-import data.EncomendaDAO;
-import data.PacoteDAO;
 import business.gFabrica.*;
 import business.gConta.*;
 import business.gConfig.*;
@@ -18,84 +13,71 @@ public class ConfiguraFacil {
 	public Map<Integer, Funcionario> funcionarios;
 	public Map<Integer, Encomenda> encomendas;
 	public Fabrica fabrica;
-	public ComponenteDAO componenteDAO;
-	public ClienteDAO clienteDAO;
-	public FuncionarioDAO funcionarioDAO;
-	//public EncomendaDAO encomendaDAO;
-	public PacoteDAO pacoteDAO;
+
+
 
 
 	public ConfiguraFacil(){
-	    this.clientes = new HashMap<>();
-	    this.funcionarios = new HashMap<>();
-	    this.clienteDAO = new ClienteDAO();
-	    this.funcionarioDAO = new FuncionarioDAO();
-	    this.componenteDAO = new ComponenteDAO();
-	    this.fabrica = new Fabrica();
-        //this.encomendaDAO = new EncomendaDAO();
-    }
+            this.clientes = new HashMap<>();
+            this.funcionarios = new HashMap<>();
+            this.componentes = new HashMap<>();
+            this.fabrica = new Fabrica();
+            this.encomendas = new HashMap<>();
+	}
 
 
 
-    public int logIn(int id, String password) {
-	    if(id == 0 && password.equals("admin")) return 3;
 
-	    int r = -1;
+	public int logIn(int id, String password) {
+        if (id == 0 && password.equals("admin")) return 3;
 
-	    try{
-	        Funcionario f = this.funcionarioDAO.get(id);
+        int r = -1;
+
+        try {
+            Funcionario f = this.funcionarios.get(id);
             r = f.authenticate(password);
-        }
-        catch (Exception e){
-	        r = -1;
+        } catch (Exception e) {
+            r = -1;
         }
 
         return r;
     }
 
-    public void registaCliente(String nome, int telemovel, String email) throws SQLException, ClassNotFoundException {
-	    int id = getNextClienteID();
+        public void registaFuncionario(Funcionario f) throws SQLException, ClassNotFoundException {
+            this.funcionarios.put(f.getID(), f);
+        }
 
-	    Cliente c = new Cliente(id, nome, telemovel, email);
+        public List<Componente> getComponentes() throws Exception {
+            List<Componente> aux = new ArrayList<>(this.componentes.values());
+            return aux;
+        }
 
-	    this.clienteDAO.put(id, c);
-    }
 
-    public void registaFuncionario(Funcionario f) throws SQLException, ClassNotFoundException {
-        this.funcionarioDAO.put(f.getID(), f);
-    }
+        public List<Cliente> getClientes() throws Exception {
+            List<Cliente> aux = new ArrayList<>(this.clientes.values());
+            return aux;
+        }
 
-    public List<Componente> getComponentes() throws Exception {
-        return this.componenteDAO.list();
-    }
+        public void removeFuncionario(int id) throws SQLException {
+            this.funcionarios.remove(id);
+        }
 
-    public int getNextClienteID() throws SQLException {
-        return this.clienteDAO.size() + 1;
-    }
+        public Cliente getCliente(int id) throws Exception {
+            return this.clientes.get(id);
+        }
 
-    public List<Cliente> getClientes() throws Exception {
-        return this.clienteDAO.list();
-    }
+        public List<Funcionario> getFuncionarios() throws Exception {
+            List<Funcionario> aux = new ArrayList<>(this.funcionarios.values());
+            return aux;
+        }
 
-    public void removeFuncionario(int id) throws SQLException {
-        this.funcionarioDAO.remove(id);
-    }
+        public Funcionario getFuncionario(int id) throws Exception {
+            return this.funcionarios.get(id);
+        }
 
-    public Cliente getCliente(int id) throws Exception {
-        return this.clienteDAO.get(id);
-    }
-
-    public List<Funcionario> getFuncionarios() throws Exception {
-        return this.funcionarioDAO.list();
-    }
-
-    public Funcionario getFuncionario(int id) throws Exception {
-        return this.funcionarioDAO.get(id);
-    }
-
-    public int getNextFuncionarioID() throws SQLException {
-        return this.funcionarioDAO.size() + 1;
-    }
+        public int getNextFuncionarioID() throws SQLException {
+            return this.funcionarios.size() + 1;
+        }
 
     /**
      * Método para registar um cliente no sistema.
@@ -104,11 +86,11 @@ public class ConfiguraFacil {
      * @param mail Email do cliente
      */
 
-    /*public void registaCliente(String nome, int tel, String mail){
+    public void registaCliente(String nome, int tel, String mail){
 	    int id = this.clientes.size() + 1;
 	    Cliente c = new Cliente(id, nome, tel, mail);
 	    this.clientes.put(id,c);
-    }*/
+    }
 
 
     /**
@@ -123,15 +105,10 @@ public class ConfiguraFacil {
 
 
     public void alteraFuncionario(int id, String nome, String password, int tipo, int telemovel, String email) throws SQLException, ClassNotFoundException {
-        /* // FIXME: 12/28/2018 versão normal
 	    Funcionario f = this.funcionarios.get(id);
 
+	    f.setAll(nome, password, tipo, telemovel, email);
 
-	    f.setALL(nome, password, tipo, telemovel, email);*/
-
-	    // com dao isto vai ter que mudar e o DSI tb!!!1
-        Funcionario f = new Funcionario(id, nome, password, tipo, telemovel, email);
-        this.funcionarioDAO.put(id, f);
     }
 
     /**
@@ -166,7 +143,7 @@ public class ConfiguraFacil {
 
     public void alteraCliente(int id,String nome,int tel,String mail){
 	    Cliente c = this.clientes.get(id);
-	    c.setALL(nome,tel,mail);
+	    c.setAll(nome,tel,mail);
 
 	    //isto com daos vai mudar e o DSI tb !!!!
     }
@@ -248,8 +225,8 @@ public class ConfiguraFacil {
 
 
     public List<Encomenda> getEncomendas() throws Exception {
-       //return this.encomendas.values();
-        return this.fabrica.getEncomendas();
+        List<Encomenda> aux = new ArrayList<>(this.encomendas.values());
+        return aux;
     }
 
     /**
@@ -259,8 +236,7 @@ public class ConfiguraFacil {
      */
 
     public Encomenda getEncomenda(int cod) throws Exception {
-        //return  this.encomendas.get(cod);
-        return this.fabrica.getEncomenda(cod);
+        return  this.encomendas.get(cod);
     }
 
 
@@ -390,7 +366,7 @@ public class ConfiguraFacil {
      * @return Lista com os componentes da configuração que são incompatíveis com o componente argumento
      */
     public List<Componente> checkIncompativeis(Configuracao config, Componente comp){
-        return config.inconpativeis(comp);
+        return config.incompativeis(comp);
     }
 
     /**

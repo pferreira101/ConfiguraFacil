@@ -10,8 +10,7 @@ import data.StockDAO;
 public class Fabrica {
 	private Map<Integer, Stock> stocks;
 	private List<Encomenda> queue;
-	private StockDAO stockDAO;
-	private EncomendaDAO encomendaDAO;
+
 
     /**
      * Construtor parameterizado para a classe da Fábrica.
@@ -22,8 +21,7 @@ public class Fabrica {
     public Fabrica(Map<Integer, Stock> stocks, List<Encomenda> queue) {
         this.stocks = stocks;
         this.queue = queue;
-        this.stockDAO = new StockDAO();
-        this.encomendaDAO = new EncomendaDAO();
+
 
     }
 
@@ -34,8 +32,6 @@ public class Fabrica {
     public Fabrica(){
         this.stocks = new HashMap<>();
         this.queue = new ArrayList<>();
-        this.stockDAO = new StockDAO();
-        this.encomendaDAO = new EncomendaDAO();
 
     }
 
@@ -123,12 +119,11 @@ public class Fabrica {
      */
 
     public void atualizarStock(int id_comp, int quant) throws SQLException, ClassNotFoundException {
-        /*if(this.stocks.get(id_comp) != null){
+        if(this.stocks.get(id_comp) != null){
             Stock st = this.stocks.get(id_comp);
             st.add(quant);
-        }*/ // FIXME: 12/28/2018 versao normal
+        }
 
-        this.stockDAO.put(id_comp, quant);
     }
 
     /**
@@ -189,14 +184,5 @@ public class Fabrica {
 
     public void adicionarEncomenda(Encomenda e){
         this.queue.add(e);
-    }
-
-
-    public List<Encomenda> getEncomendas() throws Exception {
-        return this.encomendaDAO.list();
-    }
-
-    public Encomenda getEncomenda(int id) throws Exception {
-        return this.encomendaDAO.get(id);
     }
 }
