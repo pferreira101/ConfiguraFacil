@@ -16,7 +16,6 @@ public class ConfiguraFacil {
 	public Map<Integer, Cliente> clientes;
     public Map<Integer, Componente> componentes;
 	public Map<Integer, Funcionario> funcionarios;
-	public Map<Integer, Encomenda> encomendas;
 	public Fabrica fabrica;
 	public ComponenteDAO componenteDAO;
 	public ClienteDAO clienteDAO;
@@ -249,7 +248,6 @@ public class ConfiguraFacil {
 
 
     public List<Encomenda> getEncomendas() throws Exception {
-       //return this.encomendas.values();
         return this.fabrica.getEncomendas();
     }
 
@@ -260,7 +258,6 @@ public class ConfiguraFacil {
      */
 
     public Encomenda getEncomenda(int cod) throws Exception {
-        //return  this.encomendas.get(cod);
         return this.fabrica.getEncomenda(cod);
     }
 
@@ -312,14 +309,6 @@ public class ConfiguraFacil {
         this.fabrica.atualizarStock(idcomp, quantidade);
     }
 
-    /**
-     * Método que devolve uma lista com as encomendas que estão na fábrica.
-     * @return Lista com encomendas.
-     */
-
-    public List<Encomenda> getEncomendasQueue(){
-        return this.fabrica.getQueue();
-    }
 
     /**
      * Método que, dada a posição de uma encomenda na queue, calcula que componentes dessa encomenda não se encontram em stock.
@@ -328,7 +317,7 @@ public class ConfiguraFacil {
      */
 
     public List<Componente> checkStock(int i){
-        Encomenda e = this.fabrica.getEncomendaQueue(i);
+        Encomenda e = this.fabrica.getEncomenda(i);
 
         return this.fabrica.stockEmFalta(e.getComponentes());
     }

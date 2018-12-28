@@ -109,12 +109,12 @@ public class Fabrica {
 
     /**
      * Método para adicionar o stock de uma nova componente.
-     * @param c Compomente nova a adicionar
+     * @param id Id da componente nova a adicionar.
      */
 
-    public void adicionarStockNovo(Componente c){
-        Stock s = new Stock(c.getID(), 0, c);
-        this.stocks.put(c.getID(), s);
+    public void adicionarStockNovo(int id){
+        Stock s = new Stock(id,0);
+        this.stocks.put(id, s);
     }
 
     /**
@@ -123,24 +123,17 @@ public class Fabrica {
      * @param quant Quantidade nova a adicionar.
      */
 
-    public void atualizarStock(int id_comp, int quant) throws SQLException, ClassNotFoundException {
-        /*if(this.stocks.get(id_comp) != null){
-            Stock st = this.stocks.get(id_comp);
-            st.add(quant);
-        }*/ // FIXME: 12/28/2018 versao normal
+    public void atualizarStock(int id_comp, int quant){
+        Stock st = this.stocks.get(id_comp);
+        st.add(quant);
 
-        this.stockDAO.put(id_comp, quant);
+        }
+        //throws SQLException, ClassNotFoundException
+        //Stock st = this.stockDAO.get(id_comp);
+        //            st.add(quant);
+        //this.stockDAO.put(id_comp, st);
     }
 
-    /**
-     * Método que devolve a encomenda numa dada posição da queue.
-     * @param index Posição pretendida.
-     * @return Encomenda pretendida.
-     */
-
-    public Encomenda getEncomendaQueue(int index){
-        return this.queue.get(index);
-    }
 
     /**
      * Método que dada uma lista de componentes verifica que componentes não estão em stock.
