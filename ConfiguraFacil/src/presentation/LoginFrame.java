@@ -6,7 +6,6 @@
 package presentation;
 
 import business.ConfiguraFacil;
-import business.gConfig.Componente;
 import business.gConta.Funcionario;
 
 import javax.swing.*;
@@ -22,20 +21,22 @@ public class LoginFrame extends javax.swing.JFrame {
     private static ConfiguraFacil cf;
 
 
-    private void login_btnActionPerformed(ActionEvent e) {
+    private void login_btnActionPerformed(ActionEvent e) throws Exception {
         int id = Integer.parseInt(id_txt.getText());
         String password = new String(pw_txt.getPassword()).trim();
 
         int tipo = cf.logIn(id, password);
 
+        System.out.println(tipo);// FIXME: 12/28/2018 DEBUGGING
+
         if(tipo == 1) {
             this.dispose();
-            Funcionario f = cf.funcionarios.get(id);
+            Funcionario f = cf.getFuncionario(id);
             new StandFrame(this.cf, f).setVisible(true);
         }
         else if(tipo == 2) {
             this.dispose();
-            Funcionario f = cf.funcionarios.get(id);
+            Funcionario f = cf.getFuncionario(id);
             new FabricaFrame(this.cf, f).setVisible(true);
         }
         else if(tipo == 3){
@@ -43,6 +44,10 @@ public class LoginFrame extends javax.swing.JFrame {
             new FuncionariosFrame(this.cf).setVisible(true);
         }
         else this.error_txt.setText("Credenciais Inválidas");
+    }
+
+    private void pw_txtActionPerformed(ActionEvent e) {
+        // TODO add your code here
     }
 
 
@@ -80,13 +85,22 @@ public class LoginFrame extends javax.swing.JFrame {
         sair_btn.setText("Sair");
         sair_btn.addActionListener(e -> sair_btnActionPerformed(e));
 
+        //---- pw_txt ----
+        pw_txt.addActionListener(e -> pw_txtActionPerformed(e));
+
         //---- login_btn ----
         login_btn.setText("Log In");
-        login_btn.addActionListener(e -> login_btnActionPerformed(e));
+        login_btn.addActionListener(e -> {
+            try {
+                login_btnActionPerformed(e);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        });
 
         //---- jLabel1 ----
         jLabel1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        jLabel1.setIcon(new ImageIcon(getClass().getResource("/presentation/logo.png")));
+        jLabel1.setIcon(new ImageIcon(getClass().getResource("logo.png")));
 
         //---- label1 ----
         label1.setText("ID");
@@ -187,7 +201,6 @@ public class LoginFrame extends javax.swing.JFrame {
         /* INICIA CONFIGURA FACIL */
 
         cf = new ConfiguraFacil();
-        cf.loadFuncionarios();
 
 
         /* Create and display the form */

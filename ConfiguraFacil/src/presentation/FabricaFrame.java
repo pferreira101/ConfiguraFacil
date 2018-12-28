@@ -34,10 +34,6 @@ public class FabricaFrame extends javax.swing.JFrame {
         new EncomendasFrame().setVisible(true);
     }
 
-    private void config_btnActionPerformed(ActionEvent e) {
-        // TODO add your code here
-    }
-
     private void sair_btnActionPerformed(ActionEvent e) {
         this.dispose();
         new LoginFrame().setVisible(true);
@@ -76,16 +72,13 @@ public class FabricaFrame extends javax.swing.JFrame {
 
         //---- jLabel1 ----
         jLabel1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        jLabel1.setIcon(new ImageIcon(getClass().getResource("/presentation/logo.png")));
+        jLabel1.setIcon(new ImageIcon(getClass().getResource("logo.png")));
         jLabel1.setText("- F\u00c1BRICA");
 
         //---- encomendas_btn ----
         encomendas_btn.setFont(new Font("Tahoma", Font.PLAIN, 12));
         encomendas_btn.setText("Visualizar Encomendas");
-        encomendas_btn.addActionListener(e -> {
-			config_btnActionPerformed(e);
-			encomendas_btnActionPerformed(e);
-		});
+        encomendas_btn.addActionListener(e -> encomendas_btnActionPerformed(e));
 
         //---- stock_btn ----
         stock_btn.setFont(new Font("Tahoma", Font.PLAIN, 12));

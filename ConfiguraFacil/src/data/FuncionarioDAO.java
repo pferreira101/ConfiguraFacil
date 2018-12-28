@@ -34,7 +34,7 @@ public class FuncionarioDAO {
         Connection c = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "12345");
 
         PreparedStatement st;
-        st = c.prepareStatement("SELECT * FROM funcionario WHERE id = ?;");
+        st = c.prepareStatement("SELECT * FROM funcionario WHERE id_funcionario = ?;");
         st.setInt(1, id);
 
         ResultSet rs = st.executeQuery();

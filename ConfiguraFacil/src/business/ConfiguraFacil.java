@@ -21,8 +21,8 @@ public class ConfiguraFacil {
 	public ComponenteDAO componenteDAO;
 	public ClienteDAO clienteDAO;
 	public FuncionarioDAO funcionarioDAO;
-	public EncomendaDAO _unnamed_EncomendaDAO_;
-	public PacoteDAO _unnamed_PacoteDAO_;
+	public EncomendaDAO encomendaDAO;
+	public PacoteDAO pacoteDAO;
 
 
 	public ConfiguraFacil(){
@@ -34,52 +34,25 @@ public class ConfiguraFacil {
     }
 
 
-    public void loadClientes(){
-        try{
-            List<Cliente> l = this.clienteDAO.list();
 
-            for(Cliente c : l){
-                this.clientes.put(c.getID(), c);
-            }
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    public void loadFuncionarios() {
-        try{
-            List<Funcionario> l = this.funcionarioDAO.list();
-
-            for(Funcionario f : l){
-                this.funcionarios.put(f.getID(), f);
-            }
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public int logIn(int id, String password){
+    public int logIn(int id, String password) {
 	    if(id == 0 && password.equals("admin")) return 3;
 
-	    int r = -1;
-
-	    if (this.funcionarios.containsKey(id)) {
-            Funcionario f = this.funcionarios.get(id);
-            r = f.authenticate(password);
+	    try{
+	        Funcionario f = this.funcionarioDAO.get(id);
+            return f.authenticate(password);
         }
-        return r;
+        catch (Exception e){
+	        return -1;
+        }
+
     }
 
     public void registaCliente(Cliente c) throws SQLException, ClassNotFoundException {
-	    this.clientes.put(c.getID(), c);
 	    this.clienteDAO.put(c.getID(), c);
     }
 
     public void registaFuncionario(Funcionario f) throws SQLException, ClassNotFoundException {
-	    this.funcionarios.put(f.getID(), f);
 	    this.funcionarioDAO.put(f.getID(), f);
     }
 
@@ -181,7 +154,7 @@ public class ConfiguraFacil {
                  }
                  else break;
                  if (valid && (sum + sum2 < orcamento) && !rep){
-                     config.add(i);
+                     config.addComponente(i);
                      sum += sum2;
                  }
                  else if (valid == false || (sum+sum2 > orcamento))
@@ -190,7 +163,7 @@ public class ConfiguraFacil {
 
              sum2 = c.getPreco();
              if (todos && (sum2 + sum < orcamento) && valid1){
-                 config.add(c);
+                 config.addComponente(c);
              }
 
          }
@@ -200,7 +173,7 @@ public class ConfiguraFacil {
              rep = config.incluido(c);
              if (valid && sum+sum2 < orcamento && !rep){
                  sum += sum2;
-                 config.add(c);
+                 config.addComponente(c);
              }
         }
 
@@ -285,5 +258,29 @@ public class ConfiguraFacil {
 
     public void encomendar(int idcomp,int quantidade){
         this.fabrica.atualizarStock(idcomp,quantidade);
+    }
+
+    public void registaEncomenda(Encomenda e) {
+
+    }
+
+    public void removeFuncionario(int id) throws SQLException {
+        this.funcionarioDAO.remove(id);
+    }
+
+    public Cliente getCliente(int id) throws Exception {
+        return this.clienteDAO.get(id);
+    }
+
+    public List<Funcionario> getFuncionarios() throws Exception {
+        return this.funcionarioDAO.list();
+    }
+
+    public Funcionario getFuncionario(int id) throws Exception {
+        return this.funcionarioDAO.get(id);
+    }
+
+    public int getNextFuncionarioID() throws SQLException {
+        return this.funcionarioDAO.size() + 1;
     }
 }

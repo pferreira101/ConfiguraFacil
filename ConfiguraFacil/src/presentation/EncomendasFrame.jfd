@@ -23,6 +23,7 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "sair_btn"
 				"text": "Sair"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "sair_btnActionPerformed", true ) )
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"size": new java.awt.Dimension( 400, 300 )

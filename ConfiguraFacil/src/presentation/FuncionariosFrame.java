@@ -11,6 +11,7 @@ import business.ConfiguraFacil;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Collection;
+import java.util.List;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle;
@@ -25,6 +26,7 @@ public class FuncionariosFrame extends javax.swing.JFrame {
 
 
     ConfiguraFacil cf;
+    List<Funcionario> funcionarios;
 
     public void updateTable(Collection<Funcionario> funcionarios){
         DefaultTableModel model = (DefaultTableModel) display_tbl.getModel();
@@ -49,16 +51,13 @@ public class FuncionariosFrame extends javax.swing.JFrame {
         new NovoFuncionarioFrame(this.cf, this).setVisible(true);
     }
 
-    private void novo_cliente_btnActionPerformed(ActionEvent e) {
-        // TODO add your code here
-    }
 
-    private void display_tblMouseClicked(MouseEvent e) {
+    private void display_tblMouseClicked(MouseEvent e){
         if(e.getClickCount()==2){
             int row = this.display_tbl.getSelectedRow();
             int id = (int) this.display_tbl.getModel().getValueAt(row, 0);
 
-            Funcionario selected = this.cf.funcionarios.get(id);
+            Funcionario selected = this.funcionarios.get(id);
 
             new AlterarFuncionarioFrame(this.cf, selected).setVisible(true);
         }
@@ -71,10 +70,11 @@ public class FuncionariosFrame extends javax.swing.JFrame {
 
 
 
-    public FuncionariosFrame(ConfiguraFacil cf) {
+    public FuncionariosFrame(ConfiguraFacil cf) throws Exception {
         initComponents();
         this.cf = cf;
-        updateTable(cf.funcionarios.values());
+        this.funcionarios = cf.getFuncionarios();
+        updateTable(this.funcionarios);
     }
 
     /**
@@ -128,7 +128,11 @@ public class FuncionariosFrame extends javax.swing.JFrame {
             display_tbl.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    display_tblMouseClicked(e);
+                    try {
+                        display_tblMouseClicked(e);
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
                 }
             });
             jScrollPane1.setViewportView(display_tbl);
@@ -168,36 +172,7 @@ public class FuncionariosFrame extends javax.swing.JFrame {
         setLocationRelativeTo(getOwner());
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Windows look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Windows (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FuncionariosFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FuncionariosFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FuncionariosFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FuncionariosFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
 
-
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // Generated using JFormDesigner Evaluation license - Pedro Moreira

@@ -117,7 +117,7 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
     }
 
     private void createSelections(int tipo) throws Exception {
-        List<Componente> componentes = this.cf.componenteDAO.list();
+        List<Componente> componentes = this.cf.getComponentes();
 
         List<Componente> comp_by_type = componentes.stream().filter(c -> c.getTipo() == tipo + 1).collect(Collectors.toList());
         int selected = -1;
@@ -153,15 +153,6 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
         this.selections[type_list.getSelectedIndex()].selected = cmp_tbl.getSelectedRow();
     }
 
-    private void cmp_tbl_deselectMouseClicked(MouseEvent e) {
-        int selected = cmp_tbl.getSelectedRow();
-
-        if(selected == this.selections[type_list.getSelectedIndex()].selected){
-            this.selections[type_list.getSelectedIndex()].selected = -1;
-            ListSelectionModel model = cmp_tbl.getSelectionModel();
-            model.removeSelectionInterval(selected, selected);
-        }
-    }
 
 
     /**

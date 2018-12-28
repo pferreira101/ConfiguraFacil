@@ -24,8 +24,8 @@ public class NovoFuncionarioFrame extends javax.swing.JFrame {
     ConfiguraFacil cf;
     FuncionariosFrame to_update_table;
 
-    private void registar_btnActionPerformed(ActionEvent e) throws SQLException, ClassNotFoundException {
-        int id = this.cf.funcionarios.size() + 1;
+    private void registar_btnActionPerformed(ActionEvent e) throws Exception {
+        int id = this.cf.getNextFuncionarioID();
         String nome = nome_txt.getText();
         String password = pw_txt.getText();
         int tipo;
@@ -37,7 +37,7 @@ public class NovoFuncionarioFrame extends javax.swing.JFrame {
         Funcionario f = new Funcionario(id, nome, password, tipo, telemovel, email);
 
         this.cf.registaFuncionario(f);
-        this.to_update_table.updateTable(this.cf.funcionarios.values()); //não sei se é a melhor maneira para atualizar a tabela mas funciona
+        this.to_update_table.updateTable(this.cf.getFuncionarios()); //não sei se é a melhor maneira para atualizar a tabela mas funciona
         this.dispose();
     }
 
@@ -92,7 +92,7 @@ public class NovoFuncionarioFrame extends javax.swing.JFrame {
                 registar_btnActionPerformed(e);
             } catch (SQLException e1) {
                 e1.printStackTrace();
-            } catch (ClassNotFoundException e1) {
+            } catch (Exception e1) {
                 e1.printStackTrace();
             }
         });
@@ -200,43 +200,7 @@ public class NovoFuncionarioFrame extends javax.swing.JFrame {
         );
         pack();
         setLocationRelativeTo(getOwner());
-    }// </editor-fold>//GEN-END:initComponents
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Windows look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Windows (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NovoFuncionarioFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NovoFuncionarioFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NovoFuncionarioFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NovoFuncionarioFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-    }
+    }// </editor-fold>//
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // Generated using JFormDesigner Evaluation license - Pedro Moreira

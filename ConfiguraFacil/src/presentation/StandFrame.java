@@ -27,7 +27,7 @@ public class StandFrame extends javax.swing.JFrame {
     /**
      * Creates new form StandFrame
      */
-    private void clientes_btnActionPerformed(ActionEvent e) {
+    private void clientes_btnActionPerformed(ActionEvent e) throws Exception {
         new ClientesFrame(cf).setVisible(true);
     }
 
@@ -77,7 +77,13 @@ public class StandFrame extends javax.swing.JFrame {
         //---- clientes_btn ----
         clientes_btn.setFont(new Font("Tahoma", Font.PLAIN, 12));
         clientes_btn.setText("Consultar Clientes");
-        clientes_btn.addActionListener(e -> clientes_btnActionPerformed(e));
+        clientes_btn.addActionListener(e -> {
+            try {
+                clientes_btnActionPerformed(e);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        });
 
         //---- sair_btn ----
         sair_btn.setText("Sair");
@@ -85,7 +91,7 @@ public class StandFrame extends javax.swing.JFrame {
 
         //---- jLabel1 ----
         jLabel1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        jLabel1.setIcon(new ImageIcon(getClass().getResource("/presentation/logo.png")));
+        jLabel1.setIcon(new ImageIcon(getClass().getResource("logo.png")));
         jLabel1.setText("- STAND");
 
         //---- login_lbl ----

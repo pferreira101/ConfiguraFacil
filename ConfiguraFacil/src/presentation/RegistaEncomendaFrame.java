@@ -110,6 +110,8 @@ public class RegistaEncomendaFrame extends javax.swing.JFrame {
             e.setConfig(this.config);
             e.setCliente(id_cliente);
             e.setFuncionario(0); // FIXME: 12/27/2018
+
+            this.cf.registaEncomenda(e);
         }
         catch (java.lang.ArrayIndexOutOfBoundsException e1){
             JOptionPane.showMessageDialog(new JFrame(), "Selecione um cliente", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -194,6 +196,10 @@ public class RegistaEncomendaFrame extends javax.swing.JFrame {
                     return columnEditable[columnIndex];
                 }
             });
+            {
+                TableColumnModel cm = clientes_tbl.getColumnModel();
+                cm.getColumn(0).setPreferredWidth(1);
+            }
             jScrollPane1.setViewportView(clientes_tbl);
         }
 
@@ -222,6 +228,10 @@ public class RegistaEncomendaFrame extends javax.swing.JFrame {
                     return columnEditable[columnIndex];
                 }
             });
+            {
+                TableColumnModel cm = cmp_tbl.getColumnModel();
+                cm.getColumn(0).setPreferredWidth(1);
+            }
             jScrollPane2.setViewportView(cmp_tbl);
         }
 
@@ -269,18 +279,14 @@ public class RegistaEncomendaFrame extends javax.swing.JFrame {
                                     .addComponent(jScrollPane2, GroupLayout.PREFERRED_SIZE, 197, GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(contentPaneLayout.createParallelGroup()
-                                        .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
-                                            .addComponent(jLabel1)
-                                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(preco_txt, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(contentPaneLayout.createSequentialGroup()
-                                            .addGroup(contentPaneLayout.createParallelGroup()
-                                                .addComponent(jLabel2)
-                                                .addComponent(label1, GroupLayout.Alignment.TRAILING))
-                                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                            .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(desconto_txt, GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
-                                                .addComponent(total_txt, GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)))))))
+                                        .addComponent(jLabel1, GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel2)
+                                        .addComponent(label1, GroupLayout.Alignment.TRAILING))
+                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(total_txt, GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                                        .addComponent(desconto_txt, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                                        .addComponent(preco_txt, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)))))
                         .addGroup(contentPaneLayout.createSequentialGroup()
                             .addContainerGap()
                             .addComponent(sair_btn)
@@ -312,8 +318,8 @@ public class RegistaEncomendaFrame extends javax.swing.JFrame {
                                 .addComponent(desconto_txt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(label1)
-                                .addComponent(total_txt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addComponent(total_txt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(label1))
                             .addGap(34, 34, 34)))
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(sair_btn)

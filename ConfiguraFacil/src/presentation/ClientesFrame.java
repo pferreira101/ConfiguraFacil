@@ -12,6 +12,7 @@ import business.ConfiguraFacil;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.*;
 import javax.swing.GroupLayout;
@@ -25,7 +26,7 @@ import javax.swing.table.DefaultTableModel;
 public class ClientesFrame extends javax.swing.JFrame {
 
     ConfiguraFacil cf;
-
+    List<Cliente> clientes;
     /**
      * Método que atualiza a tabela dos clientes
      * @param clientes nova lista de clientes a exibir
@@ -51,12 +52,12 @@ public class ClientesFrame extends javax.swing.JFrame {
         new NovoClienteFrame(this.cf).setVisible(true);
     }
 
-    private void display_tblMouseClicked(MouseEvent e) {
+    private void display_tblMouseClicked(MouseEvent e) throws Exception {
         if(e.getClickCount()==2){
             int row = this.display_tbl.getSelectedRow();
             int id = (int) this.display_tbl.getModel().getValueAt(row, 0);
 
-            Cliente selected = this.cf.clientes.get(id);
+            Cliente selected = this.cf.getCliente(id);
 
             new AlterarClienteFrame(selected).setVisible(true);
         }
@@ -65,8 +66,8 @@ public class ClientesFrame extends javax.swing.JFrame {
     private void cliente_txtKeyReleased(KeyEvent e) {
         String to_search = cliente_txt.getText();
 
-        Collection<Cliente> clientes = this.cf.clientes.values().stream().filter(c -> c.getNome().contains(to_search))
-                                                                         .collect(Collectors.toList());
+        Collection<Cliente> clientes = this.clientes.stream().filter(c -> c.getNome().contains(to_search))
+                                                             .collect(Collectors.toList());
 
         updateTable(clientes);
     }
@@ -80,11 +81,11 @@ public class ClientesFrame extends javax.swing.JFrame {
     /**
      * Creates new form ClientesFrame
      */
-    public ClientesFrame(ConfiguraFacil cf) {
+    public ClientesFrame(ConfiguraFacil cf) throws Exception {
         initComponents();
         this.cf = cf;
-        this.cf.loadClientes();
-        updateTable(cf.clientes.values());
+        this.clientes = cf.getClientes();
+        updateTable(this.clientes);
     }
 
     /**
@@ -154,7 +155,11 @@ public class ClientesFrame extends javax.swing.JFrame {
             display_tbl.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    display_tblMouseClicked(e);
+                    try {
+                        display_tblMouseClicked(e);
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
                 }
             });
             jScrollPane1.setViewportView(display_tbl);
@@ -194,34 +199,6 @@ public class ClientesFrame extends javax.swing.JFrame {
         setLocationRelativeTo(getOwner());
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Windows look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Windows (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ClientesFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ClientesFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ClientesFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ClientesFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // Generated using JFormDesigner Evaluation license - Pedro Moreira

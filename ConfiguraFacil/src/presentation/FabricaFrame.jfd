@@ -20,7 +20,6 @@ new FormModel {
 				name: "encomendas_btn"
 				"font": new java.awt.Font( "Tahoma", 0, 12 )
 				"text": "Visualizar Encomendas"
-				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "config_btnActionPerformed", true ) )
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "encomendas_btnActionPerformed", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {

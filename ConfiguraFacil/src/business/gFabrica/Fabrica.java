@@ -102,8 +102,8 @@ public class Fabrica {
      */
 
     public void adicionarStockNovo(Componente c){
-        Stock s = new Stock(c.getId(),0,c);
-        this.stocks.put(c.getId(),s);
+        Stock s = new Stock(c.getID(),0,c);
+        this.stocks.put(c.getID(),s);
     }
 
     /**
