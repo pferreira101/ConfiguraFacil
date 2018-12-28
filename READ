@@ -1,0 +1,17 @@
+Dos DSI só falta o adicionar componente e o adicionar pacote serem implementados.
+
+DSI      -------------------- OBS
+AlterarCliente              Rever Ref | Quando implementarmos DAO pode mudar
+AlterarFuncionário          Quando implementarmos DAO pode mudar
+Configuração Ótima          Rever USE CASE porque só vamos suportar 1 tipo.
+Consultar Encomenda         Método getEncomenda pode dar null
+Encomendar Stock            Método AtualizarStock pode dar null
+Log in                      mudei o diagrama para bater certo com o código
+processaEncomenda           getEncomendaQueue,processaEncomenda o i pode estar fora do array | Ver reply 3.1.5.6
+Registar Encomenda          Mudei DSI DSS e DSSS
+Remove Funcionario          Está com DAO
+
+@Pedro Moreira@ nos registar acho que é melhor não ser a UI a criar o objeto mas sim o business. Passamos antes os argumento ao método do facade e ele cria. Isto tb porque os diagrama foram feitos todos assim.
+
+PS: São 5 da manhã vou levantar-me tarde xD.
+Documentem o código que escreverem sff.

@@ -1,6 +1,10 @@
 package business.gFabrica;
 
+import business.gConfig.Componente;
 import business.gConfig.Configuracao;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Encomenda {
 
@@ -37,7 +41,18 @@ public class Encomenda {
         return this.config;
     }
 
+    public List<Componente> getComponentes(){
+        return this.config.getComponentes();
+    }
+
     public void setConfig(Configuracao config) {
+        this.config = config;
+    }
+
+    public Encomenda(int id, int cliente, int funcionario, Configuracao config) {
+        this.id = id;
+        this.cliente = cliente;
+        this.funcionario = funcionario;
         this.config = config;
     }
 }

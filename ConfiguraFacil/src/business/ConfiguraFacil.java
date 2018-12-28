@@ -38,14 +38,17 @@ public class ConfiguraFacil {
     public int logIn(int id, String password) {
 	    if(id == 0 && password.equals("admin")) return 3;
 
+	    int r = -1;
+
 	    try{
 	        Funcionario f = this.funcionarioDAO.get(id);
-            return f.authenticate(password);
+            r = f.authenticate(password);
         }
         catch (Exception e){
-	        return -1;
+	        r = -1;
         }
 
+        return r;
     }
 
     public void registaCliente(Cliente c) throws SQLException, ClassNotFoundException {
@@ -53,8 +56,54 @@ public class ConfiguraFacil {
     }
 
     public void registaFuncionario(Funcionario f) throws SQLException, ClassNotFoundException {
-	    this.funcionarioDAO.put(f.getID(), f);
+        this.funcionarioDAO.put(f.getID(), f);
     }
+
+    public List<Componente> getComponentes() throws Exception {
+        return this.componenteDAO.list();
+    }
+
+    public int getNextClienteID() throws SQLException {
+        return this.clienteDAO.size() + 1;
+    }
+
+    public List<Cliente> getClientes() throws Exception {
+        return this.clienteDAO.list();
+    }
+
+    public void removeFuncionario(int id) throws SQLException {
+        this.funcionarioDAO.remove(id);
+    }
+
+    public Cliente getCliente(int id) throws Exception {
+        return this.clienteDAO.get(id);
+    }
+
+    public List<Funcionario> getFuncionarios() throws Exception {
+        return this.funcionarioDAO.list();
+    }
+
+    public Funcionario getFuncionario(int id) throws Exception {
+        return this.funcionarioDAO.get(id);
+    }
+
+    public int getNextFuncionarioID() throws SQLException {
+        return this.funcionarioDAO.size() + 1;
+    }
+
+    /**
+     * Método para registar um cliente no sistema.
+     * @param nome Nome do cliente
+     * @param tel Número de telefone do cliente.
+     * @param mail Email do cliente
+     */
+
+    public void registaCliente(String nome,int tel,String mail){
+	    int id = this.clientes.size();
+	    Cliente c = new Cliente(id,nome,tel,mail);
+	    this.clientes.put(id,c);
+    }
+
 
     /**
      * Método para atualizar a informação relativa a um funcionário.
@@ -88,13 +137,13 @@ public class ConfiguraFacil {
 
     /**
      * Método para verificar se um dado cliente existe no sistema.
-     * @param id Id do cliente a verificar.
-     * @return
+     * @param codClient Id do cliente a verificar.
+     * @return Cliente pretendido caso existe.
      */
 
 
-    public boolean existeCliente(int id){
-        return this.clientes.containsKey(id);
+    public Cliente existeCliente(int codClient){
+        return this.clientes.get(codClient);
     }
 
     /**
@@ -129,8 +178,8 @@ public class ConfiguraFacil {
              else sgd.add(c);
          }
 
-         Collections.sort(prim,new SortRazao());
-         Collections.sort(prim,new SortBaixo());
+         Collections.sort(prim,new SortRazao()); // ordPrecoAcum
+         Collections.sort(sgd,new SortBaixo()); // ordPreco
 
          double sum = 0;
          double sum2 = 0;
@@ -146,6 +195,7 @@ public class ConfiguraFacil {
              list = c.getComplementares();
              valid1 = config.compativel(c);
              todos = true;
+
              for(Componente i : list){
                  if (sum < orcamento && valid1){
                      sum2 = i.getPreco();
@@ -153,6 +203,7 @@ public class ConfiguraFacil {
                      rep = config.incluido(i);
                  }
                  else break;
+
                  if (valid && (sum + sum2 < orcamento) && !rep){
                      config.addComponente(i);
                      sum += sum2;
@@ -201,18 +252,6 @@ public class ConfiguraFacil {
     }
 
 
-    public List<Componente> getComponentes() throws Exception {
-        return this.componenteDAO.list();
-    }
-
-    public int getNextClienteID() throws SQLException {
-        return this.clienteDAO.size() + 1;
-    }
-
-    public List<Cliente> getClientes() throws Exception {
-        return this.clienteDAO.list();
-    }
-
     /**
      * Método para devolver um lista com o stock atual das componentes.
      * @return List com o stock das componentes.
@@ -238,7 +277,7 @@ public class ConfiguraFacil {
      * @param preco Preço da nova componente.
      * @param tipo Tipo da nova componente.
      * @param comp Lista com as componentes complementares.
-     * @param incomp Lsita com as componente incompatíveis.
+     * @param incomp Lista com as componente incompatíveis.
      */
 
     public void adicionarComponente(String nome,double preco,int tipo,List<Componente> comp,List<Componente> incomp){
@@ -260,27 +299,72 @@ public class ConfiguraFacil {
         this.fabrica.atualizarStock(idcomp,quantidade);
     }
 
+    /**
+     * Método que devolve uma lista com as encomendas que estão na fábrica.
+     * @return Lista com encomendas.
+     */
+
+    public List<Encomenda> getEncomendasQueue(){
+        return this.fabrica.getQueue();
+    }
+
+    /**
+     * Método que, dada a posição de uma encomenda na queue, calcula que componentes dessa encomenda não se encontram em stock.
+     * @param i Posição da encomenda
+     * @return Lista com as componentes em falta.
+     */
+
+    public List<Componente> checkStock(int i){
+        Encomenda e = this.fabrica.getEncomendaQueue(i);
+
+        return this.fabrica.stockEmFalta(e.getComponentes());
+    }
+
+    /**
+     * Método para despachar uma dada encomenda.
+     * @param i Posição da encomenda na queue.
+     */
+
+    public void processaEncomenda(int i){
+        this.fabrica.processaEncomenda(i);
+    }
+
     public void registaEncomenda(Encomenda e) {
 
     }
 
-    public void removeFuncionario(int id) throws SQLException {
-        this.funcionarioDAO.remove(id);
+    /**
+     * Método para registar uma encomenda no sistema.
+     * @param cliente Cliente que originou a encomenda.
+     * @param config Configuração da encomenda.
+     * @param funcionario Funcionário que realizou a encomenda.
+     */
+
+    public void registaEncomenda(int cliente,Configuracao config,int funcionario){
+        int id = this.encomendas.size();
+
+        Encomenda e = new Encomenda(id,cliente,funcionario,config);
+        this.encomendas.put(id,e);
+
+        this.fabrica.adicionarEncomenda(e);
     }
 
-    public Cliente getCliente(int id) throws Exception {
-        return this.clienteDAO.get(id);
+    /**
+     * Método para registar um funcionário no sistema.
+     * @param nome Nome do funcionário a inserir.
+     * @param pass Password de acesso do funcionário
+     * @param tel Número de telefone.
+     * @param email Email do funcionário.
+     * @param tipo Permissões.
+     */
+
+    public void registaFuncionario(String nome,String pass,int tel,String email,int tipo){
+        int id = this.funcionarios.size();
+
+        Funcionario f = new Funcionario(id,nome,pass,tipo,tel,email);
+
+        this.funcionarios.put(id,f);
+
     }
 
-    public List<Funcionario> getFuncionarios() throws Exception {
-        return this.funcionarioDAO.list();
-    }
-
-    public Funcionario getFuncionario(int id) throws Exception {
-        return this.funcionarioDAO.get(id);
-    }
-
-    public int getNextFuncionarioID() throws SQLException {
-        return this.funcionarioDAO.size() + 1;
-    }
 }

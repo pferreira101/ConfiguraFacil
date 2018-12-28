@@ -116,4 +116,64 @@ public class Fabrica {
         Stock st = this.stocks.get(idcomp);
         st.add(quant);
     }
+
+    /**
+     * Método que devolve a encomenda numa dada posição da queue.
+     * @param index Posição pretendida.
+     * @return Encomenda pretendida.
+     */
+
+    public Encomenda getEncomendaQueue(int index){
+        return this.queue.get(index);
+    }
+
+    /**
+     * Método que dada uma lista de componentes verifica que componentes não estão em stock.
+     * @param componentes Lista de componentes a verificar
+     * @return Lista com os componentes em falta.
+     */
+
+    public List<Componente> stockEmFalta(List<Componente> componentes){
+        List<Componente> listfalta = new ArrayList<>();
+        int id,k;
+        Stock s;
+
+        for(Componente c: componentes){
+            id = c.getID();
+            s = this.stocks.get(id);
+
+            k = s.getQuantidade();
+            if (k <= 0)
+                listfalta.add(c);
+        }
+
+        return listfalta;
+    }
+
+    /**
+     * Método para despachar uma dada encomenda.
+     * @param i Posição da encomenda na queue.
+     */
+
+    public void processaEncomenda(int i){
+        Encomenda e = this.queue.get(i);
+        this.queue.remove(i);
+        int id;
+        Stock s;
+
+        for(Componente c : e.getComponentes()) {
+            id = c.getID();
+            s = this.stocks.get(id);
+            s.remove(1);
+        }
+    }
+
+    /**
+     * Método que adiciona uma encomenda à queue de encomendas.
+     * @param e Encomenda a adicionar.
+     */
+
+    public void adicionarEncomenda(Encomenda e){
+        this.queue.add(e);
+    }
 }
