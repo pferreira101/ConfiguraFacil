@@ -127,6 +127,10 @@ public class Fabrica {
         Stock st = this.stocks.get(id_comp);
         st.add(quant);
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> fd071cf622bf43baf0dbb9dcf127fc03a541eae9
         //throws SQLException, ClassNotFoundException
         //Stock st = this.stockDAO.get(id_comp);
         //            st.add(quant);
@@ -139,7 +143,6 @@ public class Fabrica {
      * @param componentes Lista de componentes a verificar
      * @return Lista com os componentes em falta.
      */
-
     public List<Componente> stockEmFalta(List<Componente> componentes){
         List<Componente> listfalta = new ArrayList<>();
         int id,k;

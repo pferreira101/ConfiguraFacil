@@ -13,6 +13,7 @@ public class Encomenda {
     private boolean status;
     private Configuracao config;
 
+
     public int getID() {
         return this.id;
     }
