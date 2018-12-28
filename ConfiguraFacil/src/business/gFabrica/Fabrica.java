@@ -4,23 +4,24 @@ import java.sql.SQLException;
 import java.util.*;
 
 import business.gConfig.Componente;
+import business.gConfig.Configuracao;
 import data.EncomendaDAO;
 import data.StockDAO;
 
 public class Fabrica {
 	private Map<Integer, Stock> stocks;
-	private List<Encomenda> queue;
+	private Map<Integer,Encomenda> encomendas;
 
 
     /**
      * Construtor parameterizado para a classe da Fábrica.
      * @param stocks
-     * @param queue
+     * @param encomendas
      */
 
-    public Fabrica(Map<Integer, Stock> stocks, List<Encomenda> queue) {
+    public Fabrica(Map<Integer, Stock> stocks, Map<Integer,Encomenda> encomendas) {
         this.stocks = stocks;
-        this.queue = queue;
+        this.encomendas = encomendas;
 
 
     }
@@ -31,7 +32,7 @@ public class Fabrica {
 
     public Fabrica(){
         this.stocks = new HashMap<>();
-        this.queue = new ArrayList<>();
+        this.encomendas = new HashMap<>();
 
     }
 
@@ -55,28 +56,7 @@ public class Fabrica {
             this.stocks.put(s.getID(),s);
 	}
 
-    /**
-     * Método get para aceder à queue de encomendas.
-     * @return Lista com a queue de encomendas.
-     */
 
-	public List<Encomenda> getQueue() {
-	    List<Encomenda> aux = new ArrayList<>();
-	    aux.addAll(queue);
-		return queue;
-	}
-
-    /**
-     * Método set para alterar a lista de encomendas na fábrica
-     * @param queue Lista com a novo queue.
-     */
-
-
-    public void setQueue(List<Encomenda> queue) {
-        this.queue = new ArrayList<>();
-        for(Encomenda e : queue)
-		    this.queue.add(e);
-	}
 
     /**
      * Método para obter uma lista com o stock atual de cada componente.
@@ -104,12 +84,12 @@ public class Fabrica {
 
     /**
      * Método para adicionar o stock de uma nova componente.
-     * @param c Compomente nova a adicionar
+     * @param id Id da componente nova a adicionar.
      */
 
-    public void adicionarStockNovo(Componente c){
-        Stock s = new Stock(c.getID(), 0, c);
-        this.stocks.put(c.getID(), s);
+    public void adicionarStockNovo(int id){
+        Stock s = new Stock(id,0);
+        this.stocks.put(id, s);
     }
 
     /**
@@ -119,22 +99,13 @@ public class Fabrica {
      */
 
     public void atualizarStock(int id_comp, int quant) throws SQLException, ClassNotFoundException {
-        if(this.stocks.get(id_comp) != null){
+        if (this.stocks.get(id_comp) != null) {
             Stock st = this.stocks.get(id_comp);
             st.add(quant);
         }
-
     }
 
-    /**
-     * Método que devolve a encomenda numa dada posição da queue.
-     * @param index Posição pretendida.
-     * @return Encomenda pretendida.
-     */
 
-    public Encomenda getEncomendaQueue(int index){
-        return this.queue.get(index);
-    }
 
     /**
      * Método que dada uma lista de componentes verifica que componentes não estão em stock.
@@ -165,8 +136,8 @@ public class Fabrica {
      */
 
     public void processaEncomenda(int i){
-        Encomenda e = this.queue.get(i);
-        this.queue.remove(i);
+        Encomenda e = this.encomendas.get(i);
+        e.setStatus(true);
         int id;
         Stock s;
 
@@ -178,11 +149,41 @@ public class Fabrica {
     }
 
     /**
-     * Método que adiciona uma encomenda à queue de encomendas.
-     * @param e Encomenda a adicionar.
+     * Método para ir buscar uma determinada encomenda.
+     * @param cod Id da encomenda a ir buscar.
+     * @return
      */
 
-    public void adicionarEncomenda(Encomenda e){
-        this.queue.add(e);
+    public Encomenda getEncomenda(int cod){
+        return  this.encomendas.get(cod);
+    }
+
+    /**
+     * Método para ir buscar todas as encomendas que não foram realizadas.
+     * @return Lista com as encomendas por realizar.
+     */
+
+    public List<Encomenda> getEncomendas(){
+        List<Encomenda> encs = new ArrayList<>();
+
+        for (Encomenda e : this.encomendas.values()){
+            if (e.getStatus() == false){
+                encs.add(e);
+            }
+        }
+        return  encs;
+    }
+
+    /**
+     * Método para registar uma encomenda no sistema.
+     * @param cliente Cliente que originou a encomenda.
+     * @param config Configuração da encomenda.
+     * @param funcionario Funcionário que realizou a encomenda.
+     */
+
+    public void registaEncomenda(Configuracao config,int cliente, int funcionario){
+        int id = this.encomendas.size();
+        Encomenda e = new Encomenda(id,cliente,funcionario,config);
+        this.encomendas.put(id,e);
     }
 }

@@ -11,7 +11,7 @@ public class ConfiguraFacil {
 	public Map<Integer, Cliente> clientes;
     public Map<Integer, Componente> componentes;
 	public Map<Integer, Funcionario> funcionarios;
-	public Map<Integer, Encomenda> encomendas;
+	public Map<Integer, Pacote> pacotes;
 	public Fabrica fabrica;
 
 
@@ -22,11 +22,16 @@ public class ConfiguraFacil {
             this.funcionarios = new HashMap<>();
             this.componentes = new HashMap<>();
             this.fabrica = new Fabrica();
-            this.encomendas = new HashMap<>();
+            this.pacotes = new HashMap<>();
 	}
 
 
-
+    /**
+     * Método para fazer log in na aplicação.
+     * @param id Id do utilizador.
+     * @param password Password do utilizador.
+     * @return Permissões obtidas.
+     */
 
 	public int logIn(int id, String password) {
         if (id == 0 && password.equals("admin")) return 3;
@@ -43,41 +48,75 @@ public class ConfiguraFacil {
         return r;
     }
 
-        public void registaFuncionario(Funcionario f) throws SQLException, ClassNotFoundException {
-            this.funcionarios.put(f.getID(), f);
-        }
+    /**
+     * Método para obter todos os componentes.
+     * @return Lista com todos os componentes.
+     * @throws Exception
+     */
 
-        public List<Componente> getComponentes() throws Exception {
-            List<Componente> aux = new ArrayList<>(this.componentes.values());
-            return aux;
-        }
+	public List<Componente> getComponentes() throws Exception {
+	    List<Componente> aux = new ArrayList<>(this.componentes.values());
+	    return aux;
+	}
+
+    /**
+     * Método para obter uma lista com todos os clientes do sistema,
+     * @return Lista com todos os clientes do sistema.
+     * @throws Exception
+     */
 
 
-        public List<Cliente> getClientes() throws Exception {
-            List<Cliente> aux = new ArrayList<>(this.clientes.values());
-            return aux;
-        }
+	public List<Cliente> getClientes() throws Exception {
+	    List<Cliente> aux = new ArrayList<>(this.clientes.values());
+	    return aux;
+	}
 
-        public void removeFuncionario(int id) throws SQLException {
-            this.funcionarios.remove(id);
-        }
+    /**
+     * Método para remover um funcionário do sistema.
+     * @param id Id do funcionário a remover.
+     * @throws SQLException
+     */
 
-        public Cliente getCliente(int id) throws Exception {
-            return this.clientes.get(id);
-        }
+	public void removeFuncionario(int id) throws SQLException {
+	    this.funcionarios.remove(id);
+	}
 
-        public List<Funcionario> getFuncionarios() throws Exception {
-            List<Funcionario> aux = new ArrayList<>(this.funcionarios.values());
-            return aux;
-        }
+    /**
+     * Método para obter um dado cliente do sistema.
+     * @param id Id do cliente.
+     * @return Cliente pretendido.
+     * @throws Exception
+     */
 
-        public Funcionario getFuncionario(int id) throws Exception {
-            return this.funcionarios.get(id);
-        }
+	public Cliente getCliente(int id) throws Exception {
+	    return this.clientes.get(id);
+	}
 
-        public int getNextFuncionarioID() throws SQLException {
-            return this.funcionarios.size() + 1;
-        }
+    /**
+     * Método para obter uma lista com todos os funcionários do sistema,
+     * @return Lista com todos os funcionários do sistema.
+     * @throws Exception
+     */
+
+	public List<Funcionario> getFuncionarios() throws Exception {
+	    List<Funcionario> aux = new ArrayList<>(this.funcionarios.values());
+	    return aux;
+	}
+
+    /**
+     * Método para obter um dado funcionário do sistema.
+     * @param id Id do funcionário.
+     * @return Funcionário pretendido.
+     * @throws Exception
+     */
+
+	public Funcionario getFuncionario(int id) throws Exception {
+	    return this.funcionarios.get(id);
+	}
+
+	public int getNextFuncionarioID() throws SQLException {
+	    return this.funcionarios.size() + 1;
+	}
 
     /**
      * Método para registar um cliente no sistema.
@@ -225,8 +264,7 @@ public class ConfiguraFacil {
 
 
     public List<Encomenda> getEncomendas() throws Exception {
-        List<Encomenda> aux = new ArrayList<>(this.encomendas.values());
-        return aux;
+        return this.fabrica.getEncomendas();
     }
 
     /**
@@ -236,7 +274,7 @@ public class ConfiguraFacil {
      */
 
     public Encomenda getEncomenda(int cod) throws Exception {
-        return  this.encomendas.get(cod);
+        return this.fabrica.getEncomenda(cod);
     }
 
 
@@ -274,7 +312,7 @@ public class ConfiguraFacil {
 
         this.componentes.put(id,c);
 
-        this.fabrica.adicionarStockNovo(c);
+        this.fabrica.adicionarStockNovo(id);
     }
 
     /**
@@ -287,14 +325,6 @@ public class ConfiguraFacil {
         this.fabrica.atualizarStock(idcomp, quantidade);
     }
 
-    /**
-     * Método que devolve uma lista com as encomendas que estão na fábrica.
-     * @return Lista com encomendas.
-     */
-
-    public List<Encomenda> getEncomendasQueue(){
-        return this.fabrica.getQueue();
-    }
 
     /**
      * Método que, dada a posição de uma encomenda na queue, calcula que componentes dessa encomenda não se encontram em stock.
@@ -303,7 +333,7 @@ public class ConfiguraFacil {
      */
 
     public List<Componente> checkStock(int i){
-        Encomenda e = this.fabrica.getEncomendaQueue(i);
+        Encomenda e = this.fabrica.getEncomenda(i);
 
         return this.fabrica.stockEmFalta(e.getComponentes());
     }
@@ -317,9 +347,6 @@ public class ConfiguraFacil {
         this.fabrica.processaEncomenda(i);
     }
 
-    public void registaEncomenda(Encomenda e) {
-
-    }
 
     /**
      * Método para registar uma encomenda no sistema.
@@ -328,13 +355,8 @@ public class ConfiguraFacil {
      * @param funcionario Funcionário que realizou a encomenda.
      */
 
-    public void registaEncomenda(int cliente, Configuracao config, int funcionario){
-        int id = this.encomendas.size() + 1;
-
-        Encomenda e = new Encomenda(id, cliente, funcionario, config);
-        this.encomendas.put(id,e);
-
-        this.fabrica.adicionarEncomenda(e);
+    public void registaEncomenda(Configuracao config, int cliente, int funcionario) throws SQLException, ClassNotFoundException {
+        this.fabrica.registaEncomenda(config, cliente, funcionario);
     }
 
     /**

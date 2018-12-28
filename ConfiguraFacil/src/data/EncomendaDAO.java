@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EncomendaDAO {
-	public ConfiguraFacil ConfiguraFacil;
 
 	 public void put(int id, Encomenda e) throws SQLException, ClassNotFoundException {
         //Establish the connection
@@ -37,7 +36,7 @@ public class EncomendaDAO {
         }
 
         st = con.prepareStatement("INSERT INTO pacotesencomenda VALUES (?, ?);");
-        for (int i=0;i<lP.size();i++){
+        for (int i = 0; i < lP.size(); i++){
             st.setInt(1, id);
             st.setInt(2, lP.get(i).getID());
             st.execute();
@@ -64,8 +63,30 @@ public class EncomendaDAO {
         }
         else throw new Exception("No order found for given ID");
 
-        // falta ir buscar pacotes e componentes
+        // Componentes
 
+        st = con.prepareStatement("SELECT * FROM componentesencomenda WHERE encomenda = ?");
+        st.setInt(1, id);
+
+        rs = st.executeQuery();
+        while(rs.next()){
+            PreparedStatement st_aux;
+            st_aux = con.prepareStatement("SELECT * FROM componente WHERE id_componente = ?;");
+            st_aux.setInt(1, rs.getInt("componente"));
+            
+            ResultSet rs_aux = st_aux.executeQuery();
+            while (rs_aux.next()){
+                Componente c = new Componente();
+                c.setID(id);
+                c.setDesignacao(rs_aux.getString("designacao"));
+                c.setPreco(rs_aux.getDouble("preco"));
+                c.setTipo(rs_aux.getInt("tipo"));
+                
+                e.getComponentes().add(c);
+            }
+        }
+
+        // FIXME: 12/28/2018 FALTA PACOTE
         con.close();
 
         return e;

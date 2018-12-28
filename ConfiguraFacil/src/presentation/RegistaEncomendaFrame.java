@@ -15,6 +15,7 @@ import business.gFabrica.Encomenda;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -102,19 +103,20 @@ public class RegistaEncomendaFrame extends javax.swing.JFrame {
     }
 
     private void registar_encomenda_btnActionPerformed(ActionEvent evt) {
-        Encomenda e = new Encomenda();
         DefaultTableModel model = (DefaultTableModel)clientes_tbl.getModel();
         try{
             int id_cliente = (int) clientes_tbl.getValueAt(clientes_tbl.getSelectedRow(), 0);
 
-            e.setConfig(this.config);
-            e.setCliente(id_cliente);
-            e.setFuncionario(0); // FIXME: 12/27/2018
+            this.cf.registaEncomenda(this.config, id_cliente, 1); // FIXME: 12/28/2018
 
-            this.cf.registaEncomenda(e);
+            this.dispose();
         }
         catch (java.lang.ArrayIndexOutOfBoundsException e1){
             JOptionPane.showMessageDialog(new JFrame(), "Selecione um cliente", "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        } catch (ClassNotFoundException e1) {
+            e1.printStackTrace();
         }
 
 
