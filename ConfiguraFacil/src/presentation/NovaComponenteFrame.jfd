@@ -31,6 +31,7 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "adicionar_btn"
 				"text": "Adicionar"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "adicionar_btnActionPerformed", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label1"
@@ -50,6 +51,7 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "button1"
 				"text": "Sair"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "sair_btnActionPerformed", true ) )
 			} )
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 				name: "scrollPane1"
@@ -59,8 +61,8 @@ new FormModel {
 						add( new java.util.Vector {
 							add( null )
 							add( null )
-							add( null )
-							add( null )
+							add( false )
+							add( false )
 						} )
 						add( new java.util.Vector {
 							add( null )
@@ -71,8 +73,8 @@ new FormModel {
 					}, new java.util.Vector {
 						add( "ID" )
 						add( "Designação" )
+						add( "Compatíveis" )
 						add( "Incompatíveis" )
-						add( "Complementar" )
 					}, new java.util.Vector {
 						add( null )
 						add( null )
@@ -89,6 +91,8 @@ new FormModel {
 						add( null )
 						add( null )
 					} )
+					addEvent( new FormEvent( "java.beans.PropertyChangeListener", "propertyChange", "table1PropertyChange", true ) )
+					addEvent( new FormEvent( "java.awt.event.ContainerListener", "componentAdded", "table1ComponentAdded", true ) )
 				} )
 			} )
 		}, new FormLayoutConstraints( null ) {

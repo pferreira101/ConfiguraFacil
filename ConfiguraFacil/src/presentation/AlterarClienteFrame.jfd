@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq l {space :p:16:p, par l {seq l {space :22:22:p, comp label1:::p::p, space :6:6:p, comp nome_txt:::p:108:p}, seq l {comp label2:::p::p, space :6:6:p, comp telemovel_txt:::p:108:p}, seq l {space :21:21:p, comp label3:::p::p, space :6:6:p, comp email_txt:::p:108:p}}, space ::33:x}, seq t {space ::136:x, comp atualizar_btn:::p::p, space :::p}}"
-			"$verticalGroup": "par l {seq l {space :p:33:p, par l {seq l {space :4:4:p, comp label1:::p::p}, comp nome_txt:::p::p}, space :6:6:p, par l {seq l {space :4:4:p, comp label2:::p::p}, comp telemovel_txt:::p::p}, space :6:6:p, par l {seq l {space :4:4:p, comp label3:::p::p}, comp email_txt:::p::p}, space s:::p, comp atualizar_btn:::p::p, space ::4:x}}"
+			"$horizontalGroup": "par l {seq l {space :p:16:p, par l {seq l {space :22:22:p, comp label1:::p::p, space :6:6:p, comp nome_txt:::p:108:p}, seq l {comp label2:::p::p, space :6:6:p, comp telemovel_txt:::p:108:p}, seq l {space :21:21:p, comp label3:::p::p, space :6:6:p, comp email_txt:::p:108:p}}, space ::27:x}, seq t {space ::130:x, comp atualizar_btn:::p::p, space :::p}}"
+			"$verticalGroup": "par l {seq l {space :p:33:p, par l {seq l {space :4:4:p, comp label1:::p::p}, comp nome_txt:::p::p}, space :6:6:p, par l {seq l {space :4:4:p, comp label2:::p::p}, comp telemovel_txt:::p::p}, space :6:6:p, par l {seq l {space :4:4:p, comp label3:::p::p}, comp email_txt:::p::p}, space s:::p, comp atualizar_btn:::p::p, space :::x}}"
 		} ) {
 			name: "this"
 			"defaultCloseOperation": 2
@@ -13,6 +13,7 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "atualizar_btn"
 				"text": "Atualizar"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "atualizar_btnActionPerformed", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "email_txt"

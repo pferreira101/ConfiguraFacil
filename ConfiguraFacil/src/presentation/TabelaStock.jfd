@@ -1,0 +1,57 @@
+JFDML JFormDesigner: "6.0.5.0.178" Java: "1.8.0_152-release" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq l {space :p:39:p, par l {comp scrollPane1::l:p:317:p, seq l {space :p:45:p, comp Sair:::p::p, space :p:42:p, comp atu_btn:::p::p}}, space ::42:x}}"
+			"$verticalGroup": "par l {seq l {space :::p, comp scrollPane1:::p:207:p, space s:::p, par b {comp Sair::b:p::p, comp atu_btn::b:p::p}, space ::15:x}}"
+		} ) {
+			name: "this"
+			"name": "frame18"
+			"title": "Stock"
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "scrollPane1"
+				add( new FormComponent( "javax.swing.JTable" ) {
+					name: "table1"
+					"model": new com.jformdesigner.model.SwingTableModel( new java.util.Vector {
+						add( new java.util.Vector {
+							add( "" )
+							add( null )
+							add( "" )
+						} )
+					}, new java.util.Vector {
+						add( "Id" )
+						add( "Designação" )
+						add( "Stock" )
+					}, new java.util.Vector {
+						add( null )
+						add( null )
+						add( null )
+					}, new java.util.Vector {
+						add( null )
+						add( null )
+						add( null )
+					}, new java.util.Vector {
+						add( null )
+						add( null )
+						add( null )
+					} )
+				} )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "Sair"
+				"text": "Sair"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "SairActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "atu_btn"
+				"text": "Atualizar Stock"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "atu_btnActionPerformed", true ) )
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 400, 300 )
+		} )
+	}
+}

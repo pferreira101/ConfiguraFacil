@@ -24,8 +24,8 @@ public class ClienteDAO {
         st.setInt(4, c.getTelemovel());
 
         st.setString(5, c.getNome());
-        st.setString(6, c.getEmail());
-        st.setInt(7, c.getTelemovel());
+        st.setString(7, c.getEmail());
+        st.setInt(6, c.getTelemovel());
 
         st.execute();
 

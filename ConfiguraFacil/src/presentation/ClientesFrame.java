@@ -59,7 +59,7 @@ public class ClientesFrame extends javax.swing.JFrame {
 
             Cliente selected = this.cf.getCliente(id);
 
-            new AlterarClienteFrame(selected).setVisible(true);
+            new AlterarClienteFrame(selected,cf).setVisible(true);
         }
     }
 

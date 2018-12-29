@@ -30,6 +30,13 @@ public class ConfiguraFacil {
         //this.encomendaDAO = new EncomendaDAO();
     }
 
+    /**
+     * Método para fazer log in na aplicação.
+     * @param id Identificador do utilizador.
+     * @param password Password corresponde.
+     * @return Permissões dadas
+     */
+
 
     public int logIn(int id, String password) {
         if (id == 0 && password.equals("admin")) return 3;
@@ -46,49 +53,88 @@ public class ConfiguraFacil {
         return r;
     }
 
+    /**
+     * Método para registar um cliente no sistema.
+     * @param nome Nome do cliente.
+     * @param telemovel Número de telemóvel do cliente.
+     * @param email Email do cliente.
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
+
     public void registaCliente(String nome, int telemovel, String email) throws SQLException, ClassNotFoundException {
-        int id = getNextClienteID();
+        int id = this.clienteDAO.size() + 1;
 
         Cliente c = new Cliente(id, nome, telemovel, email);
 
         this.clienteDAO.put(id, c);
     }
 
-    public void registaFuncionario(Funcionario f) throws SQLException, ClassNotFoundException {
-        this.funcionarioDAO.put(f.getID(), f);
-    }
+    /**
+     * Método para obter uma lista com todos os componentes que o sistema tem.
+     * @return Lista com todos os componentes do sistema.
+     * @throws Exception
+     */
+
 
     public List<Componente> getComponentes() throws Exception {
         return this.componenteDAO.list();
     }
 
-    public int getNextClienteID() throws SQLException {
-        return this.clienteDAO.size() + 1;
-    }
+    /**
+     * Método para obter uma lista com todos os cliente que o sistema tem.
+     * @return Lista com todos os clientes do sistema.
+     * @throws Exception
+     */
+
 
     public List<Cliente> getClientes() throws Exception {
         return this.clienteDAO.list();
     }
 
+    /**
+     * Método para remover um funcionário.
+     * @param id Identificador do funcionário.
+     * @throws SQLException
+     */
+
     public void removeFuncionario(int id) throws SQLException {
         this.funcionarioDAO.remove(id);
     }
+
+    /**
+     * Método para obter um dado cliente.
+     * @param id Identificador do cliente.
+     * @return Cliente pretendido.
+     * @throws Exception
+     */
 
     public Cliente getCliente(int id) throws Exception {
         return this.clienteDAO.get(id);
     }
 
+    /**
+     * Método para obter uma lista com todos os funcionários que o sistema tem.
+     * @return Lista com todos os funcionários do sistema.
+     * @throws Exception
+     */
+
+
     public List<Funcionario> getFuncionarios() throws Exception {
         return this.funcionarioDAO.list();
     }
+
+    /**
+     * Método para obter um dado funcionário.
+     * @param id Identificador do funcionário.
+     * @return Cliente pretendido.
+     * @throws Exception
+     */
 
     public Funcionario getFuncionario(int id) throws Exception {
         return this.funcionarioDAO.get(id);
     }
 
-    public int getNextFuncionarioID() throws SQLException {
-        return this.funcionarioDAO.size() + 1;
-    }
 
     /**
      * Método para registar um cliente no sistema.
@@ -258,19 +304,30 @@ public class ConfiguraFacil {
 
 
     /**
-     * Método para devolver um lista com o stock atual das componentes.
+     * Método para devolver um Map com o stock atual das componentes.
      *
-     * @return List com o stock das componentes.
+     * @return Map com o stock das componentes.
      */
 
-    public List<Stock> getStockList() {
+    public Map<String,Stock> getStockList() {
         List<Stock> aux;
         try {
             aux = this.fabrica.getStockList();
         } catch (Exception e) {
             aux = new ArrayList<>();
         }
-        return aux;
+
+        Map<String,Stock> res = new HashMap<>();
+
+        for(Stock k : aux){
+            try{
+                int id = k.getID();
+                Componente c = this.componenteDAO.get(id);
+                res.put(c.getDesignacao(),k);
+            }
+            catch (Exception e){}
+        }
+        return res;
     }
 
     /**
@@ -292,14 +349,17 @@ public class ConfiguraFacil {
      * @param tipo   Tipo da nova componente.
      * @param comp   Lista com as componentes complementares.
      * @param incomp Lista com as componente incompatíveis.
+     * @return id do novo componente
      */
 
-    public void adicionarComponente(String nome, double preco, int tipo, List<Componente> comp, List<Componente> incomp) throws SQLException, ClassNotFoundException {
-        int id = this.componenteDAO.size();
+    public int adicionarComponente(String nome, double preco, int tipo, List<Componente> comp, List<Componente> incomp) throws SQLException, ClassNotFoundException {
+        int id = this.componenteDAO.size() + 1;
         Componente c = new Componente(id, nome, preco, tipo, comp, incomp);
 
         this.componenteDAO.put(id, c);
         this.fabrica.adicionarStockNovo(id);
+
+        return id;
     }
 
     /**
@@ -484,5 +544,22 @@ public class ConfiguraFacil {
      */
     public void componentesToPacote(Configuracao config, List<Pacote> pacotes){
         config.componentesToPacote(pacotes);
+    }
+
+    /**
+     * Método para ir buscar um componente especifico.
+     * @param id Id do componente a ir buscar.
+     * @return Componente procurado.
+     */
+
+    public Componente getComponente(int id){
+        Componente c;
+        try{
+            c =  this.componenteDAO.get(id);
+        }
+        catch (Exception e){
+            c = null;
+        }
+        return c;
     }
 }

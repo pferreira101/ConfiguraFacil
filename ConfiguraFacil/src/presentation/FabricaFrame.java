@@ -26,7 +26,8 @@ public class FabricaFrame extends javax.swing.JFrame {
 
 
     private void stock_btnActionPerformed(ActionEvent e) throws Exception {
-        new AtualizarStockFrame(this.cf).setVisible(true);
+        //new AtualizarStockFrame(this.cf).setVisible(true);
+        new TabelaStock(this.cf).setVisible(true);
     }
 
 

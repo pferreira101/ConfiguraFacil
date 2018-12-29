@@ -5,6 +5,9 @@
  */
 package presentation;
 
+import java.awt.event.*;
+
+import business.ConfiguraFacil;
 import business.gConta.Cliente;
 
 import java.awt.*;
@@ -18,12 +21,26 @@ import javax.swing.GroupLayout;
 public class AlterarClienteFrame extends javax.swing.JFrame {
 
     Cliente cliente;
+    ConfiguraFacil cf;
 
     /**
      * Creates new form NovoClienteFrame
      */
-    public AlterarClienteFrame(Cliente c) {
+    private void atualizar_btnActionPerformed(ActionEvent e) {
+        this.dispose();
+        try {
+            this.cf.alteraCliente(cliente.getID(), this.nome_txt.getText(), Integer.parseInt(telemovel_txt.getText()), this.email_txt.getText());
+            JOptionPane.showOptionDialog(new JFrame(), "Alterado com sucesso.", "", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null, null, null);
+        }
+        catch (Exception a){
+            a.printStackTrace();
+            JOptionPane.showOptionDialog(new JFrame(), "Erro", "", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null, null, null);
+        }
+    }
+
+    public AlterarClienteFrame(Cliente c, ConfiguraFacil cf) {
         initComponents();
+        this.cf = cf;
         this.cliente = c;
         this.nome_txt.setText(c.getNome());
         this.telemovel_txt.setText(String.valueOf(c.getTelemovel()));
@@ -37,7 +54,7 @@ public class AlterarClienteFrame extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    // Generated using JFormDesigner Evaluation license - Pedro Moreira
+    // Generated using JFormDesigner Evaluation license - Diogo Sobral
     private void initComponents() {
         atualizar_btn = new JButton();
         email_txt = new JTextField();
@@ -54,6 +71,7 @@ public class AlterarClienteFrame extends javax.swing.JFrame {
 
         //---- atualizar_btn ----
         atualizar_btn.setText("Atualizar");
+        atualizar_btn.addActionListener(e -> atualizar_btnActionPerformed(e));
 
         //---- label3 ----
         label3.setText("E-mail");
@@ -89,9 +107,9 @@ public class AlterarClienteFrame extends javax.swing.JFrame {
                             .addComponent(label3)
                             .addGap(6, 6, 6)
                             .addComponent(email_txt, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE)))
-                    .addContainerGap(33, Short.MAX_VALUE))
+                    .addContainerGap(27, Short.MAX_VALUE))
                 .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
-                    .addContainerGap(136, Short.MAX_VALUE)
+                    .addContainerGap(130, Short.MAX_VALUE)
                     .addComponent(atualizar_btn)
                     .addContainerGap())
         );
@@ -118,7 +136,7 @@ public class AlterarClienteFrame extends javax.swing.JFrame {
                         .addComponent(email_txt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addGap(18, 18, 18)
                     .addComponent(atualizar_btn)
-                    .addContainerGap(4, Short.MAX_VALUE))
+                    .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pack();
         setLocationRelativeTo(getOwner());
@@ -126,7 +144,7 @@ public class AlterarClienteFrame extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Pedro Moreira
+    // Generated using JFormDesigner Evaluation license - Diogo Sobral
     private JButton atualizar_btn;
     private JTextField email_txt;
     private JLabel label3;

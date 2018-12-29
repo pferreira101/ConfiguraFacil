@@ -25,7 +25,7 @@ public class AtualizarStockFrame extends javax.swing.JFrame {
     ConfiguraFacil cf;
 
     private void nova_componente_btnActionPerformed(ActionEvent e) {
-        new NovaComponenteFrame().setVisible(true);
+        new NovaComponenteFrame(cf).setVisible(true);
     }
 
     private void atualizar_btnActionPerformed(ActionEvent e) throws Exception {

@@ -4,7 +4,6 @@ import business.gConfig.Componente;
 import business.gConfig.Configuracao;
 import business.gConfig.Pacote;
 import business.gFabrica.Encomenda;
-import business.ConfiguraFacil;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -21,11 +20,16 @@ public class EncomendaDAO {
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "12345");
 
         PreparedStatement st;
-        st = con.prepareStatement("INSERT INTO encomenda VALUES (?, ?, ?, ?);");
+
+        st = con.prepareStatement("INSERT INTO encomenda VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE funcionario = ?, cliente = ?, status = ?;");
         st.setInt(1, id);
         st.setInt(2, e.getFuncionario());
         st.setInt(3, e.getCliente());
         st.setInt(4, status);
+
+        st.setInt(5,e.getFuncionario());
+        st.setInt(6,e.getCliente());
+        st.setInt(7,status);
 
         st.execute();
 
@@ -33,17 +37,19 @@ public class EncomendaDAO {
         List<Pacote> lP = conf.getPacotes();
         List<Componente> lC = conf.getComponentes();
 
-        st = con.prepareStatement("INSERT INTO componentesencomenda VALUES (?, ?);");
+        st = con.prepareStatement("INSERT INTO componentesencomenda VALUES (?, ?) ON DUPLICATE KEY UPDATE componente = ?;");
         for(int i = 0; i < lC.size(); i++){
             st.setInt(1, id);
             st.setInt(2, lC.get(i).getID());
+            st.setInt(3, lC.get(i).getID());
             st.execute();
         }
 
-        st = con.prepareStatement("INSERT INTO pacotesencomenda VALUES (?, ?);");
+        st = con.prepareStatement("INSERT INTO pacotesencomenda VALUES (?, ?) ON DUPLICATE KEY UPDATE pacote = ?;");
         for (int i = 0; i < lP.size(); i++){
             st.setInt(1, id);
             st.setInt(2, lP.get(i).getID());
+            st.setInt(3, lP.get(i).getID());
             st.execute();
         }
 

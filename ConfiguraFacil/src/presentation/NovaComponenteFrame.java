@@ -5,6 +5,15 @@
  */
 package presentation;
 
+import java.awt.event.*;
+import java.beans.*;
+import business.ConfiguraFacil;
+import business.gConfig.Componente;
+
+import java.security.spec.ECField;
+import java.util.List;
+import java.util.ArrayList;
+
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.GroupLayout;
@@ -16,11 +25,122 @@ import javax.swing.table.*;
  */
 public class NovaComponenteFrame extends javax.swing.JFrame {
 
+    ConfiguraFacil cf;
+
     /**
      * Creates new form NovaComponenteFrame
      */
-    public NovaComponenteFrame() {
+    public NovaComponenteFrame(ConfiguraFacil cf) {
         initComponents();
+        this.cf = cf;
+        updateTabel();
+    }
+
+    private void table1PropertyChange(PropertyChangeEvent e) {
+        if (e.getPropertyName().equals("tableCellEditor")) {
+
+            int rows = table1.getRowCount();
+            Object v1, v2;
+            for (int i = 0; i < rows; i++) {
+                v1 = table1.getValueAt(i, 2);
+                v2 = table1.getValueAt(i, 3);
+                if (v1 != null && v2 != null){
+                    if ((boolean) v1 && (boolean) v2){
+                        table1.setValueAt(false,i,3);
+                    }
+                }
+            }
+        }
+    }
+
+    private void sair_btnActionPerformed(ActionEvent e) {
+        this.dispose();
+        new TabelaStock(this.cf).setVisible(true);
+    }
+
+    private void adicionar_btnActionPerformed(ActionEvent e) {
+        List<Componente> complementares = new ArrayList<>();
+        List<Componente> incompativeis = new ArrayList<>();
+
+        int rows = table1.getRowCount();
+
+        Object v1;
+        for(int i = 0; i < rows; i++){
+            v1 = table1.getValueAt(i,2);
+            if (v1 != null){
+                if ((boolean) v1){
+                    Componente c = this.cf.getComponente((int) table1.getValueAt(i,0));
+                    if (c != null)
+                        complementares.add(c);
+                }
+            }
+            else if ((v1 = table1.getValueAt(i,3)) != null){
+                if ((boolean) v1){
+                    Componente c = this.cf.getComponente((int) table1.getValueAt(i,0));
+                    if (c != null)
+                        incompativeis.add(c);
+                }
+            }
+        }
+
+
+        try {
+            int i = this.cf.adicionarComponente(nome_txt.getText(), Double.parseDouble(preco_txt.getText()), matchType(jComboBox1.getSelectedItem().toString()), complementares, incompativeis);
+            this.dispose();
+            new EncomendaStockFame(this.cf,i).setVisible(true);
+        }catch (Exception k){
+            this.dispose();
+            new TabelaStock(this.cf).setVisible(true);
+        }
+    }
+
+    private int matchType(String msg){
+        String [] args = msg.split(" ");
+
+        int i = -1;
+        switch (args[0]){
+            case "1": i = 1; break;
+            case "2": i = 2; break;
+            case "3": i = 3; break;
+            case "4": i = 4; break;
+            case "5": i = 5; break;
+            case "6": i = 6; break;
+            default: i = -1;
+        }
+
+        return i;
+    }
+
+    private void table1ComponentAdded(ContainerEvent e) {
+        // TODO add your code here
+    }
+
+
+
+    public void updateTabel(){
+        DefaultTableModel model = (DefaultTableModel) table1.getModel();
+        Object row_data[] = new Object[2];
+
+        // Remove todos
+        model.setRowCount(0);
+
+        List<Componente> aux;
+
+        try{
+            aux = this.cf.getComponentes();
+        }
+        catch (Exception e){
+            aux = new ArrayList<>();
+        }
+
+        // Adiciona novos
+        for(Componente k : aux){
+            if ((k.getComplementares().size() == 0) && (k.getIncompativeis().size() == 0)) {
+                row_data[0] = k.getID();
+                row_data[1] = k.getDesignacao();
+                model.addRow(row_data);
+            }
+        }
     }
 
     /**
@@ -30,7 +150,7 @@ public class NovaComponenteFrame extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    // Generated using JFormDesigner Evaluation license - Pedro Moreira
+    // Generated using JFormDesigner Evaluation license - Diogo Sobral
     private void initComponents() {
         nome_txt = new JTextField();
         jComboBox1 = new JComboBox<>();
@@ -60,6 +180,7 @@ public class NovaComponenteFrame extends javax.swing.JFrame {
 
         //---- adicionar_btn ----
         adicionar_btn.setText("Adicionar");
+        adicionar_btn.addActionListener(e -> adicionar_btnActionPerformed(e));
 
         //---- label1 ----
         label1.setText("Nome");
@@ -72,6 +193,7 @@ public class NovaComponenteFrame extends javax.swing.JFrame {
 
         //---- button1 ----
         button1.setText("Sair");
+        button1.addActionListener(e -> sair_btnActionPerformed(e));
 
         //======== scrollPane1 ========
         {
@@ -79,11 +201,11 @@ public class NovaComponenteFrame extends javax.swing.JFrame {
             //---- table1 ----
             table1.setModel(new DefaultTableModel(
                 new Object[][] {
-                    {null, null, null, null},
+                    {null, null, false, false},
                     {null, null, null, null},
                 },
                 new String[] {
-                    "ID", "Designa\u00e7\u00e3o", "Incompat\u00edveis", "Complementar"
+                    "ID", "Designa\u00e7\u00e3o", "Compat\u00edveis", "Incompat\u00edveis"
                 }
             ) {
                 Class<?>[] columnTypes = new Class<?>[] {
@@ -99,6 +221,13 @@ public class NovaComponenteFrame extends javax.swing.JFrame {
                 @Override
                 public boolean isCellEditable(int rowIndex, int columnIndex) {
                     return columnEditable[columnIndex];
+                }
+            });
+            table1.addPropertyChangeListener(e -> table1PropertyChange(e));
+            table1.addContainerListener(new ContainerAdapter() {
+                @Override
+                public void componentAdded(ContainerEvent e) {
+                    table1ComponentAdded(e);
                 }
             });
             scrollPane1.setViewportView(table1);
@@ -169,7 +298,7 @@ public class NovaComponenteFrame extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Pedro Moreira
+    // Generated using JFormDesigner Evaluation license - Diogo Sobral
     private JTextField nome_txt;
     private JComboBox<String> jComboBox1;
     private JButton adicionar_btn;

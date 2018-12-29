@@ -8,6 +8,7 @@ package presentation;
 import business.ConfiguraFacil;
 import business.gFabrica.Encomenda;
 import business.gFabrica.Stock;
+import business.gConfig.Componente;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -47,10 +48,29 @@ public class EncomendasFrame extends javax.swing.JFrame {
 
     private void pro_encomenda_btnActionPerformed(ActionEvent evt) {
         int row = encomendas_tbl.getSelectedRow();
-        int array_index = (int) this.encomendas_tbl.getModel().getValueAt(row, 0) - 1;
+        if (row == -1)
+            return;
 
-        Encomenda e = this.encomendas.get(array_index);
-        List<Stock> stocks = this.cf.getStockList();
+        int array_index = (int) this.encomendas_tbl.getModel().getValueAt(row, 0);
+
+        List<Componente> stocks = this.cf.checkStock(array_index);
+
+        if (stocks.size() > 0){
+            String [] ags = {"Sim" , "Não"};
+            int i = JOptionPane.showOptionDialog(new JFrame(), "Stock Insuficiente. Deseja ver os componentes em falta?", "Erro", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, ags, "Sim");
+            if (i == 0){
+                new DisplayListaComponenteFaltaFrame(stocks).setVisible(true);
+            }
+        }
+        else {
+            try{
+                this.cf.processaEncomenda(array_index);
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+
+        }
 
         // verificar se existe stock para todas as componentes da encomenda
     }
@@ -59,6 +79,7 @@ public class EncomendasFrame extends javax.swing.JFrame {
         if(e.getClickCount()==2){
             int row = this.encomendas_tbl.getSelectedRow();
             int id = (int) this.encomendas_tbl.getModel().getValueAt(row, 0);
+            System.out.println(id);
 
             Encomenda selected = this.cf.getEncomenda(id);
 

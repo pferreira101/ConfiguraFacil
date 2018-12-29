@@ -17,5 +17,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="mysql:mysql-connector-java:8.0.13" level="project" />
+    <orderEntry type="library" name="JGoodies Forms" level="project" />
   </component>
 </module>
