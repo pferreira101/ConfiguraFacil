@@ -13,9 +13,6 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class ConfiguraFacil {
-	public Map<Integer, Cliente> clientes;
-    public Map<Integer, Componente> componentes;
-	public Map<Integer, Funcionario> funcionarios;
 	public Fabrica fabrica;
 	public ComponenteDAO componenteDAO;
 	public ClienteDAO clienteDAO;
@@ -25,8 +22,6 @@ public class ConfiguraFacil {
 
 
 	public ConfiguraFacil(){
-	    this.clientes = new HashMap<>();
-	    this.funcionarios = new HashMap<>();
 	    this.clienteDAO = new ClienteDAO();
 	    this.funcionarioDAO = new FuncionarioDAO();
 	    this.componenteDAO = new ComponenteDAO();
@@ -152,8 +147,8 @@ public class ConfiguraFacil {
      */
 
 
-    public Cliente existeCliente(int codClient){
-        return this.clientes.get(codClient);
+    public Cliente existeCliente(int codClient) throws Exception{
+        return this.clienteDAO.get(codClient);
     }
 
     /**
@@ -175,11 +170,11 @@ public class ConfiguraFacil {
      * @return
      */
 
-    public Configuracao calculaConfig(double orcamento,int prio){
+    public Configuracao calculaConfig(double orcamento,int prio) throws Exception{
          List<Componente> sgd = new ArrayList<>();
          List<Componente> prim = new ArrayList<>();
 
-         for(Componente c : componentes.values()){
+         for(Componente c : componenteDAO.list()){
              if (c.temComplementares())
                  prim.add(c);
              else sgd.add(c);
@@ -359,7 +354,7 @@ public class ConfiguraFacil {
      */
 
     public void registaFuncionario(String nome, String pass, int tel, String email, int tipo) throws SQLException, ClassNotFoundException {
-        int id = this.funcionarios.size() + 1;
+        int id = this.funcionarioDAO.size() + 1;
 
         Funcionario f = new Funcionario(id, nome, pass, tipo, tel, email);
 
