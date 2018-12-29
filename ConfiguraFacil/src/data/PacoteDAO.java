@@ -13,7 +13,7 @@ public class PacoteDAO {
 
 	public void put(int id, Pacote p) throws SQLException, ClassNotFoundException {
         //Establish the connection
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "carroz98");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "12345");
 
         PreparedStatement st;
         st = con.prepareStatement("INSERT INTO pacote VALUES (?, ?);");
@@ -38,7 +38,7 @@ public class PacoteDAO {
         List<Componente> comps = new ArrayList<>();
         double desconto = 0;
 
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "carroz98");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "12345");
 
         PreparedStatement st;
         st = con.prepareStatement("SELECT c.id_componente " +
@@ -72,7 +72,7 @@ public class PacoteDAO {
         List<Pacote> r = new ArrayList<>();
         Pacote p;
 
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "carroz98");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "12345");
 
         PreparedStatement st;
         st = con.prepareStatement("SELECT * FROM pacote;");
@@ -92,7 +92,7 @@ public class PacoteDAO {
 
 
     public void remove(int id) throws SQLException {
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "carroz98");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "12345");
 
         PreparedStatement st;
         st = con.prepareStatement("DELETE FROM pacote WHERE id_pacote = ?;");
@@ -108,7 +108,7 @@ public class PacoteDAO {
 
     public int size() throws SQLException {
         int r = 0;
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "carroz98");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "12345");
 
         PreparedStatement st;
         st = con.prepareStatement("SELECT count(*) FROM pacote;");

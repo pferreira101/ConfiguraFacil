@@ -64,18 +64,31 @@ new FormModel {
 			} )
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 				name: "jScrollPane3"
-				add( new FormComponent( "javax.swing.JList" ) {
-					name: "type_list2"
-					"model": new javax.swing.DefaultListModel {
-						addElement( "-" )
-						addElement( "1 - Conforto" )
-						addElement( "2 - Sport" )
-					}
-					auxiliary() {
-						"JavaCodeGenerator.typeParameters": "String"
-					}
-					addEvent( new FormEvent( "javax.swing.event.ListSelectionListener", "valueChanged", "type_list2ValueChanged", true ) )
-					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "type_list2MouseClicked", true ) )
+				add( new FormComponent( "javax.swing.JTable" ) {
+					name: "pacotes_tbl"
+					"model": new com.jformdesigner.model.SwingTableModel( new java.util.Vector {
+						add( new java.util.Vector {
+							add( "Sport" )
+							add( false )
+						} )
+						add( new java.util.Vector {
+							add( "Confort" )
+							add( null )
+						} )
+					}, new java.util.Vector {
+						add( "Pacote" )
+						add( " " )
+					}, new java.util.Vector {
+						add( null )
+						add( class java.lang.Boolean )
+					}, new java.util.Vector {
+						add( false )
+						add( true )
+					}, new java.util.Vector {
+						add( new com.jformdesigner.model.SwingTableColumn( null, 0, 0, 0, false ) )
+						add( new com.jformdesigner.model.SwingTableColumn( null, 1, 0, 0, false ) )
+					} )
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "pacotes_tblMouseClicked", true ) )
 				} )
 			} )
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {

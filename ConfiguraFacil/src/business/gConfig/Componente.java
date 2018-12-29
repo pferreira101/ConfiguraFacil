@@ -153,10 +153,7 @@ public class Componente {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		Componente that = (Componente) o;
-		return id == that.id &&
-				Double.compare(that.preco, preco) == 0 &&
-				Objects.equals(designacao, that.designacao) &&
-				Objects.equals(tipo, that.tipo);
+		return id == that.id;
 	}
 
 	@Override

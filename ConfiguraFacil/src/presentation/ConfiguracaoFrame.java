@@ -44,45 +44,66 @@ class Selection{
     }
 }
 
-class SelectionPacote{
-
-    List<Pacote> pacotes;
-    int selected;
-
-    public SelectionPacote(){
-        this.pacotes = new ArrayList<>();
-        this.selected = -1;
-    }
-
-    public SelectionPacote(List data, int selected){
-        this.pacotes = data;
-        this.selected = selected;
-    }
-}
-
-
 
 public class ConfiguracaoFrame extends javax.swing.JFrame {
 
     Selection[] selections;
-    SelectionPacote selections_pacotes;
+    List<Pacote> pacotes;
     ConfiguraFacil cf;
+    Configuracao config = new Configuracao();
 
     private void registar_btnActionPerformed(ActionEvent e) throws Exception {
-        Configuracao config = new Configuracao();
-
+        /*
+        // Adiciona componentes selecionadas
         for(Selection s : this.selections){
             if(s.selected != -1 && s.selected != 0){
-                Componente c = s.comps.get(s.selected - 1); // -1 acho
-                config.addComponente(c);
+                Componente c = s.comps.get(s.selected - 1);
+                this.config.addComponente(c);
             }
         }
-        int selected;
-        if((selected = this.selections_pacotes.selected - 1) > -1){
-            config.addPacote(this.selections_pacotes.pacotes.get(selected));
+
+        // Adiciona pacotes selecionados
+        for(int i = 0; i < pacotes_tbl.getRowCount(); i++) {
+            try{
+                boolean is_selected = (boolean) pacotes_tbl.getModel().getValueAt(i, 1);
+                if(is_selected){
+                    config.addPacote(this.pacotes.get(i));
+                }
+            }catch (NullPointerException e1) {}
+
+        }
+*/
+        // Neste momento a configuração tem as componentes todas sem estarem tratadas
+        List<Componente> incompativeis = new ArrayList<>();
+        List<Componente> complementares = new ArrayList<>();
+
+        List<String> incomp = new ArrayList<>();
+
+        for(Componente c : config.getComponentes()){
+            //incompativeis.addAll(this.cf.checkIncompativeis(config, c));
+            for(Componente comp : this.cf.checkIncompativeis(config, c)){
+                incomp.add("Componente " + c.getID() + " incompatível com " + comp.getID());
+            }
+        }
+        /*// FIXME: 12/29/2018 este método tem que ser igual ao checkIncompativeis para funcionar destar forma
+        for(Componente c : config.getComponentes()){
+            complementares.addAll(this.cf.checkComplementares(c));
+        }
+        */
+
+        if(incomp.size() == 0 && complementares.size() == 0){
+            new RegistaEncomendaFrame(this.cf, config).setVisible(true);
+        }
+        else{
+            StringBuilder s = new StringBuilder();
+            s.append("Componentes incompatíveis: \n");
+            /*for(Componente c : incompativeis){
+                s.append(c.getID() + " - " + c.getDesignacao() + '\n');
+            }*/
+            for(String st : incomp) s.append("- " + st + "\n");
+            JOptionPane.showMessageDialog(new JFrame(), s.toString(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
 
-        new RegistaEncomendaFrame(this.cf, config).setVisible(true);
     }
 
     private void sair_btnActionPerformed(ActionEvent e) {
@@ -106,14 +127,6 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
         this.selections[tipo] = s;
     }
 
-    private void createSelectionsPacote() throws Exception {
-        List<Pacote> pacotes = this.cf.getPacotes();
-
-        SelectionPacote s = new SelectionPacote(pacotes, -1);
-
-        this.selections_pacotes = s;
-
-    }
 
 
     private void loadSelection(int tipo){
@@ -138,40 +151,67 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
 
 
     private void cmp_tblMouseClicked(MouseEvent e) {
-        this.selections[type_list.getSelectedIndex()].selected = cmp_tbl.getSelectedRow();
-    }
+        int tipo = type_list.getSelectedIndex();
+        int row = cmp_tbl.getSelectedRow();
 
-    private void type_list2ValueChanged(ListSelectionEvent e) {
-        loadSelectionPacote(type_list2.getSelectedIndex());
-    }
+        int old_selected = this.selections[tipo].selected;
+        
+        System.out.println("Old: " + old_selected); // FIXME: 12/29/2018 DEBUGGING
+        
+        Componente old_componente = new Componente();
+        if(old_selected != -1) {
+            old_componente = this.selections[tipo].comps.get(old_selected - 1);
+        }
 
-    private void loadSelectionPacote(int tipo) {
-        if(tipo > 0){
-            List<Componente> list = selections_pacotes.pacotes.get(tipo-1).getComponentes();
+        Componente nova_componente = this.selections[tipo].comps.get(row - 1);
 
-            DefaultTableModel model = (DefaultTableModel) cmp_tbl2.getModel();
-            Object row_data[] = new Object[3];
+        List<Componente> incompativeis = this.cf.checkIncompativeis(this.config, nova_componente);
+        int opt = -1;
 
-            model.setRowCount(0);
-
-            for(Componente c : list) {
-                row_data[0] = c.getID();
-                row_data[1] = c.getDesignacao();
-                row_data[2] = c.getPreco();
-
-                model.addRow(row_data);
+        if(incompativeis.size() > 0){
+            StringBuilder s = new StringBuilder();
+            s.append("Componente a adicionar (" + nova_componente.getID() + ") incompatível com: \n");
+            for(Componente c : incompativeis){
+                s.append(c.getID() + " - " + c.getDesignacao() + '\n');
             }
+            Object[] options = {"Adicionar", "Descartar"};
+            opt = JOptionPane.showOptionDialog(new JFrame(), s.toString(), "Erro", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        }
+        if (opt == JOptionPane.YES_OPTION || incompativeis.size() == 0){
+            this.config.addComponente(nova_componente);
+            this.config.rmComponente(old_componente);
+            this.config.rmComponentes(incompativeis);
+            this.selections[tipo].selected = row;
         }
 
 
 
     }
 
-    private void type_list2MouseClicked(MouseEvent e) {
-        this.selections_pacotes.selected = type_list2.getSelectedIndex();
+
+    private void loadSelectionPacote(int tipo) {
+        DefaultTableModel model = (DefaultTableModel) cmp_tbl2.getModel();
+        model.setRowCount(0);
+
+        List<Componente> list = this.pacotes.get(tipo).getComponentes();
+        Object row_data[] = new Object[3];
+
+        for(Componente c : list) {
+            row_data[0] = c.getID();
+            row_data[1] = c.getDesignacao();
+            row_data[2] = c.getPreco();
+
+            model.addRow(row_data);
+        }
+
+
     }
 
+    private void pacotes_tblMouseClicked(MouseEvent e) {
+        int row = pacotes_tbl.getSelectedRow();
 
+        loadSelectionPacote(row);
+    }
 
 
 
@@ -186,9 +226,7 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
             createSelections(i);
         }
 
-        this.selections_pacotes = new SelectionPacote();
-
-        createSelectionsPacote();
+        this.pacotes = cf.getPacotes();
 
     }
 
@@ -208,7 +246,7 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
         jScrollPane2 = new JScrollPane();
         cmp_tbl = new JTable();
         jScrollPane3 = new JScrollPane();
-        type_list2 = new JList<>();
+        pacotes_tbl = new JTable();
         jScrollPane4 = new JScrollPane();
         cmp_tbl2 = new JTable();
 
@@ -284,26 +322,44 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
         //======== jScrollPane3 ========
         {
 
-            //---- type_list2 ----
-            type_list2.setModel(new AbstractListModel<String>() {
-                String[] values = {
-                    "-",
-                    "1 - Conforto",
-                    "2 - Sport"
+            //---- pacotes_tbl ----
+            pacotes_tbl.setModel(new DefaultTableModel(
+                new Object[][] {
+                    {"Sport", false},
+                    {"Confort", null},
+                },
+                new String[] {
+                    "Pacote", " "
+                }
+            ) {
+                Class<?>[] columnTypes = new Class<?>[] {
+                    Object.class, Boolean.class
+                };
+                boolean[] columnEditable = new boolean[] {
+                    false, true
                 };
                 @Override
-                public int getSize() { return values.length; }
+                public Class<?> getColumnClass(int columnIndex) {
+                    return columnTypes[columnIndex];
+                }
                 @Override
-                public String getElementAt(int i) { return values[i]; }
-            });
-            type_list2.addListSelectionListener(e -> type_list2ValueChanged(e));
-            type_list2.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    type_list2MouseClicked(e);
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return columnEditable[columnIndex];
                 }
             });
-            jScrollPane3.setViewportView(type_list2);
+            {
+                TableColumnModel cm = pacotes_tbl.getColumnModel();
+                cm.getColumn(0).setResizable(false);
+                cm.getColumn(1).setResizable(false);
+                cm.getColumn(1).setPreferredWidth(1);
+            }
+            pacotes_tbl.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    pacotes_tblMouseClicked(e);
+                }
+            });
+            jScrollPane3.setViewportView(pacotes_tbl);
         }
 
         //======== jScrollPane4 ========
@@ -384,7 +440,7 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
     private JScrollPane jScrollPane2;
     private JTable cmp_tbl;
     private JScrollPane jScrollPane3;
-    private JList<String> type_list2;
+    private JTable pacotes_tbl;
     private JScrollPane jScrollPane4;
     private JTable cmp_tbl2;
     // End of variables declaration//GEN-END:variables

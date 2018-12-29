@@ -60,6 +60,8 @@ public class Configuracao {
 	 */
 	public void addComponente(Componente c){
 	    this.componentes.add(c);
+
+	    System.out.println(c.getID() + " ADDED"); // FIXME: 12/29/2018
     }
 
 	/**
@@ -141,7 +143,11 @@ public class Configuracao {
 	 * Método para remover um Componente da configuração
 	 * @param c Componente a remover
 	 */
-	public void rmComponente(Componente c){this.componentes.remove(c);}
+	public void rmComponente(Componente c){
+	    this.componentes.remove(c);
+
+        System.out.println(c.getID() + " REMOVED"); // FIXME: 12/29/2018
+	}
 
 
 	/**

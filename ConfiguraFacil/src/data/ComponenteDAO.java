@@ -9,9 +9,9 @@ import java.util.List;
 
 public class ComponenteDAO {
 
-    public void put(int id, Componente c) throws SQLException, ClassNotFoundException {
+    public void put(int id, Componente c) throws SQLException {
         //Establish the connection
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "carroz98");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "12345");
 
         PreparedStatement st;
 
@@ -51,7 +51,7 @@ public class ComponenteDAO {
     public Componente get(int id) throws Exception {
         Componente c;
 
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "carroz98");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "12345");
 
         PreparedStatement st, st_aux;
         ResultSet rs, rs_aux;
@@ -72,52 +72,45 @@ public class ComponenteDAO {
 
 
         // incompativeis
-        st = con.prepareStatement("SELECT * FROM incompativel WHERE componente = ?");
+        st = con.prepareStatement("SELECT comp.* " +
+                                  "FROM incompativel AS i INNER JOIN componente AS c " +
+                                                         "ON i.componente = c.id_componente " +
+                                                         "INNER JOIN componente AS comp " +
+                                                         "ON i.incompativel = comp.id_componente " +
+                                  "WHERE c.id_componente = ?");
         st.setInt(1, id);
 
         rs = st.executeQuery();
-        if(rs.next()) {
+        while(rs.next()) {
             Componente inc = new Componente();
-            inc.setID(rs.getInt("incompativel"));
-            st_aux = con.prepareStatement("SELECT * FROM componente WHERE id_componente = ?;");
-            st_aux.setInt(1, inc.getID());
+            inc.setID(rs.getInt("id_componente"));
+            inc.setDesignacao(rs.getString("designacao"));
+            inc.setPreco(rs.getDouble("preco"));
+            inc.setTipo(rs.getInt("tipo"));
 
-            rs_aux = st_aux.executeQuery();
-            if(rs_aux.next()){
-                inc.setDesignacao(rs_aux.getString("designacao"));
-                inc.setPreco(rs_aux.getDouble("preco"));
-                inc.setTipo(rs_aux.getInt("tipo"));
-
-                c.getIncompativeis().add(inc);
-            }
-
+            c.getIncompativeis().add(inc);
         }
-        // else throw new Exception("Componente incompatível não encontrado");
 
 
         // complementar
-        st = con.prepareStatement("SELECT * FROM complementar WHERE componente = ?");
+        st = con.prepareStatement("SELECT comp.* " +
+                                  "FROM complementar AS co INNER JOIN componente AS c " +
+                                                         "ON co.componente = c.id_componente " +
+                                                         "INNER JOIN componente AS comp " +
+                                                         "ON co.complementar = comp.id_componente " +
+                                  "WHERE c.id_componente = ?");
         st.setInt(1, id);
 
         rs = st.executeQuery();
-        if(rs.next()) {
-            Componente comp = new Componente();
-            comp.setID(rs.getInt("complementar"));
-            st_aux = con.prepareStatement("SELECT * FROM componente WHERE id_componente = ?;");
-            st_aux.setInt(1, comp.getID());
+        while(rs.next()) {
+            Componente compl = new Componente();
+            compl.setID(rs.getInt("id_componente"));
+            compl.setDesignacao(rs.getString("designacao"));
+            compl.setPreco(rs.getDouble("preco"));
+            compl.setTipo(rs.getInt("tipo"));
 
-            rs_aux = st_aux.executeQuery();
-            if(rs_aux.next()){
-                comp.setDesignacao(rs_aux.getString("designacao"));
-                comp.setPreco(rs_aux.getDouble("preco"));
-                comp.setTipo(rs_aux.getInt("tipo"));
-
-                c.getComplementares().add(comp);
-            }
-
+            c.getComplementares().add(compl);
         }
-        // else throw new Exception("Componente complementar não encontrado");
-
 
         con.close();
 
@@ -128,7 +121,7 @@ public class ComponenteDAO {
         List<Componente> r = new ArrayList<>();
         Componente c;
 
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "carroz98");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "12345");
 
         PreparedStatement st;
         st = con.prepareStatement("SELECT * FROM componente;");
@@ -149,7 +142,7 @@ public class ComponenteDAO {
 
     public int size() throws SQLException {
         int r = 0;
-        Connection c = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "carroz98");
+        Connection c = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "12345");
 
         PreparedStatement st;
         st = c.prepareStatement("SELECT count(*) FROM componente;");
