@@ -213,14 +213,6 @@ public class Configuracao {
 	}
 
 
-    /**
-     * Método que remove um pacote da configuração
-     * @param pacote Pacote a remover
-     */
-    public void rmPacote(Pacote pacote) {
-	    this.pacotes.remove(pacote);
-    }
-
 
     /**
      * Método que verifica a existência de componentes da configuração que formam um pacote

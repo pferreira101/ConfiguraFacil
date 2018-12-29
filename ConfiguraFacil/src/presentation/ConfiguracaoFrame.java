@@ -254,32 +254,40 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
                 Pacote p = this.pacotes.get(row);
                 List<Componente> incompativeis = this.cf.checkIncompativeis(this.config, p);
                 if(incompativeis.size() > 0){
-                        opt = showErrorMessagePacote(p, incompativeis);
+                    List<Componente> c_pac = p.getComponentes();
+                    for(Componente c : incompativeis){
+                        opt = showErrorMessagePacote(c); //p, incompativeis);
                         if(opt == JOptionPane.YES_OPTION){
-                            //this.cf.removeComponentes(this.config, incompativeis);
-                            this.cf.addPacote(this.config, p);
-                            resetSelections(incompativeis);
+                            this.cf.removeComponente(this.config, c);
                         }
                         else{
+
                             pacotes_tbl.getModel().setValueAt(false, row, 1);
                         }
+                    }
+                    this.cf.addPacote(this.config, p);
+
 
                 }
-                //this.cf.addPacote(this.config, p);
+                else{
+                    this.cf.addPacote(this.config, p);
+                }
             }
-            else this.config.rmPacote(this.pacotes.get(row));
-        }catch (Exception e1){}
+        }
+        catch (Exception e1){}
     }
 
-    private int showErrorMessagePacote(Pacote p, List<Componente> incompativeis) {
+    private int showErrorMessagePacote(Componente c){ //, List<Componente> incompativeis) {
         StringBuilder s = new StringBuilder();
-        s.append("Pacote a adicionar (").append(p.getID()).append(") incompatível com: \n");
+        s.append("A componente do pacote a adicionar (").append(c.getID()).append(" - ")
+                                                        .append(c.getDesignacao())
+                                                        .append(")é incompatível \ncom componentes já existentes na configuração.");
 
-        for(Componente c : incompativeis){
+        /*for(Componente c : incompativeis){
             s.append(c.getID()).append(" - ").append(c.getDesignacao()).append('\n');
-        }
+        }*/
 
-        Object[] options = {"Adicionar", "Descartar"};
+        Object[] options = {"Manter Componente do Pacote", "Descartar Componente do pacote"};
 
         return JOptionPane.showOptionDialog(new JFrame(), s.toString(), "Erro", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
     }
