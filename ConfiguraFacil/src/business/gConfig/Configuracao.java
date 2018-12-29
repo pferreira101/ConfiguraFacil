@@ -39,10 +39,10 @@ public class Configuracao {
 
 		for(Componente k : incompativeis){
 			if (this.componentes.contains(k))
-				return true;
+				return false;
 		}
 
-		return false;
+		return true;
 	}
 
 	/**
@@ -71,11 +71,29 @@ public class Configuracao {
 	public void addComponentes(List<Componente> comps) {for(Componente c : comps) this.addComponente(c);}
 
 	/**
-	 * Método para adicionar um pacote a uma configuração
+	 * Método para adicionar um pacote a uma configuração, adicionando apenas os componentes que possam ser instalados.
 	 * @param p Pacote a adicionar
 	 */
     public void addPacote(Pacote p){
-	    this.pacotes.add(p);
+	    List<Componente> compsPack = p.getComponentes();
+	    List<Componente> compsConfig = this.getComponentes();
+	    Set<Componente> compAux = new HashSet<>();
+
+	    compAux.addAll(compsConfig);
+
+	    for(Componente c : compsPack){
+	    	boolean flag = this.compativel(c); // testa se algum incompativel do componente se encontra na config
+	    	if(flag){
+	    		List<Componente> complmtr = c.getComplementares();
+	    		for(Componente comp : complmtr){ // testa se todos os complementares do componente se encontram na config
+	    			if(!flag) break;
+	    			flag = compAux.contains(comp);
+				}
+	    		if(flag)
+	    			this.addComponente(c);
+			}
+
+		}
     }
 
 
