@@ -1,4 +1,4 @@
-
+USE ConfiguraFacil;
 # POVOAMENTO FUNCIONARIOS
 
 INSERT INTO funcionario
@@ -59,5 +59,7 @@ SELECT * FROM stock;
 
 
 SELECT * FROM encomenda;
+
+SELECT * FROM pacotesEncomenda;
 
 
