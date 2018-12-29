@@ -1,4 +1,4 @@
-USE ConfiguraFacil;
+
 # POVOAMENTO FUNCIONARIOS
 
 INSERT INTO funcionario
@@ -33,6 +33,16 @@ VALUES (1, 'Cinzento', 50.0, 1),
 SELECT * FROM componente;
 -- DELETE FROM componente WHERE id_componente > 0;
 
+INSERT INTO incompativel
+VALUES (1, 2), (1, 3),
+	   (2, 1), (2, 3),
+       (3, 1), (3, 2),
+       (4, 5), (4, 6),
+       (5, 4), (5, 6),
+       (6, 4), (6, 5);
+
+SELECT * FROM incompativel;
+DELETE FROM incompativel WHERE componente = 1 and incompativel = 2;
 
 
 # POVOAMENTO PACOTES
@@ -59,7 +69,3 @@ SELECT * FROM stock;
 
 
 SELECT * FROM encomenda;
-
-SELECT * FROM pacotesEncomenda;
-
-

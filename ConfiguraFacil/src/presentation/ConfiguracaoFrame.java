@@ -5,6 +5,7 @@
  */
 package presentation;
 
+import java.beans.*;
 import business.ConfiguraFacil;
 import business.gConfig.Componente;
 import business.gConfig.Configuracao;
@@ -72,7 +73,7 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
             }catch (NullPointerException e1) {}
 
         }
-*/
+
         // Neste momento a configuração tem as componentes todas sem estarem tratadas
         List<Componente> incompativeis = new ArrayList<>();
         List<Componente> complementares = new ArrayList<>();
@@ -85,24 +86,25 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
                 incomp.add("Componente " + c.getID() + " incompatível com " + comp.getID());
             }
         }
-        /*// FIXME: 12/29/2018 este método tem que ser igual ao checkIncompativeis para funcionar destar forma
+        // FIXME: 12/29/2018 este método tem que ser igual ao checkIncompativeis para funcionar destar forma
         for(Componente c : config.getComponentes()){
             complementares.addAll(this.cf.checkComplementares(c));
         }
-        */
 
-        if(incomp.size() == 0 && complementares.size() == 0){
-            new RegistaEncomendaFrame(this.cf, config).setVisible(true);
-        }
+
+        if(incomp.size() == 0 && complementares.size() == 0){*/
+            this.cf.componentesToPacote(this.config, this.pacotes);
+            new RegistaEncomendaFrame(this.cf, this.config).setVisible(true);
+        /*}
         else{
             StringBuilder s = new StringBuilder();
             s.append("Componentes incompatíveis: \n");
-            /*for(Componente c : incompativeis){
+            for(Componente c : incompativeis){
                 s.append(c.getID() + " - " + c.getDesignacao() + '\n');
-            }*/
+            }
             for(String st : incomp) s.append("- " + st + "\n");
             JOptionPane.showMessageDialog(new JFrame(), s.toString(), "Erro", JOptionPane.ERROR_MESSAGE);
-        }
+        }*/
 
     }
 
@@ -157,35 +159,64 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
         int old_selected = this.selections[tipo].selected;
         
         System.out.println("Old: " + old_selected); // FIXME: 12/29/2018 DEBUGGING
-        
+
         Componente old_componente = new Componente();
         if(old_selected != -1) {
             old_componente = this.selections[tipo].comps.get(old_selected - 1);
         }
 
-        Componente nova_componente = this.selections[tipo].comps.get(row - 1);
+        Componente nova_componente = new Componente();
+        if(row > 0) {
+             nova_componente = this.selections[tipo].comps.get(row - 1);
+        }
+            List<Componente> incompativeis = this.cf.checkIncompativeis(this.config, nova_componente);
+            int opt = -1;
 
-        List<Componente> incompativeis = this.cf.checkIncompativeis(this.config, nova_componente);
-        int opt = -1;
-
-        if(incompativeis.size() > 0){
-            StringBuilder s = new StringBuilder();
-            s.append("Componente a adicionar (" + nova_componente.getID() + ") incompatível com: \n");
-            for(Componente c : incompativeis){
-                s.append(c.getID() + " - " + c.getDesignacao() + '\n');
+            if(incompativeis.size() > 0){
+                opt = showErrorMessage(nova_componente, incompativeis);
             }
-            Object[] options = {"Adicionar", "Descartar"};
-            opt = JOptionPane.showOptionDialog(new JFrame(), s.toString(), "Erro", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
+            ListSelectionModel m = cmp_tbl.getSelectionModel();
+
+            if (opt == JOptionPane.YES_OPTION || incompativeis.size() == 0){
+                this.cf.addComponente(this.config, nova_componente);
+                this.cf.removeComponente(this.config, old_componente);
+                this.cf.removeComponentes(this.config, incompativeis);
+
+
+                this.selections[tipo].selected = row;
+                resetSelections(incompativeis);
+            }
+            else if(opt == JOptionPane.NO_OPTION){
+                this.selections[tipo].selected = -1;
+
+                m.setSelectionInterval(0, 0);
+            }
+
+
+
+    }
+
+    private int showErrorMessage(Componente nova_componente, List<Componente> incompativeis) {
+        StringBuilder s = new StringBuilder();
+        s.append("Componente a adicionar (").append(nova_componente.getID()).append(") incompatível com: \n");
+
+        for(Componente c : incompativeis){
+            s.append(c.getID()).append(" - ").append(c.getDesignacao()).append('\n');
         }
-        if (opt == JOptionPane.YES_OPTION || incompativeis.size() == 0){
-            this.config.addComponente(nova_componente);
-            this.config.rmComponente(old_componente);
-            this.config.rmComponentes(incompativeis);
-            this.selections[tipo].selected = row;
+
+        Object[] options = {"Adicionar", "Descartar"};
+
+        return JOptionPane.showOptionDialog(new JFrame(), s.toString(), "Erro", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+    }
+
+    private void resetSelections(List<Componente> incompativeis) {
+        for(Componente c : incompativeis){
+            int tipo = c.getTipo() - 1;
+
+            this.selections[tipo].selected = -1;
+            ListSelectionModel m = cmp_tbl.getSelectionModel();
         }
-
-
-
     }
 
 
@@ -213,6 +244,45 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
         loadSelectionPacote(row);
     }
 
+    private void pacotes_tbl2MouseClicked(MouseEvent e) {
+        try{
+            int row = pacotes_tbl.getSelectedRow();
+            boolean check = (boolean)pacotes_tbl.getModel().getValueAt(row, 1);
+
+            if(check){
+                int opt = -1;
+                Pacote p = this.pacotes.get(row);
+                List<Componente> incompativeis = this.cf.checkIncompativeis(this.config, p);
+                if(incompativeis.size() > 0){
+                        opt = showErrorMessagePacote(p, incompativeis);
+                        if(opt == JOptionPane.YES_OPTION){
+                            //this.cf.removeComponentes(this.config, incompativeis);
+                            this.cf.addPacote(this.config, p);
+                            resetSelections(incompativeis);
+                        }
+                        else{
+                            pacotes_tbl.getModel().setValueAt(false, row, 1);
+                        }
+
+                }
+                //this.cf.addPacote(this.config, p);
+            }
+            else this.config.rmPacote(this.pacotes.get(row));
+        }catch (Exception e1){}
+    }
+
+    private int showErrorMessagePacote(Pacote p, List<Componente> incompativeis) {
+        StringBuilder s = new StringBuilder();
+        s.append("Pacote a adicionar (").append(p.getID()).append(") incompatível com: \n");
+
+        for(Componente c : incompativeis){
+            s.append(c.getID()).append(" - ").append(c.getDesignacao()).append('\n');
+        }
+
+        Object[] options = {"Adicionar", "Descartar"};
+
+        return JOptionPane.showOptionDialog(new JFrame(), s.toString(), "Erro", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+    }
 
 
     /**
@@ -325,8 +395,8 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
             //---- pacotes_tbl ----
             pacotes_tbl.setModel(new DefaultTableModel(
                 new Object[][] {
-                    {"Sport", false},
-                    {"Confort", null},
+                    {"1 - Sport", false},
+                    {"2 - Comfort", null},
                 },
                 new String[] {
                     "Pacote", " "
@@ -357,6 +427,7 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     pacotes_tblMouseClicked(e);
+                    pacotes_tbl2MouseClicked(e);
                 }
             });
             jScrollPane3.setViewportView(pacotes_tbl);

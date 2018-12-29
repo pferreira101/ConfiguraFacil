@@ -462,8 +462,27 @@ public class ConfiguraFacil {
      * @param config Configuração na qual se adiciona o pacote
      * @param pack Pacote a adicionar
      */
-    public void updateConfig(Configuracao config, Pacote pack) {
+    public void addPacote(Configuracao config, Pacote pack) {
         config.addPacote(pack);
     }
 
+
+    /**
+     * Método para remover uma componente duma configuração
+     * @param config Configuração para remover componente
+     * @param componente Componente a remover
+     */
+    public void removeComponente(Configuracao config, Componente componente) {
+        config.rmComponente(componente);
+    }
+
+
+    /**
+     * Método que verifica a existência de componentes selecionadas que formam um pacote
+     * @param config Configuração a verificar
+     * @param pacotes Lista de todos os pacotes existentes
+     */
+    public void componentesToPacote(Configuracao config, List<Pacote> pacotes){
+        config.componentesToPacote(pacotes);
+    }
 }

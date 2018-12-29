@@ -68,11 +68,11 @@ new FormModel {
 					name: "pacotes_tbl"
 					"model": new com.jformdesigner.model.SwingTableModel( new java.util.Vector {
 						add( new java.util.Vector {
-							add( "Sport" )
+							add( "1 - Sport" )
 							add( false )
 						} )
 						add( new java.util.Vector {
-							add( "Confort" )
+							add( "2 - Comfort" )
 							add( null )
 						} )
 					}, new java.util.Vector {
@@ -89,6 +89,7 @@ new FormModel {
 						add( new com.jformdesigner.model.SwingTableColumn( null, 1, 0, 0, false ) )
 					} )
 					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "pacotes_tblMouseClicked", true ) )
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "pacotes_tbl2MouseClicked", true ) )
 				} )
 			} )
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {

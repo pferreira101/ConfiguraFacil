@@ -59,7 +59,7 @@ public class Configuracao {
 	 * @param c Componente a adicionar.
 	 */
 	public void addComponente(Componente c){
-	    this.componentes.add(c);
+	    if(c.getID() != -1) this.componentes.add(c);
 
 	    System.out.println(c.getID() + " ADDED"); // FIXME: 12/29/2018
     }
@@ -212,4 +212,29 @@ public class Configuracao {
 
 	}
 
+
+    /**
+     * Método que remove um pacote da configuração
+     * @param pacote Pacote a remover
+     */
+    public void rmPacote(Pacote pacote) {
+	    this.pacotes.remove(pacote);
+    }
+
+
+    /**
+     * Método que verifica a existência de componentes da configuração que formam um pacote
+     * @param pacotes Lista de todos os pacotes existentes
+     */
+    public void componentesToPacote(List<Pacote> pacotes){
+        for(Pacote p : pacotes){
+            List<Componente> p_comps = p.getComponentes();
+            if(this.componentes.containsAll(p_comps)){
+                for(Componente c : p_comps){
+                    this.componentes.remove(c);
+                }
+                this.pacotes.add(p);
+            }
+        }
+    }
 }

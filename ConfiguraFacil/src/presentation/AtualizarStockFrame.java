@@ -28,7 +28,7 @@ public class AtualizarStockFrame extends javax.swing.JFrame {
         new NovaComponenteFrame().setVisible(true);
     }
 
-    private void atualizar_btnActionPerformed(ActionEvent e) throws SQLException, ClassNotFoundException {
+    private void atualizar_btnActionPerformed(ActionEvent e) throws Exception {
         int id = componente_cbox.getSelectedIndex() + 1;
         int quantidade = Integer.parseInt(qnt_txt.getText());
 
@@ -90,6 +90,8 @@ public class AtualizarStockFrame extends javax.swing.JFrame {
             } catch (SQLException e1) {
                 e1.printStackTrace();
             } catch (ClassNotFoundException e1) {
+                e1.printStackTrace();
+            } catch (Exception e1) {
                 e1.printStackTrace();
             }
         });
