@@ -15,14 +15,17 @@ public class EncomendaDAO {
     PacoteDAO pacoteDAO = new PacoteDAO();
 
 	 public void put(int id, Encomenda e) throws SQLException, ClassNotFoundException {
+
+	     int status = e.getStatus() ? 1 : 0;
         //Establish the connection
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "12345");
 
         PreparedStatement st;
-        st = con.prepareStatement("INSERT INTO encomenda VALUES (?, ?, ?);");
+        st = con.prepareStatement("INSERT INTO encomenda VALUES (?, ?, ?, ?);");
         st.setInt(1, id);
         st.setInt(2, e.getFuncionario());
         st.setInt(3, e.getCliente());
+        st.setInt(4, status);
 
         st.execute();
 
@@ -52,21 +55,22 @@ public class EncomendaDAO {
         List<Pacote> pacotes = new ArrayList<>();
         int cliente = 0;
         int funcionario = 0;
+        int status = 0;
 
 
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "12345");
 
         // Cliente e Funcionário
         PreparedStatement st;
-        st = con.prepareStatement("SELECT cliente, funcionario FROM encomenda WHERE id_encomenda = ?;");
+        st = con.prepareStatement("SELECT cliente, funcionario, status FROM encomenda WHERE id_encomenda = ?;");
         st.setInt(1, id);
 
         ResultSet rs = st.executeQuery();
         if(rs.next()){
             cliente = rs.getInt("cliente");
             funcionario = rs.getInt("funcionario");
+            status = rs.getInt("status");
         }
-
 
 
         // Componentes
@@ -108,6 +112,8 @@ public class EncomendaDAO {
 
         Configuracao c = new Configuracao(comps, pacotes);
         Encomenda e = new Encomenda(id, cliente, funcionario, c);
+        if (status == 1)
+            e.setStatus(true);
 
         con.close();
 

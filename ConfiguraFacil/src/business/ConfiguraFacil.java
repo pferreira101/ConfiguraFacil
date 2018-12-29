@@ -13,9 +13,6 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class ConfiguraFacil {
-	public Map<Integer, Cliente> clientes;
-    public Map<Integer, Componente> componentes;
-	public Map<Integer, Funcionario> funcionarios;
 	public Fabrica fabrica;
 	public ComponenteDAO componenteDAO;
 	public ClienteDAO clienteDAO;
@@ -25,8 +22,6 @@ public class ConfiguraFacil {
 
 
 	public ConfiguraFacil(){
-	    this.clientes = new HashMap<>();
-	    this.funcionarios = new HashMap<>();
 	    this.clienteDAO = new ClienteDAO();
 	    this.funcionarioDAO = new FuncionarioDAO();
 	    this.componenteDAO = new ComponenteDAO();
@@ -142,7 +137,7 @@ public class ConfiguraFacil {
 
 
     public boolean existeFuncionario(int id){
-	    return this.funcionarios.containsKey(id);
+	    return this.funcionarioDAO.containsFunc(id);
     }
 
     /**
@@ -152,8 +147,8 @@ public class ConfiguraFacil {
      */
 
 
-    public Cliente existeCliente(int codClient){
-        return this.clientes.get(codClient);
+    public Cliente existeCliente(int codClient) throws Exception{
+        return this.clienteDAO.get(codClient);
     }
 
     /**
@@ -163,12 +158,9 @@ public class ConfiguraFacil {
      * @param tel
      * @param mail
      */
-
-    public void alteraCliente(int id,String nome,int tel,String mail){
-	    Cliente c = this.clientes.get(id);
-	    //c.setALL(nome, tel, mail);
-
-	    //isto com daos vai mudar e o DSI tb !!!!
+    public void alteraCliente(int id,String nome,int tel,String mail) throws SQLException, ClassNotFoundException {
+	    Cliente c = new Cliente(id, nome, tel, mail);
+	    this.clienteDAO.put(id, c);
     }
 
     /**
@@ -178,11 +170,11 @@ public class ConfiguraFacil {
      * @return
      */
 
-    public Configuracao calculaConfig(double orcamento,int prio){
+    public Configuracao calculaConfig(double orcamento,int prio) throws Exception{
          List<Componente> sgd = new ArrayList<>();
          List<Componente> prim = new ArrayList<>();
 
-         for(Componente c : componentes.values()){
+         for(Componente c : componenteDAO.list()){
              if (c.temComplementares())
                  prim.add(c);
              else sgd.add(c);
@@ -268,7 +260,14 @@ public class ConfiguraFacil {
      */
 
     public List<Stock> getStockList(){
-        return this.fabrica.getStockList();
+        List<Stock> aux;
+        try{
+            aux = this.fabrica.getStockList();
+        }
+        catch(Exception e){
+            aux = new ArrayList<>();
+        }
+        return aux;
     }
 
     /**
@@ -290,11 +289,11 @@ public class ConfiguraFacil {
      * @param incomp Lista com as componente incompatíveis.
      */
 
-    public void adicionarComponente(String nome,double preco,int tipo,List<Componente> comp,List<Componente> incomp){
-        int id = this.componentes.size();
+    public void adicionarComponente(String nome,double preco,int tipo,List<Componente> comp,List<Componente> incomp) throws SQLException,ClassNotFoundException{
+        int id = this.componenteDAO.size();
         Componente c = new Componente(id,nome,preco,tipo,comp,incomp);
 
-        this.componentes.put(id,c);
+        this.componenteDAO.put(id,c);
         this.fabrica.adicionarStockNovo(id);
     }
 
@@ -304,7 +303,7 @@ public class ConfiguraFacil {
      * @param quantidade Quantidade nova a introduzir.
      */
 
-    public void encomendar(int idcomp,int quantidade) throws SQLException, ClassNotFoundException {
+    public void encomendar(int idcomp,int quantidade) throws SQLException, ClassNotFoundException,Exception {
         this.fabrica.atualizarStock(idcomp, quantidade);
     }
 
@@ -318,7 +317,7 @@ public class ConfiguraFacil {
     public List<Componente> checkStock(int i){
         try {
             Encomenda e = this.fabrica.getEncomenda(i);
-            return this.fabrica.stockEmFalta(e.getComponentes());
+            return this.fabrica.stockEmFalta(e.getAllComponentes());
         }
         catch (Exception e){}
         return  null;
@@ -329,7 +328,7 @@ public class ConfiguraFacil {
      * @param i Id da encomenda na queue.
      */
 
-    public void processaEncomenda(int i){
+    public void processaEncomenda(int i) throws Exception{
         this.fabrica.processaEncomenda(i);
     }
 
@@ -342,12 +341,6 @@ public class ConfiguraFacil {
      */
 
     public void registaEncomenda(Configuracao config, int cliente, int funcionario) throws SQLException, ClassNotFoundException {
-        /*int id = this.encomendas.size() + 1;
-
-        Encomenda e = new Encomenda(id, cliente, funcionario, config);
-        this.encomendas.put(id,e);
-        this.fabrica.adicionarEncomenda(e);*/ // FIXME: 12/28/2018 normal
-
         this.fabrica.registaEncomenda(config, cliente, funcionario);
     }
 
@@ -360,16 +353,17 @@ public class ConfiguraFacil {
      * @param tipo Permissões.
      */
 
-    public void registaFuncionario(String nome, String pass, int tel, String email, int tipo){
-        int id = this.funcionarios.size() + 1;
+    public void registaFuncionario(String nome, String pass, int tel, String email, int tipo) throws SQLException, ClassNotFoundException {
+        int id = this.funcionarioDAO.size() + 1;
 
         Funcionario f = new Funcionario(id, nome, pass, tipo, tel, email);
 
-        this.funcionarios.put(id, f);
+
+        this.funcionarioDAO.put(id, f);
 
     }
 
-    public void atualizarStock(int id_comp, int quantidade) throws SQLException, ClassNotFoundException {
+    public void atualizarStock(int id_comp, int quantidade) throws SQLException, ClassNotFoundException,Exception {
         this.fabrica.atualizarStock(id_comp, quantidade);
     }
 

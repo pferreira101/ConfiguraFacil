@@ -61,6 +61,16 @@ public class FuncionarioDAO {
         return f;
     }
 
+    public boolean containsFunc(int id){
+        try{
+            Funcionario f = this.get(id);
+        }
+        catch(Exception e){
+            return false;
+        }
+        return true;
+    }
+
     public List<Funcionario> list() throws Exception {
         List<Funcionario> r = new ArrayList<>();
 	    Funcionario f;
@@ -117,6 +127,7 @@ public class FuncionarioDAO {
 
         return r;
     }
+
 
 
 }

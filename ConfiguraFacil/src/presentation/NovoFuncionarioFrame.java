@@ -26,7 +26,6 @@ public class NovoFuncionarioFrame extends javax.swing.JFrame {
     FuncionariosFrame to_update;
 
     private void registar_btnActionPerformed(ActionEvent e) throws Exception {
-        int id = this.cf.getNextFuncionarioID();
         String nome = nome_txt.getText();
         String password = pw_txt.getText();
         int tipo;
@@ -35,9 +34,7 @@ public class NovoFuncionarioFrame extends javax.swing.JFrame {
         int telemovel = Integer.parseInt(tlmv_txt.getText());
         String email = mail_txt.getText();
 
-        Funcionario f = new Funcionario(id, nome, password, tipo, telemovel, email);
-
-        this.cf.registaFuncionario(f);
+        this.cf.registaFuncionario(nome,password,telemovel,email,tipo);
         List<Funcionario> list = this.cf.getFuncionarios();
         this.to_update.updateTable(list); //não sei se é a melhor maneira para atualizar a tabela mas funciona
         this.to_update.updateList(list);
