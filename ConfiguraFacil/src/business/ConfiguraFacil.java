@@ -163,13 +163,7 @@ public class ConfiguraFacil {
 
 
     public void alteraFuncionario(int id, String nome, String password, int tipo, int telemovel, String email) throws SQLException, ClassNotFoundException {
-        /* // FIXME: 12/28/2018 versão normal
-	    Funcionario f = this.funcionarios.get(id);
 
-
-	    f.setALL(nome, password, tipo, telemovel, email);*/
-
-        // com dao isto vai ter que mudar e o DSI tb!!!1
         Funcionario f = new Funcionario(id, nome, password, tipo, telemovel, email);
         this.funcionarioDAO.put(id, f);
     }

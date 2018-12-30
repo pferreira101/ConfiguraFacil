@@ -41,6 +41,7 @@ public class AlterarFuncionarioFrame extends javax.swing.JFrame {
 
         this.cf.alteraFuncionario(f.getID(), f.getNome(), f.getPassword(), tipo, telemovel, email);
 
+        JOptionPane.showMessageDialog(new JFrame(), "Funcionário alterado com sucesso", "Funcionário Alterado", JOptionPane.INFORMATION_MESSAGE);
         this.dispose();
     }
 
