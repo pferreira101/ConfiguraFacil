@@ -42,7 +42,8 @@ VALUES (1, 2), (1, 3),
        (6, 4), (6, 5);
 
 SELECT * FROM incompativel;
-DELETE FROM incompativel WHERE componente = 1 and incompativel = 2;
+INSERT INTO incompativel VALUES (1, 4), (4, 1);
+DELETE FROM incompativel WHERE componente = 1 and incompativel = 4 or componente = 4 and incompativel = 1;
 
 
 # POVOAMENTO PACOTES
