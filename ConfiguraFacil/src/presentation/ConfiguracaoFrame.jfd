@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq l {par l {seq l {space :0:6:x, comp sair_btn:::p::p, space ::174:x, comp registar_btn:::p::p}, seq l {space :p:24:p, par l {seq {comp jScrollPane3:::p:109:p, space s:::p, comp jScrollPane4:::p:221:p}, seq {comp jScrollPane1:::p:109:p, space s:::p, comp jScrollPane2:::p:221:p}}, space :0:20:x}}, space :::p}}"
-			"$verticalGroup": "par l {seq t {space :p:25:p, par l {comp jScrollPane2::::90:x, comp jScrollPane1::::0:x}, space :p:21:p, par t {comp jScrollPane3:::p:90:p, comp jScrollPane4:::p:90:p}, space u:::p, par b {comp registar_btn::b:p::p, comp sair_btn::b:p::p}, space :p::p}}"
+			"$horizontalGroup": "par l {seq l {par l {seq l {space :0:0:x, comp sair_btn:::p::p, space :p:37:p, comp confgO_btn:::p::p, space ::44:x, comp registar_btn:::p::p}, seq l {space :p:24:p, par l {seq {comp jScrollPane3:::p:109:p, space s:::p, comp jScrollPane4:::p:221:p}, seq {comp jScrollPane1:::p:109:p, space s:::p, comp jScrollPane2:::p:221:p}}, space :0:20:x}}, space :::p}}"
+			"$verticalGroup": "par l {seq t {space :p:25:p, par l {comp jScrollPane2::::92:x, comp jScrollPane1::::0:x}, space :p:21:p, par t {comp jScrollPane3:::p:90:p, comp jScrollPane4:::p:90:p}, space u:::p, par b {comp registar_btn::b:p::p, comp sair_btn::b:p::p, comp confgO_btn::b:p::p}, space :p::p}}"
 		} ) {
 			name: "this"
 			"defaultCloseOperation": 2
@@ -98,6 +98,11 @@ new FormModel {
 					name: "cmp_tbl2"
 					"model": #SwingTableModel0
 				} )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "confgO_btn"
+				"text": "ConfigÓ"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "confgO_btnActionPerformed", true ) )
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"size": new java.awt.Dimension( 400, 300 )

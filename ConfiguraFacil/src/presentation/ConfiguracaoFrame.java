@@ -53,7 +53,7 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
     ConfiguraFacil cf;
     Configuracao config = new Configuracao();
 
-    private void registar_btnActionPerformed(ActionEvent e) throws Exception {
+    private void registar_btnActionPerformed(ActionEvent e) {
         /*
         // Adiciona componentes selecionadas
         for(Selection s : this.selections){
@@ -94,7 +94,10 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
 
         if(incomp.size() == 0 && complementares.size() == 0){*/
             this.cf.componentesToPacote(this.config, this.pacotes);
-            new RegistaEncomendaFrame(this.cf, this.config).setVisible(true);
+            try {
+                new RegistaEncomendaFrame(this.cf, this.config).setVisible(true);
+            }
+            catch (Exception a){a.printStackTrace();}
         /*}
         else{
             StringBuilder s = new StringBuilder();
@@ -292,6 +295,22 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
         return JOptionPane.showOptionDialog(new JFrame(), s.toString(), "Erro", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
     }
 
+    private void confgO_btnActionPerformed(ActionEvent e) {
+        String s = (String)JOptionPane.showInputDialog(
+                this,
+                "Por favor introduza o orçamento disponível.",
+                "Configuração Ótima",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                null,
+                null);
+        try {
+            Configuracao config = this.cf.calculaConfig(Double.parseDouble(s));
+            new RegistaEncomendaFrame(this.cf,config).setVisible(true);
+        }
+        catch (Exception a){a.printStackTrace();}
+    }
+
 
     /**
      * Creates new form ConfiguraFrame
@@ -315,7 +334,7 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    // Generated using JFormDesigner Evaluation license - Pedro Moreira
+    // Generated using JFormDesigner Evaluation license - Diogo Sobral
     private void initComponents() {
         sair_btn = new JButton();
         registar_btn = new JButton();
@@ -327,6 +346,7 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
         pacotes_tbl = new JTable();
         jScrollPane4 = new JScrollPane();
         cmp_tbl2 = new JTable();
+        confgO_btn = new JButton();
 
         //======== this ========
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -339,13 +359,7 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
 
         //---- registar_btn ----
         registar_btn.setText("Registar Encomenda");
-        registar_btn.addActionListener(e -> {
-            try {
-                registar_btnActionPerformed(e);
-            } catch (Exception e1) {
-                e1.printStackTrace();
-            }
-        });
+        registar_btn.addActionListener(e -> registar_btnActionPerformed(e));
 
         //======== jScrollPane1 ========
         {
@@ -463,6 +477,10 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
             jScrollPane4.setViewportView(cmp_tbl2);
         }
 
+        //---- confgO_btn ----
+        confgO_btn.setText("Config\u00d3");
+        confgO_btn.addActionListener(e -> confgO_btnActionPerformed(e));
+
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
         contentPane.setLayout(contentPaneLayout);
         contentPaneLayout.setHorizontalGroup(
@@ -470,9 +488,11 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
                 .addGroup(contentPaneLayout.createSequentialGroup()
                     .addGroup(contentPaneLayout.createParallelGroup()
                         .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(0, 6, Short.MAX_VALUE)
+                            .addGap(0, 0, Short.MAX_VALUE)
                             .addComponent(sair_btn)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 174, Short.MAX_VALUE)
+                            .addGap(37, 37, 37)
+                            .addComponent(confgO_btn)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                             .addComponent(registar_btn))
                         .addGroup(contentPaneLayout.createSequentialGroup()
                             .addGap(24, 24, 24)
@@ -493,7 +513,7 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
                 .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
                     .addGap(25, 25, 25)
                     .addGroup(contentPaneLayout.createParallelGroup()
-                        .addComponent(jScrollPane2, GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE))
                     .addGap(21, 21, 21)
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
@@ -502,7 +522,8 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
                     .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(registar_btn)
-                        .addComponent(sair_btn))
+                        .addComponent(sair_btn)
+                        .addComponent(confgO_btn))
                     .addContainerGap())
         );
         pack();
@@ -511,7 +532,7 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Pedro Moreira
+    // Generated using JFormDesigner Evaluation license - Diogo Sobral
     private JButton sair_btn;
     private JButton registar_btn;
     private JScrollPane jScrollPane1;
@@ -522,5 +543,6 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
     private JTable pacotes_tbl;
     private JScrollPane jScrollPane4;
     private JTable cmp_tbl2;
+    private JButton confgO_btn;
     // End of variables declaration//GEN-END:variables
 }
