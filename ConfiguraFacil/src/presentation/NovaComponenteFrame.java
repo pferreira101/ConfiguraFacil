@@ -54,6 +54,7 @@ public class NovaComponenteFrame extends javax.swing.JFrame {
     }
 
     private void sair_btnActionPerformed(ActionEvent e) {
+        JOptionPane.showOptionDialog(new JFrame(), "A seleção foi cancelada", "Sair", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null, null, null);
         this.dispose();
         new TabelaStock(this.cf).setVisible(true);
     }
@@ -88,7 +89,13 @@ public class NovaComponenteFrame extends javax.swing.JFrame {
             int i = this.cf.adicionarComponente(nome_txt.getText(), Double.parseDouble(preco_txt.getText()), matchType(jComboBox1.getSelectedItem().toString()), complementares, incompativeis);
             this.dispose();
             new EncomendaStockFame(this.cf,i).setVisible(true);
-        }catch (Exception k){
+        }
+        catch (NumberFormatException t){
+            JOptionPane.showOptionDialog(new JFrame(), "Erro no input", "", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null, null, null);
+            this.dispose();
+            new TabelaStock(this.cf).setVisible(true);
+        }
+        catch (Exception k){
             this.dispose();
             new TabelaStock(this.cf).setVisible(true);
         }

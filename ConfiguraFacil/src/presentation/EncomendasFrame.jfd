@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq l {space :p:14:p, comp sair_btn:::p::p, space ::135:x, comp pro_encomenda_btn:::p::p, space :p:15:p}, seq l {space :p:32:p, comp jScrollPane1:::p:331:p, space ::35:x}}"
-			"$verticalGroup": "par l {seq l {space :p:22:p, comp jScrollPane1:::p:155:p, space ::63:x, par b {comp sair_btn::b:p::p, comp pro_encomenda_btn::b:p::p}, space :::p}}"
+			"$horizontalGroup": "par l {seq l {space :p:14:p, comp sair_btn:::p::p, space s:::p, comp view_btn::::99:x, space s:::p, comp pro_encomenda_btn:::p::p, space :p:15:p}, seq l {space :p:32:p, comp jScrollPane1:::p:331:p, space ::35:x}}"
+			"$verticalGroup": "par l {seq l {space :p:22:p, comp jScrollPane1:::p:155:p, space ::63:x, par b {comp sair_btn::b:p::p, comp pro_encomenda_btn::b:p::p, comp view_btn::b:p::p}, space :::p}}"
 		} ) {
 			name: "this"
 			"defaultCloseOperation": 2
@@ -49,6 +49,11 @@ new FormModel {
 				"text": "Sair"
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "sair_btnActionPerformed", true ) )
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "sair_btnActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "view_btn"
+				"text": "Consultar"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "view_btnActionPerformed", true ) )
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"size": new java.awt.Dimension( 400, 300 )

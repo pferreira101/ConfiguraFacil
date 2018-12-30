@@ -17,7 +17,6 @@ public class ConfiguraFacil {
     public ComponenteDAO componenteDAO;
     public ClienteDAO clienteDAO;
     public FuncionarioDAO funcionarioDAO;
-    //public EncomendaDAO encomendaDAO;
     public PacoteDAO pacoteDAO;
 
 
@@ -27,7 +26,6 @@ public class ConfiguraFacil {
         this.componenteDAO = new ComponenteDAO();
         this.fabrica = new Fabrica();
         this.pacoteDAO = new PacoteDAO();
-        //this.encomendaDAO = new EncomendaDAO();
     }
 
     /**
@@ -134,20 +132,6 @@ public class ConfiguraFacil {
     public Funcionario getFuncionario(int id) throws Exception {
         return this.funcionarioDAO.get(id);
     }
-
-
-    /**
-     * Método para registar um cliente no sistema.
-     * @param nome Nome do cliente
-     * @param tel Número de telefone do cliente.
-     * @param mail Email do cliente
-     */
-
-    /*public void registaCliente(String nome, int tel, String mail){
-	    int id = this.clientes.size() + 1;
-	    Cliente c = new Cliente(id, nome, tel, mail);
-	    this.clientes.put(id,c);
-    }*/
 
 
     /**

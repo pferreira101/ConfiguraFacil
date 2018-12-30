@@ -94,7 +94,12 @@ public class EncomendaStockFame extends JFrame {
                     this.cf.encomendar(this.id,this.quantidade);
                     sair();
                 }
+                catch (NumberFormatException b){
+                    erro();
+                    sair();
+                }
                 catch (Exception a) {
+                    JOptionPane.showOptionDialog(new JFrame(), "Erro interno", "Erro", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null, null, null);
                     sair();
                 }
             }

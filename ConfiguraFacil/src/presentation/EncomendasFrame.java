@@ -46,6 +46,17 @@ public class EncomendasFrame extends javax.swing.JFrame {
         }
     }
 
+    /*
+                int row = this.encomendas_tbl.getSelectedRow();
+            int id = (int) this.encomendas_tbl.getModel().getValueAt(row, 0);
+            System.out.println(id);
+
+            Encomenda selected = this.cf.getEncomenda(id);
+
+
+            new EncomendaDetalhesFrame(selected).setVisible(true);
+     */
+
     private void pro_encomenda_btnActionPerformed(ActionEvent evt) {
         int row = encomendas_tbl.getSelectedRow();
         if (row == -1)
@@ -65,6 +76,8 @@ public class EncomendasFrame extends javax.swing.JFrame {
         else {
             try{
                 this.cf.processaEncomenda(array_index);
+                JOptionPane.showOptionDialog(new JFrame(), "Encomenda processada com sucesso.", "Status", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null, null, null);
+                updateTable(this.cf.getEncomendas());
             }
             catch (Exception e){
                 e.printStackTrace();
@@ -75,18 +88,27 @@ public class EncomendasFrame extends javax.swing.JFrame {
         // verificar se existe stock para todas as componentes da encomenda
     }
 
-    private void encomendas_tblMouseClicked(MouseEvent e) throws Exception {
-        if(e.getClickCount()==2){
-            int row = this.encomendas_tbl.getSelectedRow();
+    private void encomendas_tblMouseClicked(MouseEvent e) {
+        // TODO add your code here
+    }
+
+    private void view_btnActionPerformed(ActionEvent e) {
+        int row = this.encomendas_tbl.getSelectedRow();
+        if (row == -1){
+            JOptionPane.showOptionDialog(new JFrame(), "Erro nenhuma encomenda selecionada.", "Erro", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null, null, null);
+        }
+        else {
             int id = (int) this.encomendas_tbl.getModel().getValueAt(row, 0);
-            System.out.println(id);
-
-            Encomenda selected = this.cf.getEncomenda(id);
-
-
-            new EncomendaDetalhesFrame(selected).setVisible(true);
+            try{
+                Encomenda selected = this.cf.getEncomenda(id);
+                new EncomendaDetalhesFrame(selected).setVisible(true);
+            }
+            catch (Exception a){
+                JOptionPane.showOptionDialog(new JFrame(), "Não encontrou a encomenda.", "Erro", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null, null, null);
+            }
         }
     }
+
 
 
     /**
@@ -107,12 +129,13 @@ public class EncomendasFrame extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    // Generated using JFormDesigner Evaluation license - Pedro Moreira
+    // Generated using JFormDesigner Evaluation license - Diogo Sobral
     private void initComponents() {
         jScrollPane1 = new JScrollPane();
         encomendas_tbl = new JTable();
         pro_encomenda_btn = new JButton();
         sair_btn = new JButton();
+        view_btn = new JButton();
 
         //======== this ========
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -147,11 +170,7 @@ public class EncomendasFrame extends javax.swing.JFrame {
             encomendas_tbl.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    try {
-                        encomendas_tblMouseClicked(e);
-                    } catch (Exception e1) {
-                        e1.printStackTrace();
-                    }
+                    encomendas_tblMouseClicked(e);
                 }
             });
             jScrollPane1.setViewportView(encomendas_tbl);
@@ -163,7 +182,14 @@ public class EncomendasFrame extends javax.swing.JFrame {
 
         //---- sair_btn ----
         sair_btn.setText("Sair");
-        sair_btn.addActionListener(e -> sair_btnActionPerformed(e));
+        sair_btn.addActionListener(e -> {
+			sair_btnActionPerformed(e);
+			sair_btnActionPerformed(e);
+		});
+
+        //---- view_btn ----
+        view_btn.setText("Consultar");
+        view_btn.addActionListener(e -> view_btnActionPerformed(e));
 
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
         contentPane.setLayout(contentPaneLayout);
@@ -172,7 +198,9 @@ public class EncomendasFrame extends javax.swing.JFrame {
                 .addGroup(contentPaneLayout.createSequentialGroup()
                     .addGap(14, 14, 14)
                     .addComponent(sair_btn)
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 155, Short.MAX_VALUE)
+                    .addGap(18, 18, 18)
+                    .addComponent(view_btn, GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+                    .addGap(18, 18, 18)
                     .addComponent(pro_encomenda_btn)
                     .addGap(15, 15, 15))
                 .addGroup(contentPaneLayout.createSequentialGroup()
@@ -185,10 +213,11 @@ public class EncomendasFrame extends javax.swing.JFrame {
                 .addGroup(contentPaneLayout.createSequentialGroup()
                     .addGap(22, 22, 22)
                     .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 155, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(sair_btn)
-                        .addComponent(pro_encomenda_btn))
+                        .addComponent(pro_encomenda_btn)
+                        .addComponent(view_btn))
                     .addContainerGap())
         );
         pack();
@@ -197,10 +226,11 @@ public class EncomendasFrame extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Pedro Moreira
+    // Generated using JFormDesigner Evaluation license - Diogo Sobral
     private JScrollPane jScrollPane1;
     private JTable encomendas_tbl;
     private JButton pro_encomenda_btn;
     private JButton sair_btn;
+    private JButton view_btn;
     // End of variables declaration//GEN-END:variables
 }
