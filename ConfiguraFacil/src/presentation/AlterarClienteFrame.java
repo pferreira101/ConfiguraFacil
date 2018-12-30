@@ -23,21 +23,39 @@ public class AlterarClienteFrame extends javax.swing.JFrame {
     Cliente cliente;
     ConfiguraFacil cf;
 
-    /**
-     * Creates new form NovoClienteFrame
-     */
+
     private void atualizar_btnActionPerformed(ActionEvent e) {
         this.dispose();
         try {
-            this.cf.alteraCliente(cliente.getID(), this.nome_txt.getText(), Integer.parseInt(telemovel_txt.getText()), this.email_txt.getText());
-            JOptionPane.showOptionDialog(new JFrame(), "Alterado com sucesso.", "", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null, null, null);
+            String nome = this.nome_txt.getText();
+            int telemovel = Integer.parseInt(telemovel_txt.getText());
+            String email = this.email_txt.getText();
+
+            Cliente temp = new Cliente(cliente.getID(), nome, telemovel, email);
+
+            if(!email.equals("")){
+                if(!temp.equals(cliente)){
+                    this.cf.alteraCliente(cliente.getID(), nome, telemovel, email);
+                    JOptionPane.showMessageDialog(new JFrame(), "Cliente alterado com sucesso.", "Cliente Alterado", JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
+                }
+                else{
+                    JOptionPane.showMessageDialog(new JFrame(), "Cliente não sofreu alterações", "Cliente Inalterado", JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
+                }
+            }
+
+
         }
         catch (Exception a){
-            a.printStackTrace();
-            JOptionPane.showOptionDialog(new JFrame(), "Erro", "", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null, null, null);
+            JOptionPane.showMessageDialog(new JFrame(), "Erro", "", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
+
+    /**
+     * Creates new form NovoClienteFrame
+     */
     public AlterarClienteFrame(Cliente c, ConfiguraFacil cf) {
         initComponents();
         this.cf = cf;

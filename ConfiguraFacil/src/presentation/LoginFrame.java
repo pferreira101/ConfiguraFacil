@@ -21,6 +21,17 @@ public class LoginFrame extends javax.swing.JFrame {
     private static ConfiguraFacil cf;
 
 
+    private void info(int tipo, String nome){
+        StringBuilder s = new StringBuilder();
+
+        if(tipo == 1) s.append("Stand: \n").append("Bem-vindo, ").append(nome).append("!");
+        else if(tipo == 2) s.append("Fábrica: \n").append("Bem-vindo, ").append(nome).append("!");
+        else if(tipo == 3) s.append("Bem-vindo, Admin!");
+
+        JOptionPane.showMessageDialog(new JFrame(), s, "Login Efetuado", JOptionPane.INFORMATION_MESSAGE);
+
+    }
+
     private void login_btnActionPerformed(ActionEvent evt) throws Exception {
         int id = -1;
         String password = "";
@@ -37,15 +48,18 @@ public class LoginFrame extends javax.swing.JFrame {
         if(tipo == 1) {
             this.dispose();
             Funcionario f = cf.getFuncionario(id);
+            info(1, f.getNome());
             new StandFrame(this.cf, f).setVisible(true);
         }
         else if(tipo == 2) {
             this.dispose();
             Funcionario f = cf.getFuncionario(id);
+            info(2, f.getNome());
             new FabricaFrame(this.cf, f).setVisible(true);
         }
         else if(tipo == 3){
             this.dispose();
+            info(3, "");
             new FuncionariosFrame(this.cf).setVisible(true);
         }
         else this.error_txt.setText("Credenciais Inválidas");

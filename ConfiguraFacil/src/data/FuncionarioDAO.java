@@ -117,7 +117,7 @@ public class FuncionarioDAO {
 	    Connection c = DriverManager.getConnection("jdbc:mysql://localhost/configurafacil", "root", "12345");
 
         PreparedStatement st;
-        st = c.prepareStatement("SELECT count(*) FROM funcionario;");
+        st = c.prepareStatement("SELECT MAX(id_funcionario) FROM funcionario;");
 
         ResultSet rs = st.executeQuery();
         if(rs.next()) {

@@ -26,19 +26,34 @@ public class NovoFuncionarioFrame extends javax.swing.JFrame {
     FuncionariosFrame to_update;
 
     private void registar_btnActionPerformed(ActionEvent e) throws Exception {
-        String nome = nome_txt.getText();
-        String password = pw_txt.getText();
-        int tipo;
-        if(tipo_cbox.getSelectedIndex() == 0) tipo = 1;
-        else tipo = 2;
-        int telemovel = Integer.parseInt(tlmv_txt.getText());
-        String email = mail_txt.getText();
+        try{
+            String nome = nome_txt.getText();
+            String password = pw_txt.getText();
+            int tipo;
+            if(tipo_cbox.getSelectedIndex() == 0) tipo = 1;
+            else tipo = 2;
+            int telemovel = Integer.parseInt(tlmv_txt.getText());
+            String email = mail_txt.getText();
 
-        this.cf.registaFuncionario(nome,password,telemovel,email,tipo);
-        List<Funcionario> list = this.cf.getFuncionarios();
-        this.to_update.updateTable(list); //não sei se é a melhor maneira para atualizar a tabela mas funciona
-        this.to_update.updateList(list);
-        this.dispose();
+            if(!nome.equals("") && !password.equals("") && !email.equals("")){
+                this.cf.registaFuncionario(nome,password,telemovel,email,tipo);
+                List<Funcionario> list = this.cf.getFuncionarios();
+                this.to_update.updateTable(list); //não sei se é a melhor maneira para atualizar a tabela mas funciona
+                this.to_update.updateList(list);
+
+                this.dispose();
+
+                JOptionPane.showMessageDialog(new JFrame(), "Funcionário adicionado com sucesso", "Funcionário Adicionado", JOptionPane.INFORMATION_MESSAGE);
+            }
+            else{
+                JOptionPane.showMessageDialog(new JFrame(), "Preencha todos os campos.", "Campos por preencher", JOptionPane.ERROR_MESSAGE);
+            }
+
+        }
+        catch (NumberFormatException e1){
+            JOptionPane.showMessageDialog(new JFrame(), "Introduza um nº de telemóvel válido.", "Telemóvel inválido", JOptionPane.ERROR_MESSAGE);
+        }
+
     }
 
 

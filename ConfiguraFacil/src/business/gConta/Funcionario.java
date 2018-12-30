@@ -179,4 +179,24 @@ public class Funcionario {
 
         return r;
     }
+
+
+    /**
+     * Método que verifica se dois funcionarios são iguais
+     * @param o objeto a comparar
+     * @return true se forem iguais
+     */
+    public boolean equals(Object o){
+        if(this == o) return true;
+        if(o.getClass() != this.getClass()) return false;
+
+        Funcionario temp = (Funcionario)o;
+
+        return this.id == temp.getID() &&
+               this.nome.equals(temp.getNome()) &&
+               this.password.equals(temp.getPassword()) &&
+               this.tipo == temp.getTipo() &&
+               this.telemovel == temp.getTelemovel() &&
+               this.email.equals(temp.getEmail());
+    }
 }

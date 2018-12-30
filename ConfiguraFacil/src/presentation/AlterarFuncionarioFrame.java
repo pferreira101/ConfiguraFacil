@@ -26,23 +26,58 @@ public class AlterarFuncionarioFrame extends javax.swing.JFrame {
     Funcionario f;
 
 
+    private int confirm(){
+        StringBuilder s = new StringBuilder();
+        s.append("Deseja remover o funcionário ").append(f.getID()).append(" ").append(f.getNome()).append("?");
+
+        Object[] options = {"Remover", "Cancelar"};
+
+        return JOptionPane.showOptionDialog(new JFrame(), s.toString(), "Erro", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
+    }
+
     private void remover_btnActionPerformed(ActionEvent e) throws SQLException {
-        // FIXME: 12/27/2018 this.cf.funcionarios.remove(f.getID());
-        this.cf.removeFuncionario(f.getID());
-        this.dispose();
+        int opt = confirm();
+
+        if(opt == JOptionPane.YES_OPTION){
+            this.cf.removeFuncionario(f.getID());
+            this.dispose();
+            JOptionPane.showMessageDialog(new JFrame(), "Funcionário removido com sucesso", "Funcionário Removido", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
     private void alterar_btnActionPerformed(ActionEvent e) throws SQLException, ClassNotFoundException {
-        int tipo;
-        if(tipo_cbox.getSelectedIndex() == 0) tipo = 1;
-        else tipo = 2;
-        int telemovel = Integer.parseInt(tlmv_txt.getText());
-        String email = mail_txt.getText();
+        try{
+            int tipo;
+            if(tipo_cbox.getSelectedIndex() == 0) tipo = 1;
+            else tipo = 2;
+            int telemovel = Integer.parseInt(tlmv_txt.getText());
+            String email = mail_txt.getText();
 
-        this.cf.alteraFuncionario(f.getID(), f.getNome(), f.getPassword(), tipo, telemovel, email);
+            Funcionario temp = new Funcionario(f.getID(), f.getNome(), f.getPassword(), tipo, telemovel, email);
 
-        JOptionPane.showMessageDialog(new JFrame(), "Funcionário alterado com sucesso", "Funcionário Alterado", JOptionPane.INFORMATION_MESSAGE);
-        this.dispose();
+            if(!email.equals("")){
+                if(!f.equals(temp)){
+                    this.cf.alteraFuncionario(f.getID(), f.getNome(), f.getPassword(), tipo, telemovel, email);
+
+                    JOptionPane.showMessageDialog(new JFrame(), "Funcionário alterado com sucesso.", "Funcionário Alterado", JOptionPane.INFORMATION_MESSAGE);
+                }
+                else{
+                    JOptionPane.showMessageDialog(new JFrame(), "Funcionário não sofreu alterações.", "Funcionário Inalterado", JOptionPane.INFORMATION_MESSAGE);
+                }
+
+                this.dispose();
+            }
+            else{
+                JOptionPane.showMessageDialog(new JFrame(), "Preencha todos os campos.", "Campos por preencher", JOptionPane.ERROR_MESSAGE);
+            }
+
+        }
+        catch (NumberFormatException e1){
+            JOptionPane.showMessageDialog(new JFrame(), "Introduza um nº de telemóvel válido.", "Telemóvel inválido", JOptionPane.ERROR_MESSAGE);
+
+        }
+
     }
 
 
@@ -54,6 +89,7 @@ public class AlterarFuncionarioFrame extends javax.swing.JFrame {
         this.cf = cf;
         this.f = f;
         this.nome_txt.setText(f.getNome());
+        this.pw_txt.setText(f.getPassword());
         this.tlmv_txt.setText(String.valueOf(f.getTelemovel()));
         this.mail_txt.setText(f.getEmail());
     }

@@ -111,4 +111,15 @@ public class Cliente {
     }
 
 
+    public boolean equals(Object o) {
+        if(this == o) return true;
+        if(o.getClass() != this.getClass()) return false;
+
+        Cliente temp = (Cliente)o;
+
+        return this.id == temp.getID() &&
+                this.nome.equals(temp.getNome()) &&
+                this.telemovel == temp.getTelemovel() &&
+                this.email.equals(temp.getEmail());
+    }
 }
