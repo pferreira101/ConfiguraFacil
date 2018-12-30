@@ -163,13 +163,7 @@ public class ConfiguraFacil {
 
 
     public void alteraFuncionario(int id, String nome, String password, int tipo, int telemovel, String email) throws SQLException, ClassNotFoundException {
-        /* // FIXME: 12/28/2018 versão normal
-	    Funcionario f = this.funcionarios.get(id);
 
-
-	    f.setALL(nome, password, tipo, telemovel, email);*/
-
-        // com dao isto vai ter que mudar e o DSI tb!!!1
         Funcionario f = new Funcionario(id, nome, password, tipo, telemovel, email);
         this.funcionarioDAO.put(id, f);
     }
@@ -215,11 +209,10 @@ public class ConfiguraFacil {
      * Método para dado um orçamento e uma prioridade calcular a configuração ótima correspondente.
      *
      * @param orcamento Valor do orçamento dado.
-     * @param prio      Prioridade das escolhas.
      * @return
      */
 
-    public Configuracao calculaConfig(double orcamento, int prio) throws Exception {
+    public Configuracao calculaConfig(double orcamento) throws Exception {
         List<Componente> sgd = new ArrayList<>();
         List<Componente> prim = new ArrayList<>();
 
