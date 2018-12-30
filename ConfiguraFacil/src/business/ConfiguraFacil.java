@@ -209,11 +209,10 @@ public class ConfiguraFacil {
      * Método para dado um orçamento e uma prioridade calcular a configuração ótima correspondente.
      *
      * @param orcamento Valor do orçamento dado.
-     * @param prio      Prioridade das escolhas.
      * @return
      */
 
-    public Configuracao calculaConfig(double orcamento, int prio) throws Exception {
+    public Configuracao calculaConfig(double orcamento) throws Exception {
         List<Componente> sgd = new ArrayList<>();
         List<Componente> prim = new ArrayList<>();
 
