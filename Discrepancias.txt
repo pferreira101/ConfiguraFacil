@@ -1,0 +1,57 @@
+---Adicionar Funcionario
+. Parte do id tem de desaparecer dos diagramas, já não é usada pois o id é atribuido
+no metodo registaFuncionarios
+. Esta a bloquear registos sem todos os dados mas não avisa sobre isso
+. Não informa que funcionário foi inserido com sucesso
+
+---Remover Funcionario
+. Mudar para
+	- apresenta lista funcionario
+	- escolher funcionario
+	- mostrar dados
+	- confirmar remocao
+	(?) - no caso de desistir, como é que se processa isso ? ele abre janela do
+	funcionario para aceder ao lados, depois o remover é so um botao, assim como alterar
+	nao da para destinguir do que que ele esta a desitir de fazer
+
+---Encomendar Stock
+. Não pergunta se quer continuar quando a componente não existe, vai logo para a frame de registar nova componente
+. Se ele não meter quantidade executa na mesma, não cancela o processo
+
+---Adicionar Componente
+. Pergunta se quer adicionar ou descartar a componente que pretende adicionar em vez de perguntar se quer remover o item incompativel da configuraçao
+
+---Adicionar Pacote
+. pergunta se quer remover componentes do pacote em vez de perguntar se deseja tirar da configuracao
+
+---Registar Cliente
+. Dá para registar o cliente sem alguns campos, não respeita o break [campos por preencher]
+
+---Alterar Cliente
+. Mudar para
+	- mostrar todos clientes
+	- selecionar cliente
+	- mostrar dados
+	- preencher alteracoes
+	- atualizar
+	(?) e se nao mudar nada
+
+---Alterar Funcionario
+. meter break para se não mudar nada
+
+---Consultar Encomenda
+. lista encomendas tá no fundo por isso nao ha o caso de ele nao escolher nenhuma encomenda, logo break [não escolhe nenhuma componente] nao devia existir
+
+---Processar Encomenda
+. Acho que se não conseguir produzir não dá mensagem de erro		
+
+---Identificar cliente (?) deixa de existir ?
+
+---LogIn
+. não informa que log in foi valido
+
+---Config Otima
+
+---RegistarEncomenda
+. DSI id cliente ??
+. ao sair (não confirmar os dados)  deviar mostrar mensagem a dizer que encomenda foi cancelada
