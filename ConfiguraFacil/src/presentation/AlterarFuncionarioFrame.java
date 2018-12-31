@@ -12,6 +12,7 @@ import business.gConta.Funcionario;
 
 import java.awt.*;
 import java.sql.SQLException;
+import java.util.List;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle;
@@ -24,6 +25,7 @@ public class AlterarFuncionarioFrame extends javax.swing.JFrame {
 
     ConfiguraFacil cf;
     Funcionario f;
+    FuncionariosFrame to_update;
 
 
     private int confirm(){
@@ -36,11 +38,16 @@ public class AlterarFuncionarioFrame extends javax.swing.JFrame {
 
     }
 
-    private void remover_btnActionPerformed(ActionEvent e) throws SQLException {
+    private void remover_btnActionPerformed(ActionEvent e) throws Exception {
         int opt = confirm();
 
         if(opt == JOptionPane.YES_OPTION){
             this.cf.removeFuncionario(f.getID());
+
+            List<Funcionario> list = this.cf.getFuncionarios();
+            this.to_update.updateTable(list); //não sei se é a melhor maneira para atualizar a tabela mas funciona
+            this.to_update.updateList(list);
+
             this.dispose();
             JOptionPane.showMessageDialog(new JFrame(), "Funcionário removido com sucesso", "Funcionário Removido", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -60,6 +67,10 @@ public class AlterarFuncionarioFrame extends javax.swing.JFrame {
                 if(!f.equals(temp)){
                     this.cf.alteraFuncionario(f.getID(), f.getNome(), f.getPassword(), tipo, telemovel, email);
 
+                    List<Funcionario> list = this.cf.getFuncionarios();
+                    this.to_update.updateTable(list); //não sei se é a melhor maneira para atualizar a tabela mas funciona
+                    this.to_update.updateList(list);
+
                     JOptionPane.showMessageDialog(new JFrame(), "Funcionário alterado com sucesso.", "Funcionário Alterado", JOptionPane.INFORMATION_MESSAGE);
                 }
                 else{
@@ -73,7 +84,7 @@ public class AlterarFuncionarioFrame extends javax.swing.JFrame {
             }
 
         }
-        catch (NumberFormatException e1){
+        catch (Exception e1){
             JOptionPane.showMessageDialog(new JFrame(), "Introduza um nº de telemóvel válido.", "Telemóvel inválido", JOptionPane.ERROR_MESSAGE);
 
         }
@@ -84,10 +95,11 @@ public class AlterarFuncionarioFrame extends javax.swing.JFrame {
     /**
      * Creates new form NewFuncionarioFrame
      */
-    public AlterarFuncionarioFrame(ConfiguraFacil cf, Funcionario f){
+    public AlterarFuncionarioFrame(ConfiguraFacil cf, Funcionario f, FuncionariosFrame fr){
         initComponents();
         this.cf = cf;
         this.f = f;
+        this.to_update=fr;
         this.nome_txt.setText(f.getNome());
         this.pw_txt.setText(f.getPassword());
         this.tlmv_txt.setText(String.valueOf(f.getTelemovel()));
@@ -138,7 +150,7 @@ public class AlterarFuncionarioFrame extends javax.swing.JFrame {
         remover_btn.addActionListener(e -> {
             try {
                 remover_btnActionPerformed(e);
-            } catch (SQLException e1) {
+            } catch (Exception e1) {
                 e1.printStackTrace();
             }
         });

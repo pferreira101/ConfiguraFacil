@@ -11,6 +11,7 @@ import business.ConfiguraFacil;
 import business.gConta.Cliente;
 
 import java.awt.*;
+import java.util.List;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 
@@ -22,6 +23,7 @@ public class AlterarClienteFrame extends javax.swing.JFrame {
 
     Cliente cliente;
     ConfiguraFacil cf;
+    ClientesFrame to_update;
 
 
     private void atualizar_btnActionPerformed(ActionEvent e) {
@@ -36,6 +38,11 @@ public class AlterarClienteFrame extends javax.swing.JFrame {
             if(!email.equals("")){
                 if(!temp.equals(cliente)){
                     this.cf.alteraCliente(cliente.getID(), nome, telemovel, email);
+
+                    List<Cliente> list = this.cf.getClientes();
+                    this.to_update.updateTable(list); //não sei se é a melhor maneira para atualizar a tabela mas funciona
+                    this.to_update.updateList(list);
+
                     JOptionPane.showMessageDialog(new JFrame(), "Cliente alterado com sucesso.", "Cliente Alterado", JOptionPane.INFORMATION_MESSAGE);
                     this.dispose();
                 }
@@ -56,9 +63,10 @@ public class AlterarClienteFrame extends javax.swing.JFrame {
     /**
      * Creates new form NovoClienteFrame
      */
-    public AlterarClienteFrame(Cliente c, ConfiguraFacil cf) {
+    public AlterarClienteFrame(Cliente c, ConfiguraFacil cf, ClientesFrame f) {
         initComponents();
         this.cf = cf;
+        this.to_update=f;
         this.cliente = c;
         this.nome_txt.setText(c.getNome());
         this.telemovel_txt.setText(String.valueOf(c.getTelemovel()));

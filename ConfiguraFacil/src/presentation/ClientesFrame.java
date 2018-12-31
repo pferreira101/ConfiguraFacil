@@ -31,7 +31,7 @@ public class ClientesFrame extends javax.swing.JFrame {
      * Método que atualiza a tabela dos clientes
      * @param clientes nova lista de clientes a exibir
      */
-    private void updateTable(Collection<Cliente> clientes){
+    public void updateTable(Collection<Cliente> clientes){
         DefaultTableModel model = (DefaultTableModel) display_tbl.getModel();
         Object row_data[] = new Object[3];
 
@@ -49,7 +49,7 @@ public class ClientesFrame extends javax.swing.JFrame {
 
 
     private void novo_cliente_btnActionPerformed(ActionEvent e) {
-        new NovoClienteFrame(this.cf).setVisible(true);
+        new NovoClienteFrame(this.cf,this,null).setVisible(true);
     }
 
     private void display_tblMouseClicked(MouseEvent e) throws Exception {
@@ -59,7 +59,7 @@ public class ClientesFrame extends javax.swing.JFrame {
 
             Cliente selected = this.cf.getCliente(id);
 
-            new AlterarClienteFrame(selected,cf).setVisible(true);
+            new AlterarClienteFrame(selected,cf,this).setVisible(true);
         }
     }
 
@@ -76,6 +76,9 @@ public class ClientesFrame extends javax.swing.JFrame {
         this.dispose();
     }
 
+    public void updateList(List<Cliente> list) {
+        this.clientes = list;
+    }
 
 
     /**

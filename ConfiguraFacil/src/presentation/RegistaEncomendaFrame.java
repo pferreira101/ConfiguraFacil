@@ -32,11 +32,12 @@ public class RegistaEncomendaFrame extends javax.swing.JFrame {
     ConfiguraFacil cf;
     List<Cliente> clientes;
     Configuracao config;
+
     /**
      * Creates new form RegistaEncomendaFrame
      */
     private void novo_cliente_btnActionPerformed(ActionEvent e) {
-        new NovoClienteFrame(this.cf).setVisible(true);
+        new NovoClienteFrame(this.cf,null,this).setVisible(true);
     }
 
     private void sair_btnActionPerformed(ActionEvent e) {
@@ -49,7 +50,7 @@ public class RegistaEncomendaFrame extends javax.swing.JFrame {
      * Método que atualiza a tabela dos clientes
      * @param clientes nova lista de clientes a exibir
      */
-    private void updateClientesTable(Collection<Cliente> clientes){
+    public void updateClientesTable(Collection<Cliente> clientes){
         DefaultTableModel model = (DefaultTableModel) clientes_tbl.getModel();
         Object row_data[] = new Object[3];
 
@@ -103,7 +104,7 @@ public class RegistaEncomendaFrame extends javax.swing.JFrame {
         updateClientesTable(filtered);
     }
 
-    private void registar_encomenda_btnActionPerformed(ActionEvent evt) {
+    private void registar_encomenda_btnActionPerformed(ActionEvent evt) throws Exception {
         DefaultTableModel model = (DefaultTableModel)clientes_tbl.getModel();
         try{
             int id_cliente = (int) clientes_tbl.getValueAt(clientes_tbl.getSelectedRow(), 0);
@@ -121,6 +122,10 @@ public class RegistaEncomendaFrame extends javax.swing.JFrame {
         }
 
 
+    }
+
+    public void updateList(List<Cliente> list) {
+        this.clientes = list;
     }
 
     public RegistaEncomendaFrame(ConfiguraFacil cf, Configuracao config) throws Exception {
@@ -250,7 +255,13 @@ public class RegistaEncomendaFrame extends javax.swing.JFrame {
 
         //---- registar_encomenda_btn ----
         registar_encomenda_btn.setText("Registar Encomenda");
-        registar_encomenda_btn.addActionListener(e -> registar_encomenda_btnActionPerformed(e));
+        registar_encomenda_btn.addActionListener(e -> {
+            try {
+                registar_encomenda_btnActionPerformed(e);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        });
 
         //---- label1 ----
         label1.setText("Total");

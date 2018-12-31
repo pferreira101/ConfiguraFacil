@@ -60,7 +60,7 @@ public class FuncionariosFrame extends javax.swing.JFrame {
 
             Funcionario selected = this.funcionarios.get(array_index);
 
-            new AlterarFuncionarioFrame(this.cf, selected).setVisible(true);
+            new AlterarFuncionarioFrame(this.cf, selected,this).setVisible(true);
         }
     }
 

@@ -7,11 +7,11 @@ package presentation;
 
 import business.gConta.Cliente;
 import business.ConfiguraFacil;
-import com.mysql.cj.util.StringUtils;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
+import java.util.List;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 
@@ -22,9 +22,11 @@ import javax.swing.GroupLayout;
 public class NovoClienteFrame extends javax.swing.JFrame {
 
     ConfiguraFacil cf;
+    ClientesFrame to_update;
+    RegistaEncomendaFrame to_update2;
 
 
-    private void registar_btnActionPerformed(ActionEvent e) throws SQLException, ClassNotFoundException {
+    private void registar_btnActionPerformed(ActionEvent e) throws Exception {
         String nome = this.nome_txt.getText();
         String telemovel = this.telemovel_txt.getText();
         String email = this.email_txt.getText();
@@ -32,6 +34,16 @@ public class NovoClienteFrame extends javax.swing.JFrame {
         try {
             if (!nome.equals("") && !email.equals("")){
                 this.cf.registaCliente(nome, Integer.parseInt(telemovel), email);
+
+                List<Cliente> list = this.cf.getClientes();
+                if (to_update!=null) {
+                    this.to_update.updateTable(list); //não sei se é a melhor maneira para atualizar a tabela mas funciona
+                    this.to_update.updateList(list);
+                }
+                if (to_update2!=null) {
+                    this.to_update2.updateClientesTable(list); //não sei se é a melhor maneira para atualizar a tabela mas funciona
+                    this.to_update2.updateList(list);
+                }
 
                 this.dispose();
             }
@@ -53,9 +65,11 @@ public class NovoClienteFrame extends javax.swing.JFrame {
     /**
      * Creates new form NovoClienteFrame
      */
-    public NovoClienteFrame(ConfiguraFacil cf) {
+    public NovoClienteFrame(ConfiguraFacil cf, ClientesFrame f, RegistaEncomendaFrame f2) {
         initComponents();
         this.cf = cf;
+        this.to_update=f;
+        this.to_update2=f2;
     }
 
     /**
@@ -89,9 +103,7 @@ public class NovoClienteFrame extends javax.swing.JFrame {
         registar_btn.addActionListener(e -> {
             try {
                 registar_btnActionPerformed(e);
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            } catch (ClassNotFoundException e1) {
+            } catch (Exception e1) {
                 e1.printStackTrace();
             }
         });

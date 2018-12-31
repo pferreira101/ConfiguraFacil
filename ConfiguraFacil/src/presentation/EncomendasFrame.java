@@ -109,8 +109,6 @@ public class EncomendasFrame extends javax.swing.JFrame {
         }
     }
 
-
-
     /**
      * Creates new form EncomendasFrame
      */
