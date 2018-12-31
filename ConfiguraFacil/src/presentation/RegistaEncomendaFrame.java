@@ -40,6 +40,7 @@ public class RegistaEncomendaFrame extends javax.swing.JFrame {
     }
 
     private void sair_btnActionPerformed(ActionEvent e) {
+        JOptionPane.showOptionDialog(new JFrame(), "A configuração não foi confirmada.", "Sair", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null, null, null);
         this.dispose();
     }
 

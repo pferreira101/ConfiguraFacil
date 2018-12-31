@@ -95,6 +95,7 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
         if(incomp.size() == 0 && complementares.size() == 0){*/
             this.cf.componentesToPacote(this.config, this.pacotes);
             try {
+                this.dispose();
                 new RegistaEncomendaFrame(this.cf, this.config).setVisible(true);
             }
             catch (Exception a){a.printStackTrace();}
