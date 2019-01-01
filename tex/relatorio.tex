@@ -251,7 +251,7 @@ O diagrama de Máquinas de Estado relativo à interface do programa é o seguint
 \section*{2ª Fase}
 \end{center}
 
-\section{Diagramas de Sequência}
+\section{Diagramas de Sequência de Sistema}
 A segunda fase do projeto principiou com a modelação dos diagramas de sequência, partindo da especificação dos Use Cases feita na fase anterior. Assim sendo, temos os seguintes diagramas:
 
 \begin{enumerate}
@@ -321,13 +321,7 @@ A segunda fase do projeto principiou com a modelação dos diagramas de sequênc
 		\end{center}
 \end{enumerate}
 
-\section{Diagrama de Pacotes}
-De forma a organizarmos melhor a aplicação, dividimos o sistema geral em quatro subsistemas: o Facade (que corresponde à ConfiguraFácil), o gContas, o gConfig e o gFabrica. Como tal, construímos o seguinte diagrama de pacotes:
-\begin{center}
- 	\includegraphics[width=6in]{pacotes.jpg}
-\end{center}
-
-\section{Diagramas de Sequência de Subsistema}
+\section{Diagramas de Sequência com Subsistemas}
 O passo seguinte foi, partindo dos diagramas de sequência e conhecendo agora os subsistemas existentes, modelar os diagramas de sequência de subsistema, para depois podemos proseguir com os diagramas de implementação.
 
 Ora, temos então o seguinte:
@@ -398,84 +392,173 @@ Ora, temos então o seguinte:
 		\end{center}
 \end{enumerate}
 
-\section{Diagramas de Sequência de Implementação}
-Como foi referido, podemos agora desenhar os diagramas de sequência de implementação. Com estes já definidos, podemos começar a escrever o código para a aplicação, partindo de uma base bastante consistente.
+\section{Diagrama de Packages}
+De forma a organizarmos melhor a aplicação, dividimos o sistema geral em quatro subsistemas: o Facade (que corresponde à ConfiguraFácil), o gContas, o gConfig e o gFabrica. Como tal, construímos o seguinte diagrama de pacotes:
+\begin{center}
+ 	\includegraphics[width=6in]{pacotes.jpg}
+\end{center}
 
-Para tal, modelamos os ditos diagramas da seguinte maneira:
-\begin{enumerate}
-	\item Adiciona Componente
-		\begin{center}
- 			\includegraphics[]{dsi_adiciona_componente.png}
-		\end{center}
-	\item Adiciona Pacote
-		\begin{center}
- 			\includegraphics[]{dsi_adiciona_pacote.png}
-		\end{center}\newpage
-	\item Alterar Cliente
-		\begin{center}
- 			\includegraphics[]{dsi_alterar_cliente.png}
-		\end{center}
-	\item Alterar Funcionário
-		\begin{center}
- 			\includegraphics[]{dsi_alterar_funcionario.png}
-		\end{center}\newpage
-	\item Configuração Ótima
-		\begin{center}
- 			\includegraphics[]{dsi_configuracao_otima.png}
-		\end{center}
-	\item Consultar Cliente
-		\begin{center}
- 			\includegraphics[]{dsi_consultar_cliente.png}
-		\end{center}
-	\item Consultar Encomenda
-		\begin{center}
- 			\includegraphics[]{dsi_consultar_encomenda.png}
-		\end{center}
-	\item Encomendar Stock
-		\begin{center}
- 			\includegraphics[]{dsi_encomendar_stock.png}
-		\end{center}
-	\item Identificar Cliente
-		\begin{center}
- 			\includegraphics[]{dsi_identificar_cliente.png}
-		\end{center}
-	\item Login
-		\begin{center}
- 			\includegraphics[]{dsi_login.png}
-		\end{center}
-	\item Processa Encomenda
-		\begin{center}
- 			\includegraphics[]{dsi_processa_encomenda.png}
-		\end{center}
-	\item Registar Cliente
-		\begin{center}
- 			\includegraphics[]{dsi_registar_cliente.png}
-		\end{center}
-	\item Registar Encomenda
-		\begin{center}
- 			\includegraphics[]{dsi_registar_encomenda.png}
-		\end{center}
-	\item Registar Funcionário
-		\begin{center}
- 			\includegraphics[]{dsi_registar_funcionario.png}
-		\end{center}
-	\item Registar Stock de Componente
-		\begin{center}
- 			\includegraphics[]{dsi_registar_stock.png}
-		\end{center}
-	\item Remover Funcionário
-		\begin{center}
- 			\includegraphics[]{dsi_remover_funcionario.png}
-		\end{center}
-\end{enumerate}
-
-\section{Diagrama de Classes}
+\section{Diagrama de Classe com Estruturas de Dados e com ORM}
 Partindo do Modelo de Domínio e dos diagramas de sequência de implementação, podemos definir o Diagrama de Classes:
 \begin{center}
  	\includegraphics[width=6in]{Classes.png}
 \end{center}
 
-\section{DAOs}
+O passo seguinte foi, tendo em conta o ORM, decidir quais as classes que deveriam persistir. Assim, pela nossa análise, selecionamos as seguintes classes: Cliente, Funcionário, Encomenda, Componente, Pacote e Stock. Deste modo, obtivemos o seguinte diagrama de classes, já com as estruturas de dados e com ORM:
+\begin{center}
+ 	\includegraphics[width=6in]{ClassesDAO.png}
+\end{center}
+
+
+\section{Diagramas de Sequência de Implementação}
+Como foi referido, podemos agora desenhar os diagramas de sequência de implementação. Com estes definidos, podemos começar a escrever o código para a aplicação, partindo de uma base bastante consistente.
+
+Para tal, modelamos os ditos diagramas da seguinte maneira:
+\begin{enumerate}
+	\item Adiciona Componente
+		\begin{center}
+ 			\includegraphics[width = 6in]{dsi_adicionar_componente.png}
+		\end{center}
+	\item Adiciona Pacote
+		\begin{center}
+ 			\includegraphics[width = 6in]{dsi_adicionar_pacote.png}
+		\end{center}\newpage
+	\item Alterar Cliente
+		\begin{center}
+ 			\includegraphics[width = 6in]{dsi_alterar_cliente.png}
+		\end{center}
+	\item Alterar Funcionário
+		\begin{center}
+ 			\includegraphics[width = 6in]{dsi_alterar_funcionario.png}
+		\end{center}\newpage
+	\item Configuração Ótima
+		\begin{center}
+ 			\includegraphics[width = 6in]{dsi_configuracao_otima.png}
+		\end{center}
+	\item Consultar Cliente
+		\begin{center}
+ 			\includegraphics[width = 6in]{dsi_consultar_cliente.png}
+		\end{center}
+	\item Consultar Encomenda
+		\begin{center}
+ 			\includegraphics[width = 6in]{dsi_consultar_encomenda.png}
+		\end{center}
+	\item Encomendar Stock
+		\begin{center}
+ 			\includegraphics[width = 6in]{dsi_encomendar_stock.png}
+		\end{center}
+	\item Identificar Cliente
+		\begin{center}
+ 			\includegraphics[width = 6in]{dsi_identificar_cliente.png}
+		\end{center}
+	\item Login
+		\begin{center}
+ 			\includegraphics[width = 6in]{dsi_login.png}
+		\end{center}
+	\item Processa Encomenda
+		\begin{center}
+ 			\includegraphics[width = 6in]{dsi_processar_encomenda.png}
+		\end{center}
+	\item Registar Cliente
+		\begin{center}
+ 			\includegraphics[width = 6in]{dsi_registar_cliente.png}
+		\end{center}
+	\item Registar Encomenda
+		\begin{center}
+ 			\includegraphics[width = 6in]{dsi_registar_encomenda.png}
+		\end{center}
+	\item Registar Funcionário
+		\begin{center}
+ 			\includegraphics[width = 6in]{dsi_registar_funcionario.png}
+		\end{center}
+	\item Registar Stock de Componente
+		\begin{center}
+ 			\includegraphics[width = 6in]{dsi_registar_stock.png}
+		\end{center}
+	\item Remover Funcionário
+		\begin{center}
+ 			\includegraphics[width = 6in]{dsi_remover_funcionario.png}
+		\end{center}
+\end{enumerate}
+
+Tendo em conta os DAOs, os diagramas de sequência de implementação alterar-se-ão da seguinte maneira:
+\begin{enumerate}
+	\item Adiciona Componente
+		\begin{center}
+ 			\includegraphics[width = 6in]{dsi2_adicionar_componente.png}
+		\end{center}
+	\item Adiciona Pacote
+		\begin{center}
+ 			\includegraphics[width = 6in]{dsi2_adicionar_pacote.png}
+		\end{center}\newpage
+	\item Alterar Cliente
+		\begin{center}
+ 			\includegraphics[width = 6in]{dsi2_alterar_cliente.png}
+		\end{center}
+	\item Alterar Funcionário
+		\begin{center}
+ 			\includegraphics[width = 6in]{dsi2_alterar_funcionario.png}
+		\end{center}\newpage
+	\item Configuração Ótima
+		\begin{center}
+ 			\includegraphics[width = 6in]{dsi2_configuracao_otima.png}
+		\end{center}
+	\item Consultar Cliente
+		\begin{center}
+ 			\includegraphics[width = 6in]{dsi2_consultar_cliente.png}
+		\end{center}
+	\item Consultar Encomenda
+		\begin{center}
+ 			\includegraphics[width = 6in]{dsi2_consultar_encomenda.png}
+		\end{center}
+	\item Encomendar Stock
+		\begin{center}
+ 			\includegraphics[width = 6in]{dsi2_encomendar_stock.png}
+		\end{center}
+	\item Identificar Cliente
+		\begin{center}
+ 			\includegraphics[width = 6in]{dsi2_identificar_cliente.png}
+		\end{center}
+	\item Login
+		\begin{center}
+ 			\includegraphics[width = 6in]{dsi2_login.png}
+		\end{center}
+	\item Processa Encomenda
+		\begin{center}
+ 			\includegraphics[width = 6in]{dsi2_processar_encomenda.png}
+		\end{center}
+	\item Registar Cliente
+		\begin{center}
+ 			\includegraphics[width = 6in]{dsi2_registar_cliente.png}
+		\end{center}
+	\item Registar Encomenda
+		\begin{center}
+ 			\includegraphics[width = 6in]{dsi2_registar_encomenda.png}
+		\end{center}
+	\item Registar Funcionário
+		\begin{center}
+ 			\includegraphics[width = 6in]{dsi2_registar_funcionario.png}
+		\end{center}
+	\item Registar Stock de Componente
+		\begin{center}
+ 			\includegraphics[width = 6in]{dsi2_registar_stock.png}
+		\end{center}
+	\item Remover Funcionário
+		\begin{center}
+ 			\includegraphics[width = 6in]{dsi2_remover_funcionario.png}
+		\end{center}
+\end{enumerate}
+
+
+\section{OPCIONAL: Diagrama de estado para as entidades mais relevantes
+(configuração/encomenda?)}
+
+\section{OPCIONAL: Diagrama de sequência de nível de implementação para métodos mais
+relevantes (outros Ucs ou métodos mais relevantes)}
+
+\section{OPCIONAL: Diagrama de actividade para o processo de configuração}
+
+\section{OPCIONAL: Diagrama de instalação}
 
 \section{Implementação}
 
