@@ -335,7 +335,7 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    // Generated using JFormDesigner Evaluation license - Diogo Sobral
+    // Generated using JFormDesigner Evaluation license - Henrique Pereira
     private void initComponents() {
         sair_btn = new JButton();
         registar_btn = new JButton();
@@ -479,7 +479,7 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
         }
 
         //---- confgO_btn ----
-        confgO_btn.setText("Config\u00d3");
+        confgO_btn.setText("Configura\u00e7\u00e3o \u00d3tima");
         confgO_btn.addActionListener(e -> confgO_btnActionPerformed(e));
 
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
@@ -491,9 +491,9 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
                         .addGroup(contentPaneLayout.createSequentialGroup()
                             .addGap(0, 0, Short.MAX_VALUE)
                             .addComponent(sair_btn)
-                            .addGap(37, 37, 37)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                             .addComponent(confgO_btn)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(registar_btn))
                         .addGroup(contentPaneLayout.createSequentialGroup()
                             .addGap(24, 24, 24)
@@ -514,7 +514,7 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
                 .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
                     .addGap(25, 25, 25)
                     .addGroup(contentPaneLayout.createParallelGroup()
-                        .addComponent(jScrollPane2, GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE))
                     .addGap(21, 21, 21)
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
@@ -533,7 +533,7 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Diogo Sobral
+    // Generated using JFormDesigner Evaluation license - Henrique Pereira
     private JButton sair_btn;
     private JButton registar_btn;
     private JScrollPane jScrollPane1;
