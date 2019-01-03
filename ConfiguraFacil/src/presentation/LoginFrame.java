@@ -112,7 +112,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
         //---- jLabel1 ----
         jLabel1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        jLabel1.setIcon(new ImageIcon(getClass().getResource("logo.png")));
+        jLabel1.setIcon(new ImageIcon(getClass().getResource("/presentation/logo.png")));
 
         //---- label1 ----
         label1.setText("ID");

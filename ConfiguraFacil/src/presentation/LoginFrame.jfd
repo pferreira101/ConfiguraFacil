@@ -29,7 +29,7 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "jLabel1"
 				"font": new java.awt.Font( "Tahoma", 0, 18 )
-				"icon": new com.jformdesigner.model.SwingIcon( 0, "images/logo.png" )
+				"icon": new com.jformdesigner.model.SwingIcon( 0, "/presentation/logo.png" )
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label1"

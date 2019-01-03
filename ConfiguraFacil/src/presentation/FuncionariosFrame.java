@@ -54,13 +54,12 @@ public class FuncionariosFrame extends javax.swing.JFrame {
 
 
     private void display_tblMouseClicked(MouseEvent e){
-        if(e.getClickCount()==2){
+        if(e.getClickCount() == 2){
             int row = this.display_tbl.getSelectedRow();
-            int array_index = (int) this.display_tbl.getModel().getValueAt(row, 0) - 1;
 
-            Funcionario selected = this.funcionarios.get(array_index);
+            Funcionario selected = this.funcionarios.get(row);
 
-            new AlterarFuncionarioFrame(this.cf, selected,this).setVisible(true);
+            new AlterarFuncionarioFrame(this.cf, selected, this).setVisible(true);
         }
     }
 
