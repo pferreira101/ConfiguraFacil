@@ -361,8 +361,6 @@ public class ConfiguraFacil {
     public List<Componente> checkStock(int i) {
         try {
             Encomenda e = this.fabrica.getEncomenda(i);
-            if(e == null) System.out.println("erro aqui");
-            else System.out.println("encontrou encomenda");
             return this.fabrica.stockEmFalta(e.getAllComponentes());
         } catch (Exception e) {
         }

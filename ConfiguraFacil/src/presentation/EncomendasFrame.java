@@ -63,7 +63,6 @@ public class EncomendasFrame extends javax.swing.JFrame {
             return;
 
         int array_index = (int) this.encomendas_tbl.getModel().getValueAt(row, 0);
-        System.out.println(array_index);
         List<Componente> stocks = this.cf.checkStock(array_index);
 
         if (stocks.size() > 0){
