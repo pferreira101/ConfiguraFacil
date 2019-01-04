@@ -9,8 +9,6 @@ import data.EncomendaDAO;
 import data.StockDAO;
 
 public class Fabrica {
-	//private Map<Integer, Stock> stocks;
-	//private List<Encomenda> queue;
 	private StockDAO stockDAO;
 	private EncomendaDAO encomendaDAO;
 

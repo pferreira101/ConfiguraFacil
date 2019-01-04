@@ -63,12 +63,12 @@ public class EncomendasFrame extends javax.swing.JFrame {
             return;
 
         int array_index = (int) this.encomendas_tbl.getModel().getValueAt(row, 0);
-
+        System.out.println(array_index);
         List<Componente> stocks = this.cf.checkStock(array_index);
 
         if (stocks.size() > 0){
             String [] ags = {"Sim" , "Não"};
-            int i = JOptionPane.showOptionDialog(new JFrame(), "Stock Insuficiente. Deseja ver os componentes em falta?", "Erro", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, ags, "Sim");
+            int i = JOptionPane.showOptionDialog(new JFrame(), "Stock Insuficiente. Deseja ver os componentes em falta?", "Stock Insuficiente", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, ags, "Sim");
             if (i == 0){
                 new DisplayListaComponenteFaltaFrame(stocks).setVisible(true);
             }
@@ -95,7 +95,7 @@ public class EncomendasFrame extends javax.swing.JFrame {
     private void view_btnActionPerformed(ActionEvent e) {
         int row = this.encomendas_tbl.getSelectedRow();
         if (row == -1){
-            JOptionPane.showOptionDialog(new JFrame(), "Erro nenhuma encomenda selecionada.", "Erro", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null, null, null);
+            JOptionPane.showOptionDialog(new JFrame(), "Erro - nenhuma encomenda selecionada.", "Erro", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null, null, null);
         }
         else {
             int id = (int) this.encomendas_tbl.getModel().getValueAt(row, 0);
