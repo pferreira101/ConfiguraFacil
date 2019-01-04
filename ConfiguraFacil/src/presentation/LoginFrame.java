@@ -80,7 +80,7 @@ public class LoginFrame extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    // Generated using JFormDesigner Evaluation license - Pedro Moreira
+    // Generated using JFormDesigner Evaluation license - Pedro Miguel Moreira Ferreira
     private void initComponents() {
         sair_btn = new JButton();
         id_txt = new JTextField();
@@ -112,7 +112,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
         //---- jLabel1 ----
         jLabel1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        jLabel1.setIcon(new ImageIcon(getClass().getResource("logo.png")));
+        jLabel1.setIcon(new ImageIcon(getClass().getResource("/presentation/logo.png")));
 
         //---- label1 ----
         label1.setText("ID");
@@ -224,7 +224,7 @@ public class LoginFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Pedro Moreira
+    // Generated using JFormDesigner Evaluation license - Pedro Miguel Moreira Ferreira
     private JButton sair_btn;
     private JTextField id_txt;
     private JPasswordField pw_txt;

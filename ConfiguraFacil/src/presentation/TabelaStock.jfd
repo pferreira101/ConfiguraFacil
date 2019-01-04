@@ -5,7 +5,7 @@ new FormModel {
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
 			"$horizontalGroup": "par l {seq l {space :p:39:p, par l {comp scrollPane1::l:p:317:p, seq l {space :p:45:p, comp Sair:::p::p, space :p:42:p, comp atu_btn:::p::p}}, space ::42:x}}"
-			"$verticalGroup": "par l {seq l {space :::p, comp scrollPane1:::p:207:p, space s:::p, par b {comp Sair::b:p::p, comp atu_btn::b:p::p}, space ::15:x}}"
+			"$verticalGroup": "par l {seq l {space :::p, comp scrollPane1:::p:207:p, space s:::p, par b {comp Sair::b:p::p, comp atu_btn::b:p::p}, space ::13:x}}"
 		} ) {
 			name: "this"
 			"name": "frame18"
@@ -21,7 +21,7 @@ new FormModel {
 							add( "" )
 						} )
 					}, new java.util.Vector {
-						add( "Id" )
+						add( "ID" )
 						add( "Designação" )
 						add( "Stock" )
 					}, new java.util.Vector {
@@ -29,9 +29,9 @@ new FormModel {
 						add( null )
 						add( null )
 					}, new java.util.Vector {
-						add( null )
-						add( null )
-						add( null )
+						add( false )
+						add( false )
+						add( false )
 					}, new java.util.Vector {
 						add( null )
 						add( null )

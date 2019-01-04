@@ -34,7 +34,7 @@ public class AlterarFuncionarioFrame extends javax.swing.JFrame {
 
         Object[] options = {"Remover", "Cancelar"};
 
-        return JOptionPane.showOptionDialog(new JFrame(), s.toString(), "Erro", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        return JOptionPane.showOptionDialog(new JFrame(), s.toString(), "Remover funcionário", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 
     }
 

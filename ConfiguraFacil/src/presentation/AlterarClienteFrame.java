@@ -80,7 +80,7 @@ public class AlterarClienteFrame extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    // Generated using JFormDesigner Evaluation license - Diogo Sobral
+    // Generated using JFormDesigner Evaluation license - Pedro Moreira
     private void initComponents() {
         atualizar_btn = new JButton();
         email_txt = new JTextField();
@@ -133,9 +133,9 @@ public class AlterarClienteFrame extends javax.swing.JFrame {
                             .addComponent(label3)
                             .addGap(6, 6, 6)
                             .addComponent(email_txt, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE)))
-                    .addContainerGap(27, Short.MAX_VALUE))
+                    .addContainerGap(33, Short.MAX_VALUE))
                 .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
-                    .addContainerGap(130, Short.MAX_VALUE)
+                    .addContainerGap(136, Short.MAX_VALUE)
                     .addComponent(atualizar_btn)
                     .addContainerGap())
         );
@@ -170,7 +170,7 @@ public class AlterarClienteFrame extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Diogo Sobral
+    // Generated using JFormDesigner Evaluation license - Pedro Moreira
     private JButton atualizar_btn;
     private JTextField email_txt;
     private JLabel label3;

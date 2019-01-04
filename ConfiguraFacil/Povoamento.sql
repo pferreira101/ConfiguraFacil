@@ -18,7 +18,7 @@ VALUES (1, "João", "joao@gmail.com", 931237658),
 	   (2, "Diogo", "diogo@gmail.com", 960002547);
       
 SELECT * FROM cliente;
-
+DELETE FROM cliente WHERE id_cliente = 3;
 
 # POVOAMENTO COMPONENTES
 
@@ -110,11 +110,15 @@ VALUES (1, 1), (1, 4),
 
 # POVOAMENTO STOCK
 INSERT INTO stock
-VALUES (1, 2),
-	   (2, 4);
+VALUES (1, 0),
+	   (2, 0),
+       (3, 0),
+       (4, 0),
+       (5, 0),
+       (6, 0);
        
 SELECT * FROM stock;
-
+-- DELETE FROM stock WHERE componente > 0;
 
 # POVOAMENTO ENCOMENDA
 
