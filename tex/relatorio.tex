@@ -7,6 +7,7 @@
 \usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
 \usepackage[portuges]{babel}
 
+\newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
 
 %%% PAGE DIMENSIONS
 \usepackage{a4}
@@ -579,7 +580,7 @@ Iniciando a aplicação, o utilizador fica perante a janela de \textit{login}, a
 	\label{loginframe}
 \end{figure}
 
-Para o efetuar é necessário, antes de tudo, estar registado no sistema e para tal apenas o o administador (com conta predefinida) o pode fazer. 
+Para o efetuar é necessário, antes de tudo, estar registado no sistema e para tal apenas o administador (com conta predefinida) o pode fazer. 
 
 Nesta janela e conforme o tipo de funcionário que esteja a realizar o login, a próxima janela é uma das seguintes:
 \begin{itemize}
@@ -591,7 +592,7 @@ Nesta janela e conforme o tipo de funcionário que esteja a realizar o login, a 
 \subsection{Stand}
 \label{standsec}
 
-Iniciando sessão como \textit{Funcionário de loja}, a janela corresponde é a apresentada na figura \ref{standframe}.
+Iniciando sessão como \textit{Funcionário de loja}, a janela correspondente é a apresentada na figura \ref{standframe}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[]{standframe.png}
@@ -599,7 +600,7 @@ Iniciando sessão como \textit{Funcionário de loja}, a janela corresponde é a 
 	\label{standframe}
 \end{figure}
 
-A partir daqui o utilizador pode iniciar uma configuração, consultar todos os clientes registados no sistema ou fazer \textit{logout} através dos botões \textit{"Iniciar Configuração"}, \textit{"Consultar Clientes"} e \textit{"Sair"}, respetivamente. Nesta janela é também possível ver o utilizador que está com sessão iniciada.
+A partir daqui o utilizador pode iniciar uma configuração, consultar todos os clientes registados no sistema ou fazer \textit{logout} através dos botões \textit{"Iniciar Configuração"}, \textit{"Consultar Clientes"} e \textit{"Sair"}, respetivamente. Nesta janela é também possível ver o utilizador que está com sessão iniciada no canto inferior direito.
 
 \subsubsection{Configuração}
 Na criação de uma configuração podem ser adicionadas componentes ou pacotes de componentes.
@@ -615,7 +616,33 @@ Para adicionar uma componente é preciso primeiro escolher o seu tipo e só depo
 \textcolor{red}{FALAR DE INCOMPATIBILIDADES E COMPLEMENTARES}
 
 
+
+\myparagraph{Encomenda}
+
+Neste janela (figura \ref{regencomendaframe}) é possível para o funcionário selecionar o cliente que está a realizar a configuração assim como verificar todas as componentes presentes na configuração, o total do preço individual das componentes, o desconto total originado pelos pacotes e o preço total final da encomenda. Caso o cliente não exista no sistema é ainda possível criá-lo a partir desta janela (processo de criação explicado na Secção \ref{novocliente}). Após selecionar o cliente e verificar as componentes é necessário registar a encomenda clicando em \textit{Registar Encomenda}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[]{regencomendaframe.png}
+	\caption{Encomenda Frame}
+	\label{regencomendaframe}
+\end{figure}
+
+Caso o funcionário não selecione um cliente é mostrada a seguinte mensagem de erro:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[]{erroencomenda.png}
+	\caption{Erro - Cliente não selecionado}
+	\label{erroencomenda}
+\end{figure}
+
+
 \subsubsection{Consultar clientes}
+Para além da funcionalidade descrita na secção anterior, o \textit{Funcionário de loja} pode ainda, na janela apresentada na figura \ref{clientesframe}, consultar, pesquisar e alterar clientes, assim como adicionar novos. 
+
+Na tabela estão presentes os clientes registados no sistema até ao momento. Estes podem ser pesquisados pelo seu nome utilizando a caixa de texto presente debaixo da tabela. Ao fazer \textit{double click} sobre um cliente é possível ver as suas características assim como editar algumas delas (este processo é detalhado na secção \ref{alterarcliente}). Por fim, a partir desta janela é ainda possível a criação de novos clientes através do botão \textit{"Adicionar Cliente"} (este processo é detalhado na secção \ref{novocliente}).
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[]{clientesframe.png}
@@ -624,7 +651,11 @@ Para adicionar uma componente é preciso primeiro escolher o seu tipo e só depo
 \end{figure}
 
 
-\paragraph{Novo Cliente} \newline
+\myparagraph{Novo Cliente}
+\label{novocliente} 
+
+Para registar um novo cliente é necessário introduzir o seu nome, telemóvel e e-mail nas respestivas caixas de texto apresentadas na figura \ref{novoclienteframe}.
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[]{novoclienteframe.png}
@@ -633,7 +664,11 @@ Para adicionar uma componente é preciso primeiro escolher o seu tipo e só depo
 \end{figure}
 
 
-\paragraph{Alterar Cliente} \newline
+\myparagraph{Alterar Cliente}
+\label{alterarcliente}
+
+Em relação à alteração de um cliente, apenas é permitido alterar o seu telemóvel e o seu e-mail. Para tal é necessário que sejam feitas alterações nos respetivos campos, confirmando-as clicando em \textit{"Atualizar"}.
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[]{alterarclienteframe.png}
