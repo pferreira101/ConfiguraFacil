@@ -56,7 +56,7 @@ public class TabelaStock extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Diogo Sobral
+        // Generated using JFormDesigner Evaluation license - Pedro Moreira
         scrollPane1 = new JScrollPane();
         table1 = new JTable();
         Sair = new JButton();
@@ -76,9 +76,17 @@ public class TabelaStock extends JFrame {
                     {"", null, ""},
                 },
                 new String[] {
-                    "Id", "Designa\u00e7\u00e3o", "Stock"
+                    "ID", "Designa\u00e7\u00e3o", "Stock"
                 }
-            ));
+            ) {
+                boolean[] columnEditable = new boolean[] {
+                    false, false, false
+                };
+                @Override
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return columnEditable[columnIndex];
+                }
+            });
             scrollPane1.setViewportView(table1);
         }
 
@@ -114,7 +122,7 @@ public class TabelaStock extends JFrame {
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(Sair)
                         .addComponent(atu_btn))
-                    .addContainerGap(15, Short.MAX_VALUE))
+                    .addContainerGap(13, Short.MAX_VALUE))
         );
         pack();
         setLocationRelativeTo(getOwner());
@@ -122,7 +130,7 @@ public class TabelaStock extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Diogo Sobral
+    // Generated using JFormDesigner Evaluation license - Pedro Moreira
     private JScrollPane scrollPane1;
     private JTable table1;
     private JButton Sair;
