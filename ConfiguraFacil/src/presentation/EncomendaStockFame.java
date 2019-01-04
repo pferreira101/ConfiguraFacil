@@ -17,15 +17,17 @@ import javax.swing.GroupLayout;
  */
 public class EncomendaStockFame extends JFrame {
     ConfiguraFacil cf;
+    TabelaStock root;
     Boolean fst_check;
     Boolean snd_check;
     Boolean thd_check;
     int id;
     int quantidade;
 
-    public EncomendaStockFame(ConfiguraFacil cf) {
+    public EncomendaStockFame(ConfiguraFacil cf, TabelaStock root) {
         initComponents();
         this.cf = cf;
+        this.root = root;
         this.fst_check = false;
         this.snd_check = false;
         this.id = -1;
@@ -34,8 +36,9 @@ public class EncomendaStockFame extends JFrame {
         label_q.setVisible(false);
     }
 
-    public EncomendaStockFame(ConfiguraFacil cf,int id){
+    public EncomendaStockFame(ConfiguraFacil cf, TabelaStock root,int id){
         initComponents();
+        this.root = root;
         this.cf = cf;
         this.fst_check = true;
         this.snd_check = false;
@@ -49,7 +52,7 @@ public class EncomendaStockFame extends JFrame {
     private int decisao(){
         Object[] options = {"Adicionar", "Descartar"};
 
-        return JOptionPane.showOptionDialog(new JFrame(), "Deseja adicionar a componente?", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        return JOptionPane.showOptionDialog(new JFrame(), "Deseja adicionar a componente?", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
     }
 
     private int warning(){
@@ -62,7 +65,6 @@ public class EncomendaStockFame extends JFrame {
 
     private void sair(){
         this.dispose();
-        new TabelaStock(this.cf).setVisible(true);
     }
 
     private void Encomenda_btnActionPerformed(ActionEvent e) {
@@ -79,8 +81,12 @@ public class EncomendaStockFame extends JFrame {
                 }
                 else{
                     warning();
+                    int d = decisao();
                     this.dispose();
-                    new NovaComponenteFrame(this.cf).setVisible(true);
+                    if(d == JOptionPane.YES_OPTION)
+                        new NovaComponenteFrame(this.cf, root).setVisible(true);
+                    else
+                        JOptionPane.showOptionDialog(new JFrame(), "Selecção cancelada", "", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null, null, null);
                 }
             }
             catch (Exception a) {
@@ -92,6 +98,7 @@ public class EncomendaStockFame extends JFrame {
                 try {
                     this.quantidade = Integer.parseInt(q_comp.getText());
                     this.cf.encomendar(this.id,this.quantidade);
+                    this.root.updateTable();
                     sair();
                 }
                 catch (NumberFormatException b){

@@ -25,6 +25,7 @@ public class TabelaStock extends JFrame {
     public void updateTable(){
         DefaultTableModel model = (DefaultTableModel) table1.getModel();
         Object row_data[] = new Object[3];
+        this.stock = cf.getStockList();
 
         // Remove todos
         model.setRowCount(0);
@@ -41,7 +42,6 @@ public class TabelaStock extends JFrame {
     public TabelaStock(ConfiguraFacil cf) {
         initComponents();
         this.cf = cf;
-        this.stock = cf.getStockList();
         updateTable();
     }
 
@@ -50,8 +50,7 @@ public class TabelaStock extends JFrame {
     }
 
     private void atu_btnActionPerformed(ActionEvent e) {
-        this.dispose();
-        new EncomendaStockFame(this.cf).setVisible(true);
+        new EncomendaStockFame(this.cf, this).setVisible(true);
     }
 
     private void initComponents() {
