@@ -82,17 +82,19 @@ public class Configuracao {
 	    compAux.addAll(compsConfig);
 
 	    for(Componente c : compsPack){
-	    	boolean flag = this.compativel(c); // testa se algum incompativel do componente se encontra na config
-	    	if(flag){
-	    		List<Componente> complmtr = c.getComplementares();
-	    		for(Componente comp : complmtr){ // testa se todos os complementares do componente se encontram na config
-	    			if(!flag) break;
-	    			flag = compAux.contains(comp);
+			boolean flag = compAux.contains(c); // teste se item ja se encontra selecionado
+			if(!flag) {
+				flag = this.compativel(c); // testa se algum incompativel do componente se encontra na config
+				if (flag) {
+					List<Componente> complmtr = c.getComplementares();
+					for (Componente comp : complmtr) { // testa se todos os complementares do componente se encontram na config
+						if (!flag) break;
+						flag = compAux.contains(comp);
+					}
+					if (flag)
+						this.addComponente(c);
 				}
-	    		if(flag)
-	    			this.addComponente(c);
 			}
-
 		}
     }
 
