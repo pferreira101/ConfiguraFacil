@@ -52,6 +52,10 @@ public class AlterarFuncionarioFrame extends javax.swing.JFrame {
             this.dispose();
             JOptionPane.showMessageDialog(new JFrame(), "Funcionário removido com sucesso", "Funcionário Removido", JOptionPane.INFORMATION_MESSAGE);
         }
+        else {
+            this.dispose();
+            JOptionPane.showMessageDialog(new JFrame(), "Funcionário não removido", "Funcionário Não Removido", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
     private void alterar_btnActionPerformed(ActionEvent e) throws SQLException, ClassNotFoundException {
