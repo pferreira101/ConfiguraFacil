@@ -197,6 +197,19 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
     }
 
 
+    private void updateSelectionsComplementares(List<Componente> complementares){
+        for(Componente c : complementares){
+            int tipo = c.getTipo() - 1;
+
+            for(int i = 0; i < this.selections[tipo].comps.size(); i++){
+                Componente c_tipo = this.selections[tipo].comps.get(i);
+                if(c.getID() == c_tipo.getID()){
+                    this.selections[tipo].selected = i + 1;
+                    break;
+                }
+            }
+        }
+    }
 
     private void cmp_tblMouseClicked(MouseEvent e) {
         int tipo = type_list.getSelectedIndex();
@@ -243,7 +256,7 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
                 opt = complementaresErrorMessage(nova_componente, complementares);
 
                 if (opt == JOptionPane.YES_OPTION ){
-
+                    updateSelectionsComplementares(complementares);
                 }
                 else if(opt == JOptionPane.NO_OPTION){
                     this.selections[tipo].selected = 0;
