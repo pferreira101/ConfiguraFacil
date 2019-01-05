@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq l {space :::p, par l {seq l {space :p:26:p, par t {seq t {comp label3:::p::p, space :p:8:p, comp tipo_cbox:::p:160:p}, seq t {comp label2:::p::p, space :::p, comp pw_txt:::p:160:p}, seq t {comp label1:::p::p, space :::p, comp nome_txt:::p:160:p}, seq t {par t {seq {comp label4:::p::p, space :::p}, seq t {comp label5:::p::p, space :p:5:p}}, par l {comp tlmv_txt:::p:160:p, comp mail_txt:::p:160:p}}}, space :35:35:p}, seq t {comp button1:::p:58:p, space ::28:x, comp error_txt:::p:120:p, space :::p, comp registar_btn:::p::p, space :::p}}}}"
-			"$verticalGroup": "par l {seq {space :p:23:p, par b {comp label1::b:p::p, comp nome_txt::b:p::p}, space s:::p, par b {comp label2::b:p::p, comp pw_txt::b:p::p}, space :p:18:p, par b {comp label3::b:p::p, comp tipo_cbox::b:p::p}, space u:::p, par b {comp label4::b:p::p, comp tlmv_txt::b:p::p}, space u:::p, par l {comp mail_txt:::p::p, seq l {space :p:4:p, comp label5:::p::p}}, par l {seq {space s:::p, par b {comp registar_btn::b:p::p, comp button1::b:p::p}}, seq l {space :p:6:p, comp error_txt:::p::p}}, space ::3:x}}"
+			"$horizontalGroup": "par l {seq l {space :p:32:p, par t {seq t {comp label3:::p::p, space :p:8:p, comp tipo_cbox:::p:160:p}, seq t {comp label2:::p::p, space :::p, comp pw_txt:::p:160:p}, seq t {comp label1:::p::p, space :::p, comp nome_txt:::p:160:p}, seq t {par t {seq {comp label4:::p::p, space :::p}, seq t {comp label5:::p::p, space :p:5:p}}, par l {comp tlmv_txt:::p:160:p, comp mail_txt:::p:160:p}}}, space :35:45:x}, seq t {space :::p, comp sair_btn:::p:50:p, space ::36:x, comp error_txt:::p:120:p, space :::p, comp registar_btn:::p::p, space :::p}}"
+			"$verticalGroup": "par l {seq {space :p:23:p, par b {comp label1::b:p::p, comp nome_txt::b:p::p}, space s:::p, par b {comp label2::b:p::p, comp pw_txt::b:p::p}, space :p:18:p, par b {comp label3::b:p::p, comp tipo_cbox::b:p::p}, space u:::p, par b {comp label4::b:p::p, comp tlmv_txt::b:p::p}, space u:::p, par l {comp mail_txt:::p::p, seq l {space :p:4:p, comp label5:::p::p}}, par l {seq {space s:::p, par b {comp registar_btn::b:p::p, comp sair_btn::b:p::p}}, seq l {space :p:6:p, comp error_txt:::p::p}}, space ::3:x}}"
 		} ) {
 			name: "this"
 			"defaultCloseOperation": 2
@@ -58,15 +58,16 @@ new FormModel {
 				name: "label5"
 				"text": "E-mail"
 			} )
-			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "button1"
-				"text": "Sair"
-			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "error_txt"
 				"text": " "
 				"font": new java.awt.Font( "Segoe UI", 0, 10 )
 				"foreground": sfield java.awt.Color red
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "sair_btn"
+				"text": "Sair"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "sair_btnActionPerformed", true ) )
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"size": new java.awt.Dimension( 300, 280 )
