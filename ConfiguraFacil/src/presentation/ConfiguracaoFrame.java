@@ -536,7 +536,8 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
                     {"2 - Comfort", false},
                     {"3 - Off-Road", false},
                     {"4 - Executive", false},
-                    {"5 - Classic", null},
+                    {"5 - Classic", false},
+                    {"6 - Economic", false},
                 },
                 new String[] {
                     "Pacote", " "

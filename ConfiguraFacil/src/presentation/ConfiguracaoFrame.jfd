@@ -87,6 +87,10 @@ new FormModel {
 							add( "5 - Classic" )
 							add( null )
 						} )
+						add( new java.util.Vector {
+							add( "6 - Economic" )
+							add( null )
+						} )
 					}, new java.util.Vector {
 						add( "Pacote" )
 						add( " " )

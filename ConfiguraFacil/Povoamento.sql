@@ -110,7 +110,8 @@ VALUES (1, 5), (1, 9), (1, 16), (1,20),     -- sport: 20", xl, turbo, estofos te
 	   (2, 1), (2, 8), (2, 19), 			-- comfort: cinzento, estofos tecido cinzento, largo
 	   (3, 6), (3, 10), (3, 15),			-- off-road: 21", off-road, 2.0 
 	   (4, 3), (4, 14), (4, 18), (4, 22),   -- executive: preto, 1.8, escurecidos, estofos pele preto
-       (5, 2), (5, 4), (5, 11), (5, 21);	-- classic: branco, 19", 1.0, estofos pele castanhos
+       (5, 2), (5, 4), (5, 11), (5, 21),	-- classic: branco, 19", 1.0, estofos pele castanhos
+       (6, 12), (6, 5);						-- economic: 1.4, 20"
 
 
 
