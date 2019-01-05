@@ -51,62 +51,19 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
     Configuracao config = new Configuracao();
 
     private void registar_btnActionPerformed(ActionEvent e) {
-        /*
-        // Adiciona componentes selecionadas
-        for(Selection s : this.selections){
-            if(s.selected != -1 && s.selected != 0){
-                Componente c = s.comps.get(s.selected - 1);
-                this.config.addComponente(c);
-            }
-        }
-
-        // Adiciona pacotes selecionados
-        for(int i = 0; i < pacotes_tbl.getRowCount(); i++) {
-            try{
-                boolean is_selected = (boolean) pacotes_tbl.getModel().getValueAt(i, 1);
-                if(is_selected){
-                    config.updateConfig(this.pacotes.get(i));
-                }
-            }catch (NullPointerException e1) {}
-
-        }
-
-        // Neste momento a configuração tem as componentes todas sem estarem tratadas
-        List<Componente> incompativeis = new ArrayList<>();
-        List<Componente> complementares = new ArrayList<>();
-
-        List<String> incomp = new ArrayList<>();
-
-        for(Componente c : config.getComponentes()){
-            //incompativeis.addAll(this.cf.checkIncompativeis(config, c));
-            for(Componente comp : this.cf.checkIncompativeis(config, c)){
-                incomp.add("Componente " + c.getID() + " incompatível com " + comp.getID());
-            }
-        }
-        // FIXME: 12/29/2018 este método tem que ser igual ao checkIncompativeis para funcionar destar forma
-        for(Componente c : config.getComponentes()){
-            complementares.addAll(this.cf.checkComplementares(c));
-        }
-
-
-        if(incomp.size() == 0 && complementares.size() == 0){*/
+        if(this.config.getComponentes().size() > 0){
             this.cf.componentesToPacote(this.config, this.pacotes);
             try {
                 //this.dispose();
                 new RegistaEncomendaFrame(this.cf, this.config).setVisible(true);
             }
-            catch (Exception a){a.printStackTrace();}
-        /*}
-        else{
-            StringBuilder s = new StringBuilder();
-            s.append("Componentes incompatíveis: \n");
-            for(Componente c : incompativeis){
-                s.append(c.getID() + " - " + c.getDesignacao() + '\n');
+            catch (Exception a){
+                a.printStackTrace();
             }
-            for(String st : incomp) s.append("- " + st + "\n");
-            JOptionPane.showMessageDialog(new JFrame(), s.toString(), "Erro", JOptionPane.ERROR_MESSAGE);
-        }*/
-
+        }
+        else{
+            JOptionPane.showMessageDialog(new JFrame(), "Nenhuma componente selecionada.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void sair_btnActionPerformed(ActionEvent e) {
@@ -131,7 +88,10 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
     }
 
 
-
+    /**
+     * Método que carrega as componentes de um tipo assim como a componente selecionada desse tipo
+     * @param tipo tipo a carregar
+     */
     private void loadSelection(int tipo){
         List<Componente> list = selections[tipo].comps;
         DefaultTableModel model = (DefaultTableModel) cmp_tbl.getModel();
@@ -153,22 +113,105 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
     }
 
 
+    /**
+     * Método que atualiza as Selection aquando da adição de um pacote
+     */
+    public void updateSelection(){
+        // Verifica todas as componentes já selecionadas
+        List<Componente> all_comps = this.config.getComponentes();
+        // for(Pacote p : this.config.getPacotes()) all_comps.addAll(p.getComponentes());
+
+        // Para cada componente atualiza Selection correspondente ao seu tipo
+        for(Componente c : all_comps){
+            int tipo = c.getTipo() - 1;
+
+            for(int i = 0; i < this.selections[tipo].comps.size(); i++){
+                Componente c_tipo = this.selections[tipo].comps.get(i);
+                if(c.getID() == c_tipo.getID()){
+                    this.selections[tipo].selected = i + 1;
+                    break;
+                }
+            }
+        }
+    }
+
+
+    /**
+     * Método que atualizar os pacotes selecionados aquando da adição de uma componente
+     */
+    private void resetSelectionsPacote(){
+        // Verifica todas as componentes já selecionadas
+        List<Componente> all_comps = this.config.getComponentes();
+
+        // Para cada pacote verifica se está contigo na config
+        for(int i = 0; i < this.pacotes.size(); i++){
+            boolean flag = all_comps.containsAll(this.pacotes.get(i).getComponentes());
+
+            pacotes_tbl.getModel().setValueAt(flag, i, 1);
+
+        }
+    }
+
+
+    /**
+     * Método que desseleciona várias componentes da configuração
+     * @param incompativeis lista a remover
+     */
+    private void resetSelections(List<Componente> incompativeis) {
+        for(Componente c : incompativeis){
+            int tipo = c.getTipo() - 1;
+
+            this.selections[tipo].selected = -1;
+        }
+    }
+
+
+    /**
+     * Método que desseleciona uma componente de um certo tipo
+     * @param tipo tipo da componente
+     */
+    private void resetSelections(int tipo) {
+        this.selections[tipo-1].selected = -1;
+        loadSelection(tipo-1);
+    }
+
+
+    /**
+     * Método que carrega a informação de um pacote
+     * @param tipo tipo do pacote
+     */
+    private void loadSelectionPacote(int tipo) {
+        DefaultTableModel model = (DefaultTableModel) cmp_tbl2.getModel();
+        model.setRowCount(0);
+
+        List<Componente> list = this.pacotes.get(tipo).getComponentes();
+        Object row_data[] = new Object[3];
+
+        for(Componente c : list) {
+            row_data[0] = c.getID();
+            row_data[1] = c.getDesignacao();
+            row_data[2] = c.getPreco();
+
+            model.addRow(row_data);
+        }
+    }
+
+
+
     private void cmp_tblMouseClicked(MouseEvent e) {
         int tipo = type_list.getSelectedIndex();
         int row = cmp_tbl.getSelectedRow();
+        boolean flag = true;
 
         int old_selected = this.selections[tipo].selected;
-        
-        System.out.println("Old: " + old_selected); // FIXME: 12/29/2018 DEBUGGING
-        Componente old_componente = new Componente();
         if(old_selected != -1){
-            old_componente = this.selections[tipo].comps.get(old_selected);
+            Componente old_componente = this.selections[tipo].comps.get(old_selected);
             this.cf.removeComponente(this.config, old_componente);
         }
 
         if(row > 0) {
             Componente nova_componente = this.selections[tipo].comps.get(row - 1);
-            this.selections[tipo].selected = row;
+           // this.selections[tipo].selected = row;
 
             // INCOMPATIVEIS
             List<Componente> incompativeis = this.cf.checkIncompativeis(this.config, nova_componente);
@@ -183,10 +226,11 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
                     resetSelections(incompativeis);
                 }
                 else if(opt == JOptionPane.NO_OPTION){
-                    this.selections[tipo].selected = -1;
+                    this.selections[tipo].selected = old_selected;
+                    flag = false;
 
                     ListSelectionModel m = cmp_tbl.getSelectionModel();
-                    m.setSelectionInterval(0, 0);
+                    m.setSelectionInterval(old_selected, old_selected);
 
                     JOptionPane.showMessageDialog(new JFrame(), "Componente não adicionada", "Erro", JOptionPane.ERROR_MESSAGE);
                 }
@@ -202,6 +246,7 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
                 }
                 else if(opt == JOptionPane.NO_OPTION){
                     this.selections[tipo].selected = -1;
+                    flag = false;
 
                     ListSelectionModel m = cmp_tbl.getSelectionModel();
                     m.setSelectionInterval(0, 0);
@@ -210,8 +255,13 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
                 }
             }
 
-            this.cf.addComponente(this.config, nova_componente);
-            this.cf.addComponentes(this.config, complementares);
+            if(flag){
+                this.cf.addComponente(this.config, nova_componente);
+                this.cf.addComponentes(this.config, complementares);
+
+                resetSelectionsPacote();
+            }
+
         }
         else{
             this.selections[tipo].selected = 0;
@@ -246,43 +296,14 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
         return JOptionPane.showOptionDialog(new JFrame(), s.toString(), "Erro", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
     }
 
-    private void resetSelections(List<Componente> incompativeis) {
-        for(Componente c : incompativeis){
-            int tipo = c.getTipo() - 1;
 
-            this.selections[tipo].selected = -1;
-        }
-    }
-
-    private void resetSelections(int tipo) {
-            this.selections[tipo-1].selected = -1;
-            loadSelection(tipo-1);
-    }
-
-
-    private void loadSelectionPacote(int tipo) {
-        DefaultTableModel model = (DefaultTableModel) cmp_tbl2.getModel();
-        model.setRowCount(0);
-
-        List<Componente> list = this.pacotes.get(tipo).getComponentes();
-        Object row_data[] = new Object[3];
-
-        for(Componente c : list) {
-            row_data[0] = c.getID();
-            row_data[1] = c.getDesignacao();
-            row_data[2] = c.getPreco();
-
-            model.addRow(row_data);
-        }
-
-
-    }
 
     private void pacotes_tblMouseClicked(MouseEvent e) {
         int row = pacotes_tbl.getSelectedRow();
 
         loadSelectionPacote(row);
     }
+
 
     private void pacotes_tbl2MouseClicked(MouseEvent e) {
         int row = pacotes_tbl.getSelectedRow();
@@ -297,95 +318,74 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
                 pacotes_tbl.getModel().setValueAt(false, row, 1);
                 this.config.rmComponentes(p.getComponentes());
             }
-
             else if(e.getClickCount() == 2 && check == false) {
                 int opt = -1;
-
-
 
                 // INCOMPATIVEIS
                 List<Componente> incompativeis = this.cf.checkIncompativeis(this.config, p);
 
                 if (incompativeis.size() > 0) {
-
                     List<Componente> to_remove_config = new ArrayList<>();
 
                     for (Componente c : incompativeis) {
-                        opt = incompativeisErrorMessagePacote(c); //p, incompativeis);
+                        opt = incompativeisErrorMessagePacote(c);
                         if (opt == JOptionPane.YES_OPTION) {
                             to_remove_config.add(c);
                             resetSelections(c.getTipo());
-                            //this.cf.removeComponente(this.config, c);
                         }
                         else {
                             flag = false;
-
                         }
-                        /*else if (opt == JOptionPane.NO_OPTION){
-                            comp_pac.remove(c);
-                            System.out.println("SIZE: " + comp_pac.size()); // FIXME: 1/4/2019 debugging
-
-                            //pacotes_tbl.getModel().setValueAt(false, row, 1);
-                        }*/
                     }
                     this.cf.removeComponentes(this.config, to_remove_config);
-                    //this.cf.updateConfig(this.config, p);
-
                 }
                 else{
-                   // this.cf.updateConfig(this.config, p);
                     pacotes_tbl.getModel().setValueAt(true, row, 1);
                 }
-
 
                 // COMPLEMENTARES
                 List<Componente> complementares = this.cf.checkComplementares(p);
 
                 if(complementares.size() > 0){
                     List<Componente> to_add_config = new ArrayList<>();
+
                     for (Componente c : complementares) {
-                        opt = complementaresErrorMessagePacote(c); //p, incompativeis);
+                        opt = complementaresErrorMessagePacote(c);
                         if (opt == JOptionPane.YES_OPTION) {
                             to_add_config.add(c);
-                            //this.cf.removeComponente(this.config, c);
                         }
-                        else flag = false;
+                        else {
+                            flag = false;
+                        }
                     }
                     this.cf.addComponentes(this.config, to_add_config);
                 }
 
                 pacotes_tbl.getModel().setValueAt(flag, row, 1);
                 this.cf.updateConfig(this.config, p);
-            }
 
+                updateSelection();
+            }
         }
         catch (Exception e1){}
     }
 
-    private int incompativeisErrorMessagePacote(Componente c){ //, List<Componente> incompativeis) {
+    private int incompativeisErrorMessagePacote(Componente c){
         StringBuilder s = new StringBuilder();
         s.append("A componente da configuração (").append(c.getID()).append(" - ")
                                                         .append(c.getDesignacao())
                                                         .append(") é incompatível com componentes a adicionar do pacote.");
-
-        /*for(Componente c : incompativeis){
-            s.append(c.getID()).append(" - ").append(c.getDesignacao()).append('\n');
-        }*/
 
         Object[] options = {"Remover componente da configuração", "Manter componente na configuração"};
 
         return JOptionPane.showOptionDialog(new JFrame(), s.toString(), "Erro", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
     }
 
-    private int complementaresErrorMessagePacote(Componente c){ //, List<Componente> incompativeis) {
+    private int complementaresErrorMessagePacote(Componente c){
         StringBuilder s = new StringBuilder();
         s.append("A componente (").append(c.getID()).append(" - ")
                 .append(c.getDesignacao())
                 .append(") é complementar de componentes do pacote.");
-
-        /*for(Componente c : incompativeis){
-            s.append(c.getID()).append(" - ").append(c.getDesignacao()).append('\n');
-        }*/
 
         Object[] options = {"Adicionar Componente", "Descartar Componente"};
 

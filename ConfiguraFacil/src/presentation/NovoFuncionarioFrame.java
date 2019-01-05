@@ -56,6 +56,10 @@ public class NovoFuncionarioFrame extends javax.swing.JFrame {
 
     }
 
+    private void sair_btnActionPerformed(ActionEvent e) {
+        this.dispose();
+    }
+
 
     /**
      * Creates new form NewFuncionarioFrame
@@ -86,8 +90,8 @@ public class NovoFuncionarioFrame extends javax.swing.JFrame {
         label3 = new JLabel();
         label4 = new JLabel();
         label5 = new JLabel();
-        button1 = new JButton();
         error_txt = new JLabel();
+        sair_btn = new JButton();
 
         //======== this ========
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -105,8 +109,6 @@ public class NovoFuncionarioFrame extends javax.swing.JFrame {
         registar_btn.addActionListener(e -> {
             try {
                 registar_btnActionPerformed(e);
-            } catch (SQLException e1) {
-                e1.printStackTrace();
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
@@ -127,55 +129,54 @@ public class NovoFuncionarioFrame extends javax.swing.JFrame {
         //---- label5 ----
         label5.setText("E-mail");
 
-        //---- button1 ----
-        button1.setText("Sair");
-
         //---- error_txt ----
         error_txt.setText(" ");
         error_txt.setFont(new Font("Segoe UI", Font.PLAIN, 10));
         error_txt.setForeground(Color.red);
+
+        //---- sair_btn ----
+        sair_btn.setText("Sair");
+        sair_btn.addActionListener(e -> sair_btnActionPerformed(e));
 
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
         contentPane.setLayout(contentPaneLayout);
         contentPaneLayout.setHorizontalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(contentPaneLayout.createParallelGroup()
+                    .addGap(32, 32, 32)
+                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                         .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(26, 26, 26)
+                            .addComponent(label3)
+                            .addGap(8, 8, 8)
+                            .addComponent(tipo_cbox, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE))
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addComponent(label2)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(pw_txt, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE))
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addComponent(label1)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(nome_txt, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE))
+                        .addGroup(contentPaneLayout.createSequentialGroup()
                             .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                                 .addGroup(contentPaneLayout.createSequentialGroup()
-                                    .addComponent(label3)
-                                    .addGap(8, 8, 8)
-                                    .addComponent(tipo_cbox, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(label4)
+                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED))
                                 .addGroup(contentPaneLayout.createSequentialGroup()
-                                    .addComponent(label2)
-                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(pw_txt, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE))
-                                .addGroup(contentPaneLayout.createSequentialGroup()
-                                    .addComponent(label1)
-                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(nome_txt, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE))
-                                .addGroup(contentPaneLayout.createSequentialGroup()
-                                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                        .addGroup(contentPaneLayout.createSequentialGroup()
-                                            .addComponent(label4)
-                                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED))
-                                        .addGroup(contentPaneLayout.createSequentialGroup()
-                                            .addComponent(label5)
-                                            .addGap(5, 5, 5)))
-                                    .addGroup(contentPaneLayout.createParallelGroup()
-                                        .addComponent(tlmv_txt, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(mail_txt, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE))))
-                            .addGap(35, 35, 35))
-                        .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
-                            .addComponent(button1, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                            .addComponent(error_txt, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(registar_btn)
-                            .addContainerGap())))
+                                    .addComponent(label5)
+                                    .addGap(5, 5, 5)))
+                            .addGroup(contentPaneLayout.createParallelGroup()
+                                .addComponent(tlmv_txt, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(mail_txt, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE))))
+                    .addGap(35, 45, Short.MAX_VALUE))
+                .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(sair_btn, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                    .addComponent(error_txt, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(registar_btn)
+                    .addContainerGap())
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
@@ -207,7 +208,7 @@ public class NovoFuncionarioFrame extends javax.swing.JFrame {
                             .addGap(18, 18, 18)
                             .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(registar_btn)
-                                .addComponent(button1)))
+                                .addComponent(sair_btn)))
                         .addGroup(contentPaneLayout.createSequentialGroup()
                             .addGap(6, 6, 6)
                             .addComponent(error_txt)))
@@ -215,7 +216,7 @@ public class NovoFuncionarioFrame extends javax.swing.JFrame {
         );
         pack();
         setLocationRelativeTo(getOwner());
-    }// </editor-fold>//
+    }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // Generated using JFormDesigner Evaluation license - Pedro Moreira
@@ -230,7 +231,7 @@ public class NovoFuncionarioFrame extends javax.swing.JFrame {
     private JLabel label3;
     private JLabel label4;
     private JLabel label5;
-    private JButton button1;
     private JLabel error_txt;
+    private JButton sair_btn;
     // End of variables declaration//GEN-END:variables
 }

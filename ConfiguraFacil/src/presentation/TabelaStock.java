@@ -43,8 +43,7 @@ public class TabelaStock extends JFrame {
         table1.setRowSorter(sorter);
 
         List<RowSorter.SortKey> sortKeys = new ArrayList<>();
-        //sortKeys.add(new RowSorter.SortKey(4, SortOrder.ASCENDING));
-        sortKeys.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
+        sortKeys.add(new RowSorter.SortKey(2, SortOrder.ASCENDING));
         sorter.setSortKeys(sortKeys);
     }
 
