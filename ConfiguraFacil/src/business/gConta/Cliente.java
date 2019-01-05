@@ -75,18 +75,6 @@ public class Cliente {
         this.email = email;
     }
 
-    /**
-     * Método para alterar todos os campos de um cliente.
-     * @param nome Novo nome.
-     * @param tel Novo número de telemóvel.
-     * @param mail Novo mail.
-     */
-
-    public void setAll(String nome,int tel,String mail) {
-        this.nome = nome;
-        this.telemovel = tel;
-        this.email = mail;
-    }
 
     /**
      * Construtor sem parametros de Cliente.

@@ -147,22 +147,6 @@ public class Funcionario {
         this.tipo = t;
     }
 
-    /**
-     * Método para atualizar todos os valores de um funcionário ao mesmo tempo.
-     * @param nome Nome atualizado.
-     * @param password Password atualizada.
-     * @param tipo Tipo atualizado.
-     * @param telemovel Número de telemóvel atualizado.
-     * @param email Email atualizado.
-     */
-
-    public void setAll(String nome, String password, int tipo, int telemovel, String email){
-        this.nome = nome;
-        this.password = password;
-        this.tipo = tipo;
-        this.telemovel = telemovel;
-        this.email = email;
-    }
 
     /**
      * Método que dado a password calcula as permissões do funcionário na aplicação.

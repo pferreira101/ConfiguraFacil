@@ -13,17 +13,6 @@ public class Pacote {
         this.componentes = comps;
     }
 
-    public Pacote() {
-        this.id = -1;
-        this.desconto = 0;
-        this.componentes = new ArrayList<>();
-    }
-
-    public Pacote(int id, double desconto, List<Componente> comps) {
-        this.id = id;
-        this.desconto = desconto;
-        this.componentes = comps;
-    }
 
 
     /**
@@ -75,7 +64,8 @@ public class Pacote {
     }
 
     /**
-     *
+     * Método para obter todos os complementares de um pacote
+     * @return Lista dos componentes que devem estar instalados para ser possível adicionar o pacote.
      */
     public List<Componente> getComplementares(){
         Set <Componente> complmtrAux = new HashSet<>();

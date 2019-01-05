@@ -129,17 +129,7 @@ public class Encomenda {
         this.config = config;
     }
 
-    /**
-     * Construtor ser parametros de um encomenda.
-     */
 
-    public Encomenda(){
-        this.id = -1;
-        this.cliente = -1;
-        this.funcionario = -1;
-        this.status = false;
-        this.config = new Configuracao();
-    }
 
     /**
      * Construtor parameterizado de uma encomenda.
