@@ -10,6 +10,7 @@ import business.gFabrica.Stock;
 import java.util.*;
 
 import java.awt.*;
+import java.util.List;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 import javax.swing.table.*;
@@ -30,12 +31,20 @@ public class TabelaStock extends JFrame {
         model.setRowCount(0);
 
         // Adiciona novos
-        for(Map.Entry<String,Stock> k : this.stock.entrySet()){
+        for(Map.Entry<String, Stock> k : this.stock.entrySet()){
             row_data[0] = k.getValue().getID();
             row_data[1] = k.getKey();
             row_data[2] = k.getValue().getQuantidade();
             model.addRow(row_data);
         }
+
+        TableRowSorter<TableModel> sorter = new TableRowSorter<>(table1.getModel());
+        table1.setRowSorter(sorter);
+
+        List<RowSorter.SortKey> sortKeys = new ArrayList<>();
+        //sortKeys.add(new RowSorter.SortKey(4, SortOrder.ASCENDING));
+        sortKeys.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
+        sorter.setSortKeys(sortKeys);
     }
 
     public TabelaStock(ConfiguraFacil cf) {

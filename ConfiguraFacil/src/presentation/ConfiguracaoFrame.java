@@ -5,7 +5,6 @@
  */
 package presentation;
 
-import java.beans.*;
 import business.ConfiguraFacil;
 import business.gConfig.Componente;
 import business.gConfig.Configuracao;
@@ -13,10 +12,8 @@ import business.gConfig.Pacote;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 import java.util.List;
-import java.util.Vector;
 import java.util.stream.Collectors;
 import javax.swing.*;
 import javax.swing.GroupLayout;
@@ -68,7 +65,7 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
             try{
                 boolean is_selected = (boolean) pacotes_tbl.getModel().getValueAt(i, 1);
                 if(is_selected){
-                    config.addPacote(this.pacotes.get(i));
+                    config.updateConfig(this.pacotes.get(i));
                 }
             }catch (NullPointerException e1) {}
 
@@ -95,7 +92,7 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
         if(incomp.size() == 0 && complementares.size() == 0){*/
             this.cf.componentesToPacote(this.config, this.pacotes);
             try {
-                this.dispose();
+                //this.dispose();
                 new RegistaEncomendaFrame(this.cf, this.config).setVisible(true);
             }
             catch (Exception a){a.printStackTrace();}
@@ -163,45 +160,67 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
         int old_selected = this.selections[tipo].selected;
         
         System.out.println("Old: " + old_selected); // FIXME: 12/29/2018 DEBUGGING
-
         Componente old_componente = new Componente();
-        if(old_selected != -1) {
-            old_componente = this.selections[tipo].comps.get(old_selected - 1);
+        if(old_selected != -1){
+            old_componente = this.selections[tipo].comps.get(old_selected);
+            this.cf.removeComponente(this.config, old_componente);
         }
 
-        Componente nova_componente = new Componente();
         if(row > 0) {
-             nova_componente = this.selections[tipo].comps.get(row - 1);
-        }
+            Componente nova_componente = this.selections[tipo].comps.get(row - 1);
+            this.selections[tipo].selected = row;
+
+            // INCOMPATIVEIS
             List<Componente> incompativeis = this.cf.checkIncompativeis(this.config, nova_componente);
             int opt = -1;
 
             if(incompativeis.size() > 0){
-                opt = showErrorMessage(nova_componente, incompativeis);
+                opt = incompativeisErrorMessage(nova_componente, incompativeis);
+
+                if (opt == JOptionPane.YES_OPTION){
+
+                    this.selections[tipo].selected = row;
+                    resetSelections(incompativeis);
+                }
+                else if(opt == JOptionPane.NO_OPTION){
+                    this.selections[tipo].selected = -1;
+
+                    ListSelectionModel m = cmp_tbl.getSelectionModel();
+                    m.setSelectionInterval(0, 0);
+
+                    JOptionPane.showMessageDialog(new JFrame(), "Componente não adicionada", "Erro", JOptionPane.ERROR_MESSAGE);
+                }
             }
 
-            ListSelectionModel m = cmp_tbl.getSelectionModel();
+            // COMPLEMENTARES
+            List<Componente> complementares = this.cf.checkComplementares(nova_componente);
+            if(complementares.size() > 0){
+                opt = complementaresErrorMessage(nova_componente, complementares);
 
-            if (opt == JOptionPane.YES_OPTION || incompativeis.size() == 0){
-                this.cf.addComponente(this.config, nova_componente);
-                this.cf.removeComponente(this.config, old_componente);
-                this.cf.removeComponentes(this.config, incompativeis);
+                if (opt == JOptionPane.YES_OPTION ){
 
+                }
+                else if(opt == JOptionPane.NO_OPTION){
+                    this.selections[tipo].selected = -1;
 
-                this.selections[tipo].selected = row;
-                resetSelections(incompativeis);
+                    ListSelectionModel m = cmp_tbl.getSelectionModel();
+                    m.setSelectionInterval(0, 0);
+
+                    JOptionPane.showMessageDialog(new JFrame(), "Componente não adicionada", "Erro", JOptionPane.ERROR_MESSAGE);
+                }
             }
-            else if(opt == JOptionPane.NO_OPTION){
-                this.selections[tipo].selected = -1;
 
-                m.setSelectionInterval(0, 0);
-            }
-
+            this.cf.addComponente(this.config, nova_componente);
+            this.cf.addComponentes(this.config, complementares);
+        }
+        else{
+            this.selections[tipo].selected = 0;
+        }
 
 
     }
 
-    private int showErrorMessage(Componente nova_componente, List<Componente> incompativeis) {
+    private int incompativeisErrorMessage(Componente nova_componente, List<Componente> incompativeis) {
         StringBuilder s = new StringBuilder();
         s.append("Componente a adicionar (").append(nova_componente.getID()).append(") incompatível com: \n");
 
@@ -214,13 +233,30 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
         return JOptionPane.showOptionDialog(new JFrame(), s.toString(), "Erro", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
     }
 
+    private int complementaresErrorMessage(Componente nova_componente, List<Componente> complementares) {
+        StringBuilder s = new StringBuilder();
+        s.append("Componente a adicionar (").append(nova_componente.getID()).append(") tem como complementares as componentes: \n");
+
+        for(Componente c : complementares){
+            s.append(c.getID()).append(" - ").append(c.getDesignacao()).append('\n');
+        }
+
+        Object[] options = {"Adicionar todas", "Descartar"};
+
+        return JOptionPane.showOptionDialog(new JFrame(), s.toString(), "Erro", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+    }
+
     private void resetSelections(List<Componente> incompativeis) {
         for(Componente c : incompativeis){
             int tipo = c.getTipo() - 1;
 
             this.selections[tipo].selected = -1;
-            ListSelectionModel m = cmp_tbl.getSelectionModel();
         }
+    }
+
+    private void resetSelections(int tipo) {
+            this.selections[tipo-1].selected = -1;
+            loadSelection(tipo-1);
     }
 
 
@@ -249,49 +285,109 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
     }
 
     private void pacotes_tbl2MouseClicked(MouseEvent e) {
+        int row = pacotes_tbl.getSelectedRow();
+        System.out.println(row); // FIXME: 1/4/2019 debugging
+        boolean check = (boolean) pacotes_tbl.getModel().getValueAt(row, 1);
+        System.out.println(check); // FIXME: 1/4/2019 debugging
+        Pacote p = this.pacotes.get(row);
+        boolean flag = true;
+
         try{
-            int row = pacotes_tbl.getSelectedRow();
-            boolean check = (boolean)pacotes_tbl.getModel().getValueAt(row, 1);
+            if(e.getClickCount() == 2 && check == true) {
+                pacotes_tbl.getModel().setValueAt(false, row, 1);
+                this.config.rmComponentes(p.getComponentes());
+            }
 
-            if(check){
+            else if(e.getClickCount() == 2 && check == false) {
                 int opt = -1;
-                Pacote p = this.pacotes.get(row);
+
+
+
+                // INCOMPATIVEIS
                 List<Componente> incompativeis = this.cf.checkIncompativeis(this.config, p);
-                if(incompativeis.size() > 0){
-                    List<Componente> c_pac = p.getComponentes();
-                    for(Componente c : incompativeis){
-                        opt = showErrorMessagePacote(c); //p, incompativeis);
-                        if(opt == JOptionPane.YES_OPTION){
-                            this.cf.removeComponente(this.config, c);
-                        }
-                        else{
 
-                            pacotes_tbl.getModel().setValueAt(false, row, 1);
+                if (incompativeis.size() > 0) {
+
+                    List<Componente> to_remove_config = new ArrayList<>();
+
+                    for (Componente c : incompativeis) {
+                        opt = incompativeisErrorMessagePacote(c); //p, incompativeis);
+                        if (opt == JOptionPane.YES_OPTION) {
+                            to_remove_config.add(c);
+                            resetSelections(c.getTipo());
+                            //this.cf.removeComponente(this.config, c);
                         }
+                        else {
+                            flag = false;
+
+                        }
+                        /*else if (opt == JOptionPane.NO_OPTION){
+                            comp_pac.remove(c);
+                            System.out.println("SIZE: " + comp_pac.size()); // FIXME: 1/4/2019 debugging
+
+                            //pacotes_tbl.getModel().setValueAt(false, row, 1);
+                        }*/
                     }
-                    this.cf.addPacote(this.config, p);
-
+                    this.cf.removeComponentes(this.config, to_remove_config);
+                    //this.cf.updateConfig(this.config, p);
 
                 }
                 else{
-                    this.cf.addPacote(this.config, p);
+                   // this.cf.updateConfig(this.config, p);
+                    pacotes_tbl.getModel().setValueAt(true, row, 1);
                 }
+
+
+                // COMPLEMENTARES
+                List<Componente> complementares = this.cf.checkComplementares(p);
+
+                if(complementares.size() > 0){
+                    List<Componente> to_add_config = new ArrayList<>();
+                    for (Componente c : complementares) {
+                        opt = complementaresErrorMessagePacote(c); //p, incompativeis);
+                        if (opt == JOptionPane.YES_OPTION) {
+                            to_add_config.add(c);
+                            //this.cf.removeComponente(this.config, c);
+                        }
+                        else flag = false;
+                    }
+                    this.cf.addComponentes(this.config, to_add_config);
+                }
+
+                pacotes_tbl.getModel().setValueAt(flag, row, 1);
+                this.cf.updateConfig(this.config, p);
             }
+
         }
         catch (Exception e1){}
     }
 
-    private int showErrorMessagePacote(Componente c){ //, List<Componente> incompativeis) {
+    private int incompativeisErrorMessagePacote(Componente c){ //, List<Componente> incompativeis) {
         StringBuilder s = new StringBuilder();
-        s.append("A componente do pacote a adicionar (").append(c.getID()).append(" - ")
+        s.append("A componente da configuração (").append(c.getID()).append(" - ")
                                                         .append(c.getDesignacao())
-                                                        .append(")é incompatível \ncom componentes já existentes na configuração.");
+                                                        .append(") é incompatível com componentes a adicionar do pacote.");
 
         /*for(Componente c : incompativeis){
             s.append(c.getID()).append(" - ").append(c.getDesignacao()).append('\n');
         }*/
 
-        Object[] options = {"Manter Componente do Pacote", "Descartar Componente do pacote"};
+        Object[] options = {"Remover componente da configuração", "Manter componente na configuração"};
+
+        return JOptionPane.showOptionDialog(new JFrame(), s.toString(), "Erro", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+    }
+
+    private int complementaresErrorMessagePacote(Componente c){ //, List<Componente> incompativeis) {
+        StringBuilder s = new StringBuilder();
+        s.append("A componente (").append(c.getID()).append(" - ")
+                .append(c.getDesignacao())
+                .append(") é complementar de componentes do pacote.");
+
+        /*for(Componente c : incompativeis){
+            s.append(c.getID()).append(" - ").append(c.getDesignacao()).append('\n');
+        }*/
+
+        Object[] options = {"Adicionar Componente", "Descartar Componente"};
 
         return JOptionPane.showOptionDialog(new JFrame(), s.toString(), "Erro", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
     }
@@ -335,7 +431,7 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    // Generated using JFormDesigner Evaluation license - Henrique Pereira
+    // Generated using JFormDesigner Evaluation license - Pedro Moreira
     private void initComponents() {
         sair_btn = new JButton();
         registar_btn = new JButton();
@@ -429,7 +525,7 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
                     Object.class, Boolean.class
                 };
                 boolean[] columnEditable = new boolean[] {
-                    false, true
+                    false, false
                 };
                 @Override
                 public Class<?> getColumnClass(int columnIndex) {
@@ -489,9 +585,9 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
                 .addGroup(contentPaneLayout.createSequentialGroup()
                     .addGroup(contentPaneLayout.createParallelGroup()
                         .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(0, 0, Short.MAX_VALUE)
+                            .addContainerGap()
                             .addComponent(sair_btn)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                             .addComponent(confgO_btn)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(registar_btn))
@@ -514,7 +610,7 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
                 .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
                     .addGap(25, 25, 25)
                     .addGroup(contentPaneLayout.createParallelGroup()
-                        .addComponent(jScrollPane2, GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE))
                     .addGap(21, 21, 21)
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
@@ -523,8 +619,8 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
                     .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(registar_btn)
-                        .addComponent(sair_btn)
-                        .addComponent(confgO_btn))
+                        .addComponent(confgO_btn)
+                        .addComponent(sair_btn))
                     .addContainerGap())
         );
         pack();
@@ -533,7 +629,7 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Henrique Pereira
+    // Generated using JFormDesigner Evaluation license - Pedro Moreira
     private JButton sair_btn;
     private JButton registar_btn;
     private JScrollPane jScrollPane1;

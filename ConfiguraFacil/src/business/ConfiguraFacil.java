@@ -294,13 +294,13 @@ public class ConfiguraFacil {
             aux = new ArrayList<>();
         }
 
-        Map<String,Stock> res = new HashMap<>();
+        Map<String, Stock> res = new HashMap<>();
 
         for(Stock k : aux){
             try{
                 int id = k.getID();
                 Componente c = this.componenteDAO.get(id);
-                res.put(c.getDesignacao(),k);
+                res.put(c.getDesignacao(), k);
             }
             catch (Exception e){}
         }
@@ -499,7 +499,7 @@ public class ConfiguraFacil {
      * @param config Configuração na qual se adiciona o pacote
      * @param pack Pacote a adicionar
      */
-    public void addPacote(Configuracao config, Pacote pack) {
+    public void updateConfig(Configuracao config, Pacote pack) {
         config.addPacote(pack);
     }
 
