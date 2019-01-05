@@ -21,10 +21,6 @@ import javax.swing.LayoutStyle;
 import javax.swing.event.*;
 import javax.swing.table.*;
 
-/**
- *
- * @author Pedro
- */
 
 class Selection{
 
@@ -444,7 +440,6 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
         }
 
         this.pacotes = cf.getPacotes();
-
     }
 
     /**
@@ -454,7 +449,7 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    // Generated using JFormDesigner Evaluation license - Pedro Miguel Moreira Ferreira
+    // Generated using JFormDesigner Evaluation license - Pedro Moreira
     private void initComponents() {
         sair_btn = new JButton();
         registar_btn = new JButton();
@@ -538,7 +533,9 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
             pacotes_tbl.setModel(new DefaultTableModel(
                 new Object[][] {
                     {"1 - Sport", false},
-                    {"2 - Comfort", null},
+                    {"2 - Comfort", false},
+                    {"3 - Off-Road", false},
+                    {"4 - Executive", false},
                 },
                 new String[] {
                     "Pacote", " "
@@ -652,7 +649,7 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Pedro Miguel Moreira Ferreira
+    // Generated using JFormDesigner Evaluation license - Pedro Moreira
     private JButton sair_btn;
     private JButton registar_btn;
     private JScrollPane jScrollPane1;

@@ -73,7 +73,15 @@ new FormModel {
 						} )
 						add( new java.util.Vector {
 							add( "2 - Comfort" )
-							add( null )
+							add( false )
+						} )
+						add( new java.util.Vector {
+							add( "3 - Off-Road" )
+							add( false )
+						} )
+						add( new java.util.Vector {
+							add( "4 - Executive" )
+							add( false )
 						} )
 					}, new java.util.Vector {
 						add( "Pacote" )
