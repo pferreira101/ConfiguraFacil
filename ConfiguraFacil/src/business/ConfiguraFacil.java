@@ -428,11 +428,13 @@ public class ConfiguraFacil {
     /**
      * Método para verificar se um dado componente obriga à instalação de outros
      *
+     *
+     * @param config
      * @param comp Componente a verificar
      * @return Lista dos componentes complementares ao componente argumento
      */
-    public List<Componente> checkComplementares(Componente comp) {
-        return comp.getComplementares();
+    public List<Componente> checkComplementares(Configuracao config, Componente comp) {
+        return config.complementares(comp);
     }
 
 

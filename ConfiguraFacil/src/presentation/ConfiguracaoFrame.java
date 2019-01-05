@@ -261,8 +261,8 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
             }
 
             // COMPLEMENTARES
-            List<Componente> complementares = this.cf.checkComplementares(nova_componente);
-            if(complementares.size() > 0){
+            List<Componente> complementares = this.cf.checkComplementares(this.config, nova_componente);
+            if(complementares.size() > 0 && flag){
                 opt = complementaresErrorMessage(nova_componente, complementares);
 
                 if (opt == JOptionPane.YES_OPTION ){
