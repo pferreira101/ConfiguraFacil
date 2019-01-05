@@ -280,6 +280,9 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
         }
         else{
             this.cf.removeComponente(this.config, old_componente);
+            this.cf.removeComponentes(this.config, old_componente.getComplementares());
+            resetSelections(old_componente.getComplementares());
+            resetSelectionsPacote();
             this.selections[tipo].selected = 0;
         }
 
