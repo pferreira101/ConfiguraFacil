@@ -152,29 +152,6 @@ public class ConfiguraFacil {
         this.funcionarioDAO.put(id, f);
     }
 
-    /**
-     * Método para verificar se um dado funcionário existe no sistema.
-     *
-     * @param id Id do funcionário a verificar.
-     * @return
-     */
-
-
-    public boolean existeFuncionario(int id) {
-        return this.funcionarioDAO.containsFunc(id);
-    }
-
-    /**
-     * Método para verificar se um dado cliente existe no sistema.
-     *
-     * @param codClient Id do cliente a verificar.
-     * @return Cliente pretendido caso existe.
-     */
-
-
-    public Cliente existeCliente(int codClient) throws Exception {
-        return this.clienteDAO.get(codClient);
-    }
 
     /**
      * Método do facade para atualizar os campos de um cliente.
@@ -411,9 +388,7 @@ public class ConfiguraFacil {
 
     }
 
-    public void atualizarStock(int id_comp, int quantidade) throws SQLException, ClassNotFoundException, Exception {
-        this.fabrica.atualizarStock(id_comp, quantidade);
-    }
+
 
     /**
      * Método para verificar se um componente é compatível com uma Configuracao
@@ -456,8 +431,7 @@ public class ConfiguraFacil {
      * @param comps  Lista de componentes a adicionar
      */
     public void addComponentes(Configuracao config, List<Componente> comps) {
-        for (Componente c : comps)
-            config.addComponente(c);
+            config.addComponentes(comps);
     }
 
     /**
