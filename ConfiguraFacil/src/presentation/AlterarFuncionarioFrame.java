@@ -42,10 +42,11 @@ public class AlterarFuncionarioFrame extends javax.swing.JFrame {
         int opt = confirm();
 
         if(opt == JOptionPane.YES_OPTION){
+
             this.cf.removeFuncionario(f.getID());
 
             List<Funcionario> list = this.cf.getFuncionarios();
-            this.to_update.updateTable(list); //não sei se é a melhor maneira para atualizar a tabela mas funciona
+            this.to_update.updateTable(list);
             this.to_update.updateList(list);
 
             this.dispose();
@@ -68,7 +69,7 @@ public class AlterarFuncionarioFrame extends javax.swing.JFrame {
                     this.cf.alteraFuncionario(f.getID(), f.getNome(), f.getPassword(), tipo, telemovel, email);
 
                     List<Funcionario> list = this.cf.getFuncionarios();
-                    this.to_update.updateTable(list); //não sei se é a melhor maneira para atualizar a tabela mas funciona
+                    this.to_update.updateTable(list);
                     this.to_update.updateList(list);
 
                     JOptionPane.showMessageDialog(new JFrame(), "Funcionário alterado com sucesso.", "Funcionário Alterado", JOptionPane.INFORMATION_MESSAGE);

@@ -1,4 +1,4 @@
-
+USE ConfiguraFacil;
 # POVOAMENTO FUNCIONARIOS
 
 INSERT INTO funcionario

@@ -57,7 +57,6 @@ public class FuncionariosFrame extends javax.swing.JFrame {
         if(e.getClickCount() == 2){
             int row = this.display_tbl.getSelectedRow();
             int id = (int) this.display_tbl.getModel().getValueAt(row, 0);
-
             try {
                 Funcionario selected = this.cf.getFuncionario(id);
                 new AlterarFuncionarioFrame(this.cf, selected, this).setVisible(true);

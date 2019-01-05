@@ -37,18 +37,19 @@ public class NovoClienteFrame extends javax.swing.JFrame {
 
                 List<Cliente> list = this.cf.getClientes();
                 if (to_update!=null) {
-                    this.to_update.updateTable(list); //não sei se é a melhor maneira para atualizar a tabela mas funciona
+                    this.to_update.updateTable(list);
                     this.to_update.updateList(list);
                 }
                 if (to_update2!=null) {
-                    this.to_update2.updateClientesTable(list); //não sei se é a melhor maneira para atualizar a tabela mas funciona
+                    this.to_update2.updateClientesTable(list);
                     this.to_update2.updateList(list);
                 }
-
+                JOptionPane.showMessageDialog(new JFrame(), "Cliente registado com sucesso", "Cliente Registado", JOptionPane.PLAIN_MESSAGE);
                 this.dispose();
             }
             else {
                 JOptionPane.showMessageDialog(new JFrame(), "Preencha todos os campos.", "Campos por preencher", JOptionPane.ERROR_MESSAGE);
+                this.dispose();
             }
         }
         catch (NumberFormatException e1){

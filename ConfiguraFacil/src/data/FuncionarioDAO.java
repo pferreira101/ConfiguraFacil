@@ -48,6 +48,7 @@ public class FuncionarioDAO {
         ResultSet rs = st.executeQuery();
         if(rs.next()) {
             f = new Funcionario();
+            f.setID(rs.getInt("id_funcionario"));
             f.setNome(rs.getString("nome"));
             f.setPassword(rs.getString("password"));
             f.setTelemovel(rs.getInt("telemovel"));

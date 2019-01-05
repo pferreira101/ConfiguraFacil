@@ -13,7 +13,7 @@ public class Funcionario {
      */
 
 	public Funcionario(){
-        this.id = -1;
+        this.id = -2;
         this.nome = "";
         this.password = "";
         this.telemovel = -1;

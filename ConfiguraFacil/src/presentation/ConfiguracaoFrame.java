@@ -405,7 +405,9 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
             Configuracao config = this.cf.calculaConfig(Double.parseDouble(s));
             new RegistaEncomendaFrame(this.cf,config).setVisible(true);
         }
-        catch (Exception a){a.printStackTrace();}
+        catch (Exception a){
+            JOptionPane.showMessageDialog(new JFrame(), "Configuração ótima cancelada", "Campos por preencher", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
 
@@ -431,7 +433,7 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    // Generated using JFormDesigner Evaluation license - Pedro Moreira
+    // Generated using JFormDesigner Evaluation license - Pedro Miguel Moreira Ferreira
     private void initComponents() {
         sair_btn = new JButton();
         registar_btn = new JButton();
@@ -629,7 +631,7 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Pedro Moreira
+    // Generated using JFormDesigner Evaluation license - Pedro Miguel Moreira Ferreira
     private JButton sair_btn;
     private JButton registar_btn;
     private JScrollPane jScrollPane1;
