@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq {space :p:38:p, comp scrollPane1:::p:325:p, space ::35:x}, seq t {space ::166:x, comp exit_bt:::p::p, space :p:154:p}}"
-			"$verticalGroup": "par l {seq l {space :p:26:p, comp scrollPane1:::p:192:p, space s:::p, comp exit_bt:::p::p, space ::10:x}}"
+			"$horizontalGroup": "par l {seq {par l {seq {space :p:38:p, comp scrollPane1:::p:325:p}, seq l {space :::p, comp exit_bt:::p:64:p}}, space ::35:x}}"
+			"$verticalGroup": "par l {seq l {space :p:26:p, comp scrollPane1:::p:192:p, space s:::p, comp exit_bt:::p::p, space ::8:x}}"
 		} ) {
 			name: "this"
 			"title": "Componentes em falta"
@@ -13,15 +13,20 @@ new FormModel {
 				name: "scrollPane1"
 				add( new FormComponent( "javax.swing.JTable" ) {
 					name: "tb_lista"
-					"model": new com.jformdesigner.model.SwingTableModel( new java.util.Vector, new java.util.Vector {
+					"model": new com.jformdesigner.model.SwingTableModel( new java.util.Vector {
+						add( new java.util.Vector {
+							add( null )
+							add( null )
+						} )
+					}, new java.util.Vector {
 						add( "Id" )
 						add( "Designação" )
 					}, new java.util.Vector {
 						add( null )
 						add( null )
 					}, new java.util.Vector {
-						add( null )
-						add( null )
+						add( false )
+						add( false )
 					}, new java.util.Vector {
 						add( null )
 						add( null )

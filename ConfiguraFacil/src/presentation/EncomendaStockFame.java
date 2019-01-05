@@ -78,6 +78,7 @@ public class EncomendaStockFame extends JFrame {
                 if (valid){
                     q_comp.setVisible(true);
                     label_q.setVisible(true);
+                    button1.setText("Encomendar");
                 }
                 else{
                     warning();
@@ -117,7 +118,7 @@ public class EncomendaStockFame extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Diogo Sobral
+        // Generated using JFormDesigner Evaluation license - Pedro Moreira
         id_comp = new JTextField();
         q_comp = new JTextField();
         label1 = new JLabel();
@@ -129,13 +130,13 @@ public class EncomendaStockFame extends JFrame {
         Container contentPane = getContentPane();
 
         //---- label1 ----
-        label1.setText("Id da Componente");
+        label1.setText("ID da Componente");
 
         //---- label_q ----
         label_q.setText("Quantidade");
 
         //---- button1 ----
-        button1.setText("Encomendar");
+        button1.setText("Verificar");
         button1.addActionListener(e -> Encomenda_btnActionPerformed(e));
 
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
@@ -143,36 +144,35 @@ public class EncomendaStockFame extends JFrame {
         contentPaneLayout.setHorizontalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
+                    .addGap(14, 14, 14)
                     .addGroup(contentPaneLayout.createParallelGroup()
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(label1, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
+                        .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
+                            .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                .addComponent(label1, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(label_q))
                             .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(id_comp, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE))
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(label_q, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(q_comp, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE))
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(61, 61, 61)
-                            .addComponent(button1)))
-                    .addContainerGap(43, Short.MAX_VALUE))
+                            .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                .addComponent(id_comp, GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+                                .addComponent(q_comp, GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
+                            .addGap(25, 25, 25))
+                        .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
+                            .addComponent(button1)
+                            .addContainerGap())))
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
-                .addGroup(contentPaneLayout.createSequentialGroup()
+                .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
                     .addGap(22, 22, 22)
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(label1)
                         .addComponent(id_comp, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(label_q)
-                        .addComponent(q_comp, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addGap(36, 36, 36)
+                        .addComponent(q_comp, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(label_q))
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(button1)
-                    .addContainerGap(16, Short.MAX_VALUE))
+                    .addContainerGap())
         );
         pack();
         setLocationRelativeTo(getOwner());
@@ -180,7 +180,7 @@ public class EncomendaStockFame extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Diogo Sobral
+    // Generated using JFormDesigner Evaluation license - Pedro Moreira
     private JTextField id_comp;
     private JTextField q_comp;
     private JLabel label1;

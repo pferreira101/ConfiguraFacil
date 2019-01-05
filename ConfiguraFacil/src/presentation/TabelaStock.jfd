@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq l {space :p:39:p, par l {comp scrollPane1::l:p:317:p, seq l {space :p:45:p, comp Sair:::p::p, space :p:42:p, comp atu_btn:::p::p}}, space ::42:x}}"
-			"$verticalGroup": "par l {seq l {space :::p, comp scrollPane1:::p:207:p, space s:::p, par b {comp Sair::b:p::p, comp atu_btn::b:p::p}, space ::13:x}}"
+			"$horizontalGroup": "par l {seq l {space :::p, comp Sair:::p:63:p, space ::215:x, comp atu_btn:::p::p, space :::p}, seq l {space :p:17:p, comp scrollPane1:::p:365:p, space ::16:x}}"
+			"$verticalGroup": "par l {seq l {space ::13:x, comp scrollPane1:::p:207:p, space s:::p, par b {comp Sair::b:p::p, comp atu_btn::b:p::p}, space :::p}}"
 		} ) {
 			name: "this"
 			"name": "frame18"

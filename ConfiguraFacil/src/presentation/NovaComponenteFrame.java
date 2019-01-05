@@ -159,7 +159,7 @@ public class NovaComponenteFrame extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    // Generated using JFormDesigner Evaluation license - Diogo Sobral
+    // Generated using JFormDesigner Evaluation license - Pedro Moreira
     private void initComponents() {
         nome_txt = new JTextField();
         jComboBox1 = new JComboBox<>();
@@ -211,17 +211,17 @@ public class NovaComponenteFrame extends javax.swing.JFrame {
             table1.setModel(new DefaultTableModel(
                 new Object[][] {
                     {null, null, false, false},
-                    {null, null, null, null},
+                    {null, null, false, false},
                 },
                 new String[] {
-                    "ID", "Designa\u00e7\u00e3o", "Compat\u00edveis", "Incompat\u00edveis"
+                    "ID", "Designa\u00e7\u00e3o", "Complementar", "Incompat\u00edveis"
                 }
             ) {
                 Class<?>[] columnTypes = new Class<?>[] {
                     Object.class, Object.class, Boolean.class, Boolean.class
                 };
                 boolean[] columnEditable = new boolean[] {
-                    false, true, true, true
+                    false, false, true, true
                 };
                 @Override
                 public Class<?> getColumnClass(int columnIndex) {
@@ -266,9 +266,9 @@ public class NovaComponenteFrame extends javax.swing.JFrame {
                                     .addComponent(nome_txt, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)))
                             .addGap(30, 30, 30))
                         .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(46, 46, 46)
-                            .addComponent(button1, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
+                            .addGap(38, 38, 38)
+                            .addComponent(button1, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(adicionar_btn)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 362, GroupLayout.PREFERRED_SIZE)
@@ -277,9 +277,10 @@ public class NovaComponenteFrame extends javax.swing.JFrame {
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addGroup(contentPaneLayout.createParallelGroup()
+                    .addGap(17, 17, 17)
+                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                        .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 164, GroupLayout.PREFERRED_SIZE)
                         .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(32, 32, 32)
                             .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(nome_txt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addComponent(label1))
@@ -294,11 +295,8 @@ public class NovaComponenteFrame extends javax.swing.JFrame {
                             .addGap(28, 28, 28)
                             .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(adicionar_btn)
-                                .addComponent(button1)))
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(17, 17, 17)
-                            .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 180, GroupLayout.PREFERRED_SIZE)))
-                    .addContainerGap(36, Short.MAX_VALUE))
+                                .addComponent(button1))))
+                    .addContainerGap(12, Short.MAX_VALUE))
         );
         pack();
         setLocationRelativeTo(getOwner());
@@ -307,7 +305,7 @@ public class NovaComponenteFrame extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Diogo Sobral
+    // Generated using JFormDesigner Evaluation license - Pedro Moreira
     private JTextField nome_txt;
     private JComboBox<String> jComboBox1;
     private JButton adicionar_btn;

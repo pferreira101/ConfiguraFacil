@@ -50,7 +50,6 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
         if(this.config.getComponentes().size() > 0){
             this.cf.componentesToPacote(this.config, this.pacotes);
             try {
-                //this.dispose();
                 new RegistaEncomendaFrame(this.cf, this.config).setVisible(true);
             }
             catch (Exception a){
@@ -316,7 +315,9 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
 
     private int complementaresErrorMessage(Componente nova_componente, List<Componente> complementares) {
         StringBuilder s = new StringBuilder();
-        s.append("Componente a adicionar (").append(nova_componente.getID()).append(") tem como complementares as componentes: \n");
+        s.append("Componente a adicionar (").append(nova_componente.getID())
+                                            .append(" - ").append(nova_componente.getDesignacao())
+                                            .append(") tem como complementares as componentes: \n");
 
         for(Componente c : complementares){
             s.append(c.getID()).append(" - ").append(c.getDesignacao()).append('\n');
@@ -338,9 +339,7 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
 
     private void pacotes_tbl2MouseClicked(MouseEvent e) {
         int row = pacotes_tbl.getSelectedRow();
-        System.out.println(row); // FIXME: 1/4/2019 debugging
         boolean check = (boolean) pacotes_tbl.getModel().getValueAt(row, 1);
-        System.out.println(check); // FIXME: 1/4/2019 debugging
         Pacote p = this.pacotes.get(row);
         boolean flag = true;
 

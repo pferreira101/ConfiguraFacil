@@ -110,26 +110,26 @@ public class TabelaStock extends JFrame {
         contentPaneLayout.setHorizontalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addGap(39, 39, 39)
-                    .addGroup(contentPaneLayout.createParallelGroup()
-                        .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 317, GroupLayout.PREFERRED_SIZE)
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(45, 45, 45)
-                            .addComponent(Sair)
-                            .addGap(42, 42, 42)
-                            .addComponent(atu_btn)))
-                    .addContainerGap(42, Short.MAX_VALUE))
+                    .addContainerGap()
+                    .addComponent(Sair, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 215, Short.MAX_VALUE)
+                    .addComponent(atu_btn)
+                    .addContainerGap())
+                .addGroup(contentPaneLayout.createSequentialGroup()
+                    .addGap(17, 17, 17)
+                    .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 365, GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(16, Short.MAX_VALUE))
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addContainerGap()
+                    .addContainerGap(13, Short.MAX_VALUE)
                     .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 207, GroupLayout.PREFERRED_SIZE)
                     .addGap(18, 18, 18)
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(Sair)
                         .addComponent(atu_btn))
-                    .addContainerGap(13, Short.MAX_VALUE))
+                    .addContainerGap())
         );
         pack();
         setLocationRelativeTo(getOwner());

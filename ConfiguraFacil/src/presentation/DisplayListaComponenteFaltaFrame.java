@@ -48,7 +48,7 @@ public class DisplayListaComponenteFaltaFrame extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Diogo Sobral
+        // Generated using JFormDesigner Evaluation license - Pedro Moreira
         scrollPane1 = new JScrollPane();
         tb_lista = new JTable();
         exit_bt = new JButton();
@@ -63,11 +63,20 @@ public class DisplayListaComponenteFaltaFrame extends JFrame {
             //---- tb_lista ----
             tb_lista.setModel(new DefaultTableModel(
                 new Object[][] {
+                    {null, null},
                 },
                 new String[] {
                     "Id", "Designa\u00e7\u00e3o"
                 }
-            ));
+            ) {
+                boolean[] columnEditable = new boolean[] {
+                    false, false
+                };
+                @Override
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return columnEditable[columnIndex];
+                }
+            });
             scrollPane1.setViewportView(tb_lista);
         }
 
@@ -80,13 +89,14 @@ public class DisplayListaComponenteFaltaFrame extends JFrame {
         contentPaneLayout.setHorizontalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addGap(38, 38, 38)
-                    .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 325, GroupLayout.PREFERRED_SIZE)
+                    .addGroup(contentPaneLayout.createParallelGroup()
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGap(38, 38, 38)
+                            .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 325, GroupLayout.PREFERRED_SIZE))
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(exit_bt, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)))
                     .addContainerGap(35, Short.MAX_VALUE))
-                .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
-                    .addContainerGap(166, Short.MAX_VALUE)
-                    .addComponent(exit_bt)
-                    .addGap(154, 154, 154))
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
@@ -95,7 +105,7 @@ public class DisplayListaComponenteFaltaFrame extends JFrame {
                     .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 192, GroupLayout.PREFERRED_SIZE)
                     .addGap(18, 18, 18)
                     .addComponent(exit_bt)
-                    .addContainerGap(10, Short.MAX_VALUE))
+                    .addContainerGap(8, Short.MAX_VALUE))
         );
         pack();
         setLocationRelativeTo(getOwner());
@@ -103,7 +113,7 @@ public class DisplayListaComponenteFaltaFrame extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Diogo Sobral
+    // Generated using JFormDesigner Evaluation license - Pedro Moreira
     private JScrollPane scrollPane1;
     private JTable tb_lista;
     private JButton exit_bt;

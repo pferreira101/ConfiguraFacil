@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq {par l {seq {par l {seq l {space :p:55:p, par t {comp label2:::p::p, comp label4:::p::p}, space :::p, par l {comp jComboBox1:::p:103:p, comp preco_txt:::::x}}, seq l {space :p:51:p, comp label1:::p::p, space :::p, comp nome_txt:::p:104:p}}, space :p:30:p}, seq l {space :p:46:p, comp button1:::p:49:p, space s:::p, comp adicionar_btn:::p::p, space :::x}}, comp scrollPane1:::p:362:p, space :p:22:p}}"
-			"$verticalGroup": "par l {seq {par l {seq {space :p:32:p, par b {comp nome_txt::b:p::p, comp label1::b:p::p}, space :p:13:p, par b {comp label2::b:p::p, comp jComboBox1::b:p::p}, space u:::p, par b {comp label4::b:p::p, comp preco_txt::b:p::p}, space :p:28:p, par b {comp adicionar_btn::b:p::p, comp button1::b:p::p}}, seq l {space :p:17:p, comp scrollPane1:::p:180:p}}, space ::36:x}}"
+			"$horizontalGroup": "par l {seq {par l {seq {par l {seq l {space :p:55:p, par t {comp label2:::p::p, comp label4:::p::p}, space :::p, par l {comp jComboBox1:::p:103:p, comp preco_txt:::::x}}, seq l {space :p:51:p, comp label1:::p::p, space :::p, comp nome_txt:::p:104:p}}, space :p:30:p}, seq l {space :p:38:p, comp button1:::p:63:p, space u:::p, comp adicionar_btn:::p::p, space :::x}}, comp scrollPane1:::p:362:p, space :p:22:p}}"
+			"$verticalGroup": "par l {seq l {space :p:17:p, par t {comp scrollPane1::t:p:164:p, seq {par b {comp nome_txt::b:p::p, comp label1::b:p::p}, space :p:13:p, par b {comp label2::b:p::p, comp jComboBox1::b:p::p}, space u:::p, par b {comp label4::b:p::p, comp preco_txt::b:p::p}, space :p:28:p, par b {comp adicionar_btn::b:p::p, comp button1::b:p::p}}}, space ::12:x}}"
 		} ) {
 			name: "this"
 			"defaultCloseOperation": 2
@@ -67,13 +67,13 @@ new FormModel {
 						add( new java.util.Vector {
 							add( null )
 							add( null )
-							add( null )
-							add( null )
+							add( false )
+							add( false )
 						} )
 					}, new java.util.Vector {
 						add( "ID" )
 						add( "Designação" )
-						add( "Compatíveis" )
+						add( "Complementar" )
 						add( "Incompatíveis" )
 					}, new java.util.Vector {
 						add( null )
@@ -82,8 +82,8 @@ new FormModel {
 						add( class java.lang.Boolean )
 					}, new java.util.Vector {
 						add( false )
-						add( null )
-						add( null )
+						add( false )
+						add( true )
 						add( true )
 					}, new java.util.Vector {
 						add( null )
@@ -96,7 +96,7 @@ new FormModel {
 				} )
 			} )
 		}, new FormLayoutConstraints( null ) {
-			"size": new java.awt.Dimension( 610, 265 )
+			"size": new java.awt.Dimension( 610, 225 )
 			"location": new java.awt.Point( 0, 5 )
 		} )
 	}

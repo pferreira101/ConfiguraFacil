@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq {par l {seq l {space :::p, comp label1:::p:121:p, space u:::p, comp id_comp:::p:81:p}, seq l {space :::p, comp label_q:::p:121:p, space u:::p, comp q_comp:::p:81:p}, seq l {space :p:61:p, comp button1:::p::p}}, space ::43:x}}"
-			"$verticalGroup": "par l {seq l {space :p:22:p, par b {comp label1::b:p::p, comp id_comp::b:p::p}, space u:::p, par b {comp label_q::b:p::p, comp q_comp::b:p::p}, space :p:36:p, comp button1:::p::p, space ::16:x}}"
+			"$horizontalGroup": "par l {seq {space :p:14:p, par l {seq t {par t {comp label1:::p:102:p, comp label_q::t:p::p}, space u:::p, par l:::p {comp id_comp::::115:x, comp q_comp::::115:x}, space :p:25:p}, seq t {comp button1:::p::p, space :::p}}}}"
+			"$verticalGroup": "par l {seq t {space :p:22:p, par b {comp label1::b:p::p, comp id_comp::b:p::p}, space :::p, par b {comp q_comp::b:p::p, comp label_q::b:p::p}, space u:::x, comp button1:::p::p, space :p::p}}"
 		} ) {
 			name: "this"
 			"title": "Encomendar Stock"
@@ -17,7 +17,7 @@ new FormModel {
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label1"
-				"text": "Id da Componente"
+				"text": "ID da Componente"
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label_q"
@@ -25,12 +25,12 @@ new FormModel {
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "button1"
-				"text": "Encomendar"
+				"text": "Verificar"
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "Encomenda_btnActionPerformed", true ) )
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 265, 200 )
+			"size": new java.awt.Dimension( 270, 150 )
 		} )
 	}
 }

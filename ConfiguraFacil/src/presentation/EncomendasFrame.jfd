@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq l {space :p:14:p, comp sair_btn:::p::p, space s:::p, comp view_btn::::99:x, space s:::p, comp pro_encomenda_btn:::p::p, space :p:15:p}, seq l {space :p:32:p, comp jScrollPane1:::p:331:p, space ::35:x}}"
-			"$verticalGroup": "par l {seq l {space :p:22:p, comp jScrollPane1:::p:155:p, space ::63:x, par b {comp sair_btn::b:p::p, comp pro_encomenda_btn::b:p::p, comp view_btn::b:p::p}, space :::p}}"
+			"$horizontalGroup": "par l {seq l {space :p:32:p, comp jScrollPane1:::p:331:p, space ::35:x}, seq t {par t {seq {space ::302:x, comp view_btn:::p::p}, seq {space :p:14:p, comp sair_btn:::p::p, space :::x, comp pro_encomenda_btn:::p::p}}, space :p:15:p}}"
+			"$verticalGroup": "par l {seq l {space :p:22:p, comp jScrollPane1:::p:155:p, space ::31:x, comp view_btn:::p::p, space :::p, par b {comp sair_btn::b:p::p, comp pro_encomenda_btn::b:p::p}, space :::p}}"
 		} ) {
 			name: "this"
 			"defaultCloseOperation": 2

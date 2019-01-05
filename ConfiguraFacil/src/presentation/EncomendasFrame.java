@@ -126,7 +126,7 @@ public class EncomendasFrame extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    // Generated using JFormDesigner Evaluation license - Diogo Sobral
+    // Generated using JFormDesigner Evaluation license - Pedro Moreira
     private void initComponents() {
         jScrollPane1 = new JScrollPane();
         encomendas_tbl = new JTable();
@@ -193,28 +193,32 @@ public class EncomendasFrame extends javax.swing.JFrame {
         contentPaneLayout.setHorizontalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addGap(14, 14, 14)
-                    .addComponent(sair_btn)
-                    .addGap(18, 18, 18)
-                    .addComponent(view_btn, GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
-                    .addGap(18, 18, 18)
-                    .addComponent(pro_encomenda_btn)
-                    .addGap(15, 15, 15))
-                .addGroup(contentPaneLayout.createSequentialGroup()
                     .addGap(32, 32, 32)
                     .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 331, GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(35, Short.MAX_VALUE))
+                .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
+                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addContainerGap(302, Short.MAX_VALUE)
+                            .addComponent(view_btn))
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGap(14, 14, 14)
+                            .addComponent(sair_btn)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pro_encomenda_btn)))
+                    .addGap(15, 15, 15))
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
                     .addGap(22, 22, 22)
                     .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 155, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                    .addComponent(view_btn)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(sair_btn)
-                        .addComponent(pro_encomenda_btn)
-                        .addComponent(view_btn))
+                        .addComponent(pro_encomenda_btn))
                     .addContainerGap())
         );
         pack();
@@ -223,7 +227,7 @@ public class EncomendasFrame extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Diogo Sobral
+    // Generated using JFormDesigner Evaluation license - Pedro Moreira
     private JScrollPane jScrollPane1;
     private JTable encomendas_tbl;
     private JButton pro_encomenda_btn;
