@@ -349,7 +349,7 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
                 }
 
                 // COMPLEMENTARES
-                List<Componente> complementares = this.cf.checkComplementares(p);
+                List<Componente> complementares = this.cf.checkComplementares(this.config, p);
 
                 if(complementares.size() > 0){
                     List<Componente> to_add_config = new ArrayList<>();

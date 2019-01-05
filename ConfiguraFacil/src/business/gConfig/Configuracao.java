@@ -229,4 +229,22 @@ public class Configuracao {
             }
         }
     }
+
+	/**
+	 * Método que retorna a lista dos componentes que são necessários instalar para ser possível adicionar o pacote
+	 * @param pack Pacote cujas complementaridades vão ser verificadas
+	 * @return Lista dos componentes complementares do pacote, ainda por instalar
+	 */
+	public List<Componente> complementares(Pacote pack) {
+    	List <Componente> complmtrP = pack.getComplementares();
+    	List <Componente> res = new ArrayList<>();
+
+    	for(Componente c : complmtrP){
+    		boolean flag = this.componentes.contains(c);
+    		if(!flag)
+    			res.add(c);
+		}
+
+    	return res;
+	}
 }

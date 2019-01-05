@@ -489,8 +489,8 @@ public class ConfiguraFacil {
      * @param pack Pacote a testar
      * @return Lista dos componentes necessários para se poder instalar o pacote
      */
-    public List<Componente> checkComplementares(Pacote pack) {
-        return pack.getComplementares();
+    public List<Componente> checkComplementares(Configuracao config, Pacote pack) {
+        return config.complementares(pack);
     }
 
 
