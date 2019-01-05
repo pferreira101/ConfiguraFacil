@@ -217,6 +217,20 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
         if(old_selected > 0){
             old_componente = this.selections[tipo].comps.get(old_selected - 1);
             this.cf.removeComponente(this.config, old_componente);
+
+            // remove comopnentes que tenham como complementar esta componente removida
+            try{
+                List<Componente> to_remove = new ArrayList<>();
+                List<Componente> all_comps = this.config.getComponentes();
+                for(Componente c : all_comps){
+                    if(c.getComplementares().contains(old_componente)){
+                        to_remove.add(c);
+                    }
+                    this.cf.removeComponentes(this.config, to_remove);
+                    resetSelections(to_remove);
+                }
+            }
+            catch (Exception e1){}
         }
 
         if(row > 0) {
@@ -276,8 +290,8 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
         }
         else{
             this.cf.removeComponente(this.config, old_componente);
-            this.cf.removeComponentes(this.config, old_componente.getComplementares());
-            resetSelections(old_componente.getComplementares());
+            //this.cf.removeComponentes(this.config, old_componente.getComplementares());
+            //resetSelections(old_componente.getComplementares());
             resetSelectionsPacote();
             this.selections[tipo].selected = 0;
         }
