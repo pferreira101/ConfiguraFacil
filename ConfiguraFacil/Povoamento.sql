@@ -103,7 +103,8 @@ VALUES (1, 250),
 	   (2, 175),
        (3, 200),
        (4, 125),
-       (5, 100);
+       (5, 100),
+       (6, 75);
        
 INSERT INTO componentespacote
 VALUES (1, 5), (1, 9), (1, 16), (1,20),     -- sport: 20", xl, turbo, estofos tecido preto
