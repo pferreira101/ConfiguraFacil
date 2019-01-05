@@ -249,4 +249,22 @@ public class Configuracao {
 
     	return res;
 	}
+
+	/**
+	 * Método que retorna a lista dos componentes necessários instalar para concluir a instalação de um certo componente
+	 * @param comp Componente a instalar
+	 * @return Lista dos componentes necessários instalar
+	 */
+	public List<Componente> complementares(Componente comp) {
+		List<Componente> lComplmtr = comp.getComplementares();
+		List<Componente> complmtr = new ArrayList<>();
+
+		for(Componente c : lComplmtr){
+			boolean flag = this.componentes.contains(c);
+			if(flag == false)
+				complmtr.add(c);
+		}
+
+		return complmtr;
+	}
 }

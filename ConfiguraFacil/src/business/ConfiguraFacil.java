@@ -152,29 +152,6 @@ public class ConfiguraFacil {
         this.funcionarioDAO.put(id, f);
     }
 
-    /**
-     * Método para verificar se um dado funcionário existe no sistema.
-     *
-     * @param id Id do funcionário a verificar.
-     * @return
-     */
-
-
-    public boolean existeFuncionario(int id) {
-        return this.funcionarioDAO.containsFunc(id);
-    }
-
-    /**
-     * Método para verificar se um dado cliente existe no sistema.
-     *
-     * @param codClient Id do cliente a verificar.
-     * @return Cliente pretendido caso existe.
-     */
-
-
-    public Cliente existeCliente(int codClient) throws Exception {
-        return this.clienteDAO.get(codClient);
-    }
 
     /**
      * Método do facade para atualizar os campos de um cliente.
@@ -224,10 +201,11 @@ public class ConfiguraFacil {
             valid1 = config.compativel(c);
             todos = true;
 
+
             for (Componente i : list) {
                 if (sum < orcamento && valid1) {
                     sum2 = i.getPreco();
-                    valid = config.compativel(i);
+                    valid = config.compativel(this.componenteDAO.get(i.getID()));
                     rep = config.incluido(i);
                 } else break;
 
@@ -410,9 +388,7 @@ public class ConfiguraFacil {
 
     }
 
-    public void atualizarStock(int id_comp, int quantidade) throws SQLException, ClassNotFoundException, Exception {
-        this.fabrica.atualizarStock(id_comp, quantidade);
-    }
+
 
     /**
      * Método para verificar se um componente é compatível com uma Configuracao
@@ -428,11 +404,13 @@ public class ConfiguraFacil {
     /**
      * Método para verificar se um dado componente obriga à instalação de outros
      *
+     *
+     * @param config
      * @param comp Componente a verificar
      * @return Lista dos componentes complementares ao componente argumento
      */
-    public List<Componente> checkComplementares(Componente comp) {
-        return comp.getComplementares();
+    public List<Componente> checkComplementares(Configuracao config, Componente comp) {
+        return config.complementares(comp);
     }
 
 
@@ -453,8 +431,7 @@ public class ConfiguraFacil {
      * @param comps  Lista de componentes a adicionar
      */
     public void addComponentes(Configuracao config, List<Componente> comps) {
-        for (Componente c : comps)
-            config.addComponente(c);
+            config.addComponentes(comps);
     }
 
     /**
