@@ -82,7 +82,7 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
 
         List<Componente> comp_by_type = componentes.stream().filter(c -> c.getTipo() == tipo + 1).collect(Collectors.toList());
 
-        Selection s = new Selection(comp_by_type, -1);
+        Selection s = new Selection(comp_by_type, 0);
 
         this.selections[tipo] = s;
     }
@@ -161,7 +161,7 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
         for(Componente c : incompativeis){
             int tipo = c.getTipo() - 1;
 
-            this.selections[tipo].selected = -1;
+            this.selections[tipo].selected = 0;
         }
     }
 
@@ -171,7 +171,7 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
      * @param tipo tipo da componente
      */
     private void resetSelections(int tipo) {
-        this.selections[tipo-1].selected = -1;
+        this.selections[tipo-1].selected = 0;
         loadSelection(tipo-1);
     }
 
@@ -204,14 +204,15 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
         boolean flag = true;
 
         int old_selected = this.selections[tipo].selected;
-        if(old_selected != -1){
-            Componente old_componente = this.selections[tipo].comps.get(old_selected);
+        Componente old_componente = new Componente();
+        if(old_selected > 0){
+            old_componente = this.selections[tipo].comps.get(old_selected - 1);
             this.cf.removeComponente(this.config, old_componente);
         }
 
         if(row > 0) {
             Componente nova_componente = this.selections[tipo].comps.get(row - 1);
-           // this.selections[tipo].selected = row;
+
 
             // INCOMPATIVEIS
             List<Componente> incompativeis = this.cf.checkIncompativeis(this.config, nova_componente);
@@ -245,7 +246,7 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
 
                 }
                 else if(opt == JOptionPane.NO_OPTION){
-                    this.selections[tipo].selected = -1;
+                    this.selections[tipo].selected = 0;
                     flag = false;
 
                     ListSelectionModel m = cmp_tbl.getSelectionModel();
@@ -257,13 +258,15 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
 
             if(flag){
                 this.cf.addComponente(this.config, nova_componente);
+                this.cf.removeComponentes(this.config, incompativeis);
                 this.cf.addComponentes(this.config, complementares);
-
+                this.selections[tipo].selected = row;
                 resetSelectionsPacote();
             }
 
         }
         else{
+            this.cf.removeComponente(this.config, old_componente);
             this.selections[tipo].selected = 0;
         }
 
@@ -272,7 +275,9 @@ public class ConfiguracaoFrame extends javax.swing.JFrame {
 
     private int incompativeisErrorMessage(Componente nova_componente, List<Componente> incompativeis) {
         StringBuilder s = new StringBuilder();
-        s.append("Componente a adicionar (").append(nova_componente.getID()).append(") incompatível com: \n");
+        s.append("Componente a adicionar (").append(nova_componente.getID()).append(" - ")
+                                            .append(nova_componente.getDesignacao())
+                                            .append(") incompatível com: \n");
 
         for(Componente c : incompativeis){
             s.append(c.getID()).append(" - ").append(c.getDesignacao()).append('\n');
