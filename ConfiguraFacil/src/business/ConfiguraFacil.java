@@ -224,10 +224,11 @@ public class ConfiguraFacil {
             valid1 = config.compativel(c);
             todos = true;
 
+
             for (Componente i : list) {
                 if (sum < orcamento && valid1) {
                     sum2 = i.getPreco();
-                    valid = config.compativel(i);
+                    valid = config.compativel(this.componenteDAO.get(i.getID()));
                     rep = config.incluido(i);
                 } else break;
 

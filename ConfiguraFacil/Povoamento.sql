@@ -103,7 +103,8 @@ VALUES (1, 250),
 	   (2, 175),
        (3, 200),
        (4, 125),
-       (5, 100);
+       (5, 100),
+       (6,50);
        
 INSERT INTO componentespacote
 VALUES (1, 5), (1, 9), (1, 16), (1,20),     -- sport: 20", xl, turbo, estofos tecido preto
@@ -114,14 +115,12 @@ VALUES (1, 5), (1, 9), (1, 16), (1,20),     -- sport: 20", xl, turbo, estofos te
        (6, 12), (6, 5);						-- economic: 1.4, 20"
 
 
-
 # POVOAMENTO STOCK
 INSERT INTO stock
 VALUES (1, 0),
 	   (2, 0),
        (3, 0),
        (4, 0),
-       (5, 0),
        (5, 0),
        (6, 0),
        (7, 0),
